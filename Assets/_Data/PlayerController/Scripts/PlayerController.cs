@@ -24,6 +24,8 @@ namespace _Data.Scripts.Player
             gameManager = FindFirstObjectByType<GameManager>();
             playerRigidbody = GetComponent<Rigidbody>();
             playerInputActionAsset = FindFirstObjectByType<InputActionAsset>();
+            
+            playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         void FixedUpdate()
