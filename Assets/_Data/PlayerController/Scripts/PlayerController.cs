@@ -7,7 +7,7 @@ namespace _Data.Scripts.Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
     {
-        private GameManager gameManager;
+        private GameManager gameManager;//Unused variable, but kept for future use
 
         [Header("Movement")] [Tooltip("Player's movement variables")]
         private Rigidbody playerRigidbody;
@@ -18,12 +18,16 @@ namespace _Data.Scripts.Player
 
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputActionAsset playerInputActionAsset;
+        private InteractionZone interactionZone;
 
         void Start()
         {
             gameManager = FindFirstObjectByType<GameManager>();
             playerRigidbody = GetComponent<Rigidbody>();
             playerInputActionAsset = FindFirstObjectByType<InputActionAsset>();
+            interactionZone = GetComponentInChildren<InteractionZone>();
+            
+            playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         void FixedUpdate()
@@ -36,6 +40,7 @@ namespace _Data.Scripts.Player
             playerInputActionAsset.Enable();
             playerInputActionAsset["Player/Move"].performed += OnMove;
             playerInputActionAsset["Player/Move"].canceled += OnMove;
+            playerInputActionAsset["Player/Interact"].performed += OnInteract;
         }
 
         private void OnDisable()
@@ -45,13 +50,20 @@ namespace _Data.Scripts.Player
             playerInputActionAsset.Disable();
             playerInputActionAsset["Player/Move"].performed -= OnMove;
             playerInputActionAsset["Player/Move"].canceled -= OnMove;
+            playerInputActionAsset["Player/Interact"].performed -= OnInteract;
         }
 
-        public void OnMove(InputAction.CallbackContext context)
+        internal void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
             moveDirection = new Vector3(input.x, 0, input.y);
             moveDirection = moveDirection.normalized;
+        }
+        
+        internal void OnInteract(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+            interactionZone.TryInteract();
         }
 
         private void PerformMovement()
