@@ -1,0 +1,7 @@
+using UnityEngine;
+
+public interface IInteractable
+{
+    void Interact(GameObject interactor);
+    string GetInteractionPrompt(); //Interaction message. I.E. "Press E to open door"
+}
