@@ -15,5 +15,5 @@ MonoBehaviour:
   productName: Candle
   sellingPrice: 0
   buyingPrice: 0
-  sprite: {fileID: 0}
-  prefab: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 0bcc89f127fd2f041be38fbb37d5ced2, type: 3}
+  prefab: {fileID: 2504179284185741859, guid: 51ca1ba67334d6640a28979ba43ed0f6, type: 3}
