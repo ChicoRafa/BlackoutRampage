@@ -45,7 +45,7 @@ public class InteractionPromptUI : MonoBehaviour
     {
         if (followTarget)
         {
-            transform.position = followTarget.position + Vector3.up * 2f;
+            transform.position = followTarget.position + Vector3.up * 4f;
         }
     }
 }
