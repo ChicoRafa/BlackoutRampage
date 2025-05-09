@@ -32,6 +32,10 @@
 *.ipr
 *.iws
 
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
 # Gradle cache directory
 .gradle/
 
