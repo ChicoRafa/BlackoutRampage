@@ -1879,6 +1879,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
   m_PrefabInstance: {fileID: 271856953}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &276047122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 276047123}
+  m_Layer: 0
+  m_Name: ObjectsTPSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &276047123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276047122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 500, y: -0.8, z: 500}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1660640618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &296584958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4484,6 +4515,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617533610}
   m_CullTransparentMesh: 1
+--- !u!1 &626198559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 626198560}
+  m_Layer: 0
+  m_Name: DropSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &626198560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626198559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.235, z: 1.395}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1660640618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651535120
 GameObject:
   m_ObjectHideFlags: 0
@@ -11260,6 +11322,7 @@ MonoBehaviour:
   playerSpeed: 500
   playerRotationSpeed: 10
   playerInputActionAsset: {fileID: -944628639613478452, guid: e5139d13c4dbf5340a81174d125cd323, type: 3}
+  objectsTPSpot: {fileID: 276047123}
 --- !u!54 &1660640614
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11377,6 +11440,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 335447721}
+  - {fileID: 276047123}
+  - {fileID: 626198560}
   - {fileID: 693519330}
   - {fileID: 1092204614}
   m_Father: {fileID: 0}
@@ -11403,6 +11468,28 @@ MonoBehaviour:
   - {fileID: 207090174}
   - {fileID: 2137652790}
   - {fileID: 994455860}
+  itemsInInventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerInventorySlotsBox:
+  - {fileID: 808267500}
+  - {fileID: 1238466172}
+  - {fileID: 457750075}
+  - {fileID: 1182607396}
+  - {fileID: 1315372136}
+  - {fileID: 617533612}
+  - {fileID: 270118444}
+  - {fileID: 132251208}
+  - {fileID: 1918042673}
+  selectedSlotColor: {r: 1, g: 0, b: 0, a: 1}
+  DropSpot: {fileID: 626198560}
 --- !u!1001 &1672001411
 PrefabInstance:
   m_ObjectHideFlags: 0

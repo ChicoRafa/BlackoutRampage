@@ -1,5 +1,6 @@
 using UnityEngine;
 using _Data.Products;
+using _Data.Scripts.Player;
 //using _Data.PlayerInventory;
 
 public class ProductScript : MonoBehaviour, IInteractable
@@ -36,6 +37,9 @@ public class ProductScript : MonoBehaviour, IInteractable
             if (interactor.GetComponent<PlayerInventoryScript>().playerInventorySlots[i].sprite == null)
             {
                 interactor.GetComponent<PlayerInventoryScript>().UpdateInventorySlot(i, _sprite);
+                interactor.GetComponent<PlayerInventoryScript>().AddItemToInventory(i, gameObject);
+
+                gameObject.transform.position = interactor.GetComponent<PlayerController>().objectsTPSpot.position;
                 //gameObject.SetActive(false);
                 return;
             }

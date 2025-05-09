@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,15 @@ namespace _Data.Scripts.Player
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputActionAsset playerInputActionAsset;
         private InteractionZone interactionZone;
+
+        [Header("Inventory")]
+        private PlayerInventoryScript playerInventory;
+        public Transform objectsTPSpot;
+
+        private void Awake()
+        {
+            playerInventory = GetComponent<PlayerInventoryScript>();
+        }
 
         void Start()
         {
@@ -41,6 +51,8 @@ namespace _Data.Scripts.Player
             playerInputActionAsset["Player/Move"].performed += OnMove;
             playerInputActionAsset["Player/Move"].canceled += OnMove;
             playerInputActionAsset["Player/Interact"].performed += OnInteract;
+            playerInputActionAsset["Player/Drop"].performed += OnDrop;
+            playerInputActionAsset["Player/SelectItem"].performed += OnSelectItem;
         }
 
         private void OnDisable()
@@ -51,6 +63,8 @@ namespace _Data.Scripts.Player
             playerInputActionAsset["Player/Move"].performed -= OnMove;
             playerInputActionAsset["Player/Move"].canceled -= OnMove;
             playerInputActionAsset["Player/Interact"].performed -= OnInteract;
+            playerInputActionAsset["Player/Drop"].performed -= OnDrop;
+            playerInputActionAsset["Player/SelectItem"].performed -= OnSelectItem;
         }
 
         internal void OnMove(InputAction.CallbackContext context)
@@ -64,6 +78,38 @@ namespace _Data.Scripts.Player
         {
             if (!context.performed) return;
             interactionZone.TryInteract();
+        }
+
+        internal void OnDrop(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+            playerInventory.DropItem();
+        }
+
+        internal void OnSelectItem(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            #region Change Inventory Slot Color
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(0);
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(1);
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(2);
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(3);
+            else if (Keyboard.current.digit5Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(4);
+            else if (Keyboard.current.digit6Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(5);
+            else if (Keyboard.current.digit7Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(6);
+            else if (Keyboard.current.digit8Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(7);
+            else if (Keyboard.current.digit9Key.wasPressedThisFrame)
+                playerInventory.UpdateSelectedSlot(8);
+            #endregion
         }
 
         private void PerformMovement()
