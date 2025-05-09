@@ -52,8 +52,8 @@ public class PlayerInventoryScript : MonoBehaviour
             playerInventorySlots[selectedSlot].sprite = null;
             playerInventorySlots[selectedSlot].gameObject.SetActive(false);
 
-            itemsInInventory[selectedSlot].transform.position = 
-            itemsInInventory[selectedSlot].transform.position = DropSpot.position;
+            if (itemsInInventory[selectedSlot] != null)
+                itemsInInventory[selectedSlot].transform.position = DropSpot.position;
         }
     }
 }

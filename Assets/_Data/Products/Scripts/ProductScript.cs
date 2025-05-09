@@ -1,6 +1,6 @@
 using UnityEngine;
 using _Data.Products;
-using _Data.Scripts.Player;
+using _Data.PlayerController.Scripts;
 //using _Data.PlayerInventory;
 
 public class ProductScript : MonoBehaviour, IInteractable
