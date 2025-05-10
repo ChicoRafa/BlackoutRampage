@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5737759999383672038}
   - component: {fileID: 8070439093263669771}
   m_Layer: 0
-  m_Name: ClientPlaceholder
+  m_Name: CalmClientPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109200e8f383fb24a8aacbdb3ca2f689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clientType: {fileID: 11400000, guid: 0d98ab70fbb085c458d792f8b688947c, type: 2}
 --- !u!54 &8070439093263669771
 Rigidbody:
   m_ObjectHideFlags: 0

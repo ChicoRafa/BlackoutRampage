@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace _Data.Customers.Controllers {
     public class ClientSpawner : MonoBehaviour {
-        [Header("Client setup")]
-        public GameObject clientPrefab;
+        [Header("Client Types")]
+        public GameObject[] clientPrefabs;
 
         [Header("References")]
         public Transform spawnPoint;
@@ -21,15 +21,16 @@ namespace _Data.Customers.Controllers {
                 spawnTimer = 0f;
 
                 if (queueManager != null && queueManager.CurrentClientCount() < maxClients) {
-                    SpawnClient();
+                    SpawnRandomClient();
                 }
             }
         }
 
-        private void SpawnClient() {
-            if (clientPrefab == null || queueManager == null || spawnPoint == null) return;
+        private void SpawnRandomClient() {
+            if (clientPrefabs.Length == 0 || queueManager == null || spawnPoint == null) return;
 
-            GameObject clientGO = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity);
+            int index = Random.Range(0, clientPrefabs.Length);
+            GameObject clientGO = Instantiate(clientPrefabs[index], spawnPoint.position, Quaternion.identity);
             Client client = clientGO.GetComponent<Client>();
 
             if (client != null) {

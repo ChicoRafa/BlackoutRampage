@@ -5324,7 +5324,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96edaf93c5803c8418d5f3b7852a1c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientPrefab: {fileID: 8249442826219928825, guid: e3db87f7cdcee604fa2fabcfaba02f8a, type: 3}
+  clientPrefabs:
+  - {fileID: 8249442826219928825, guid: e3db87f7cdcee604fa2fabcfaba02f8a, type: 3}
+  - {fileID: 8249442826219928825, guid: 31380b321e05d474cabd7bf52983b223, type: 3}
+  - {fileID: 8249442826219928825, guid: 3c4ef0145f860f84fa3df2cc1e14274c, type: 3}
   spawnPoint: {fileID: 1645860479}
   queueManager: {fileID: 1548187833}
   spawnRate: 3

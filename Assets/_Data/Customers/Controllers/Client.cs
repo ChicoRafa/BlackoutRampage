@@ -1,12 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using _Data.Customers.Orders;
+using _Data.Customers.Scriptables;
 
 namespace _Data.Customers.Controllers {
+    public enum ClientState {
+        WalkingToSlot,
+        Waiting,
+        Leaving
+    }
+
     public class Client : MonoBehaviour {
-        [Header("Client patience settings")]
-        public float baseMinPatience = 5f;
-        public float baseMaxPatience = 10f;
+        [Header("Client Type")]
+        [SerializeField] private ClientType clientType;
 
         private float patienceTimer;
         private bool hasStartedPatience = false;
@@ -23,9 +29,13 @@ namespace _Data.Customers.Controllers {
 
         public Order CurrentOrder { get; private set; }
 
+        private void Awake() {
+            GetComponent<Renderer>().material.color = clientType.bodyColor;
+        }
+
         private void Start() {
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
-            Debug.Log($"🛒 {gameObject.name} new order:");
+            Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.Items.Count} items.");
         }
 
         private void Update() {
@@ -33,7 +43,7 @@ namespace _Data.Customers.Controllers {
                 patienceTimer -= Time.deltaTime;
 
                 if (patienceTimer <= 0f) {
-                    Debug.Log($"💢 {gameObject.name} ran out of patience!");
+                    Debug.Log($"😡 {gameObject.name} ran out of patience!");
                     LeaveAngry();
                 }
             }
@@ -60,20 +70,24 @@ namespace _Data.Customers.Controllers {
             moveRoutine = null;
 
             if (!hasStartedPatience) {
-                float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f); // 0 = 100%, 4 = 50%
-                float rawPatience = Random.Range(baseMinPatience, baseMaxPatience);
+                float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
+                float rawPatience = Random.Range(clientType.baseMinPatience, clientType.baseMaxPatience);
                 patienceTimer = rawPatience * patienceBonus;
                 hasStartedPatience = true;
-                Debug.Log($"🟢 {gameObject.name} now waiting. Patience: {patienceTimer:F1}s");
+                Debug.Log($"⏳ {gameObject.name} joined queue at position {queueIndex}. Patience: {patienceTimer:F1}s");
             }
 
             currentState = ClientState.Waiting;
+
+            if (isFrontOfQueue) {
+                Debug.Log($"🛎️ {gameObject.name} is now at the front and ready to be served.");
+            }
         }
 
         public void OnInteractSimulated() {
             if (!IsReadyToBeServed()) return;
 
-            Debug.Log($"✅ {gameObject.name} has been served.");
+            Debug.Log($"✅ {gameObject.name} has been served!");
             LeaveSatisfied();
         }
 
@@ -82,10 +96,12 @@ namespace _Data.Customers.Controllers {
         }
 
         private void LeaveSatisfied() {
+            Debug.Log($"🚶 {gameObject.name} is leaving satisfied.");
             StartLeaving();
         }
 
         private void LeaveAngry() {
+            Debug.Log($"💢 {gameObject.name} is leaving angry.");
             StartLeaving();
         }
 
@@ -106,7 +122,7 @@ namespace _Data.Customers.Controllers {
         }
 
         public void LeaveBecauseQueueIsFull(Vector3 exitPosition) {
-            Debug.Log($"❌ {gameObject.name} queue full, leaving immediately.");
+            Debug.Log($"❌ {gameObject.name} couldn't join queue and leaves immediately.");
             StartCoroutine(MoveToExit(exitPosition));
         }
 
