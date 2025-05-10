@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
+using _Data.Customers.Scripts;
 
 namespace _Data.Customers.Controllers {
     public enum ClientState {
@@ -14,7 +15,9 @@ namespace _Data.Customers.Controllers {
         [Header("Client Type")]
         [SerializeField] private ClientType clientType;
 
+        private ClientPatienceUI patienceUI;
         private float patienceTimer;
+        private float maxPatience;
         private bool hasStartedPatience = false;
         private bool isFrontOfQueue = false;
 
@@ -31,6 +34,10 @@ namespace _Data.Customers.Controllers {
 
         private void Awake() {
             GetComponent<Renderer>().material.color = clientType.bodyColor;
+            patienceUI = GetComponentInChildren<ClientPatienceUI>(true);
+            if (patienceUI == null) {
+                Debug.LogError($"❌ {gameObject.name} is missing a ClientPatienceUI component!");
+            }
         }
 
         private void Start() {
@@ -41,6 +48,11 @@ namespace _Data.Customers.Controllers {
         private void Update() {
             if (currentState == ClientState.Waiting && hasStartedPatience) {
                 patienceTimer -= Time.deltaTime;
+
+                if (patienceUI != null && maxPatience > 0f) {
+                    float normalized = Mathf.Clamp01(patienceTimer / maxPatience);
+                    patienceUI.UpdatePatience(normalized);
+                }
 
                 if (patienceTimer <= 0f) {
                     Debug.Log($"😡 {gameObject.name} ran out of patience!");
@@ -72,9 +84,14 @@ namespace _Data.Customers.Controllers {
             if (!hasStartedPatience) {
                 float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
                 float rawPatience = Random.Range(clientType.baseMinPatience, clientType.baseMaxPatience);
-                patienceTimer = rawPatience * patienceBonus;
+                maxPatience = rawPatience * patienceBonus;
+                patienceTimer = maxPatience;
                 hasStartedPatience = true;
-                Debug.Log($"⏳ {gameObject.name} joined queue at position {queueIndex}. Patience: {patienceTimer:F1}s");
+
+                Debug.Log($"⏳ {gameObject.name} joined queue at position {queueIndex}. Patience: {maxPatience:F1}s");
+
+                patienceUI?.UpdatePatience(1f);
+                if (patienceUI != null) patienceUI.gameObject.SetActive(true);
             }
 
             currentState = ClientState.Waiting;
@@ -108,6 +125,9 @@ namespace _Data.Customers.Controllers {
         private void StartLeaving() {
             currentState = ClientState.Leaving;
             queueManager.DequeueClient(this);
+
+            if (patienceUI != null) patienceUI.gameObject.SetActive(false); // ✅ Ocultar barra
+
             StartCoroutine(MoveToExit(queueManager.GetExitPoint().position));
         }
 

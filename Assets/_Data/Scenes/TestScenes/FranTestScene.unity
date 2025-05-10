@@ -5326,8 +5326,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientPrefabs:
   - {fileID: 8249442826219928825, guid: e3db87f7cdcee604fa2fabcfaba02f8a, type: 3}
-  - {fileID: 8249442826219928825, guid: 31380b321e05d474cabd7bf52983b223, type: 3}
-  - {fileID: 8249442826219928825, guid: 3c4ef0145f860f84fa3df2cc1e14274c, type: 3}
+  - {fileID: 8249442826219928825, guid: 91be5fe33d7c7c44284033ef5d15bc4b, type: 3}
+  - {fileID: 8249442826219928825, guid: de971e159533b1849ba7a921ae0cd224, type: 3}
   spawnPoint: {fileID: 1645860479}
   queueManager: {fileID: 1548187833}
   spawnRate: 3
