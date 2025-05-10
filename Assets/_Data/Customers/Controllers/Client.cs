@@ -19,7 +19,7 @@ namespace _Data.Customers.Controllers {
         private float patienceTimer;
         private float maxPatience;
         private bool hasStartedPatience = false;
-        private bool isFrontOfQueue = false;
+        private bool isBeingServed = false;
 
         private ClientState currentState = ClientState.WalkingToSlot;
         private Coroutine moveRoutine;
@@ -61,8 +61,8 @@ namespace _Data.Customers.Controllers {
             }
         }
 
-        public void MoveToQueuePosition(Vector3 targetPosition, bool isFront, int queueIndex) {
-            isFrontOfQueue = isFront;
+        public void MoveToQueuePosition(Vector3 targetPosition, int queueIndex, bool isServiceSlot) {
+            isBeingServed = isServiceSlot;
 
             if (moveRoutine != null) {
                 StopCoroutine(moveRoutine);
@@ -96,8 +96,8 @@ namespace _Data.Customers.Controllers {
 
             currentState = ClientState.Waiting;
 
-            if (isFrontOfQueue) {
-                Debug.Log($"🛎️ {gameObject.name} is now at the front and ready to be served.");
+            if (isBeingServed) {
+                Debug.Log($"🛎️ {gameObject.name} is now ready to be served.");
             }
         }
 
@@ -109,7 +109,7 @@ namespace _Data.Customers.Controllers {
         }
 
         public bool IsReadyToBeServed() {
-            return currentState == ClientState.Waiting && isFrontOfQueue;
+            return currentState == ClientState.Waiting && isBeingServed;
         }
 
         private void LeaveSatisfied() {
@@ -126,7 +126,7 @@ namespace _Data.Customers.Controllers {
             currentState = ClientState.Leaving;
             queueManager.DequeueClient(this);
 
-            if (patienceUI != null) patienceUI.gameObject.SetActive(false); // ✅ Ocultar barra
+            if (patienceUI != null) patienceUI.gameObject.SetActive(false);
 
             StartCoroutine(MoveToExit(queueManager.GetExitPoint().position));
         }

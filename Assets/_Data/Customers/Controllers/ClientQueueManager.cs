@@ -3,11 +3,16 @@ using UnityEngine;
 
 namespace _Data.Customers.Controllers {
     public class ClientQueueManager : MonoBehaviour {
-        [Header("Queue configuration")]
+        [Header("Queue Configuration")]
         public List<Transform> queuePositions;
+
+        [Header("Service Slots")]
+        public List<Transform> serviceSlots;
+
         public Transform exitPoint;
 
         private List<Client> clientQueue = new List<Client>();
+        private Dictionary<Transform, Client> activeServiceClients = new Dictionary<Transform, Client>();
 
         public void EnqueueClient(Client client) {
             if (clientQueue.Count >= queuePositions.Count) {
@@ -17,26 +22,48 @@ namespace _Data.Customers.Controllers {
             }
 
             clientQueue.Add(client);
-            AssignClientPositions();
+            AssignQueuePositions();
+            TryServeNextClient();
         }
 
         public void DequeueClient(Client client) {
+            foreach (var kvp in activeServiceClients) {
+                if (kvp.Value == client) {
+                    activeServiceClients[kvp.Key] = null;
+                    break;
+                }
+            }
+
             if (clientQueue.Contains(client)) {
                 clientQueue.Remove(client);
-                AssignClientPositions();
             }
+
+            AssignQueuePositions();
+            TryServeNextClient();
         }
 
-        private void AssignClientPositions() {
+        private void AssignQueuePositions() {
             int queueIndex = 0;
-
             foreach (var client in clientQueue) {
                 if (client.IsLeaving()) continue;
 
-                Vector3 pos = queuePositions[queueIndex].position;
-                bool isFront = (queueIndex == 0);
-                client.MoveToQueuePosition(pos, isFront, queueIndex);
+                Vector3 position = queuePositions[queueIndex].position;
+                client.MoveToQueuePosition(position, queueIndex, false); // Not in service slot
                 queueIndex++;
+            }
+        }
+
+        private void TryServeNextClient() {
+            if (clientQueue.Count == 0) return;
+
+            foreach (Transform slot in serviceSlots) {
+                if (!activeServiceClients.ContainsKey(slot) || activeServiceClients[slot] == null) {
+                    Client next = clientQueue[0];
+                    activeServiceClients[slot] = next;
+                    clientQueue.RemoveAt(0);
+                    next.MoveToQueuePosition(slot.position, 0, true); // In service slot
+                    break;
+                }
             }
         }
 
@@ -45,10 +72,14 @@ namespace _Data.Customers.Controllers {
         public int CurrentClientCount() {
             return clientQueue.Count;
         }
-        
-        public Client GetFrontClient() {
-            if (clientQueue.Count == 0) return null;
-            return clientQueue[0];
+
+        public List<Client> GetClientsInServiceSlots() {
+            List<Client> activeClients = new List<Client>();
+            foreach (var pair in activeServiceClients) {
+                if (pair.Value != null)
+                    activeClients.Add(pair.Value);
+            }
+            return activeClients;
         }
     }
 }
