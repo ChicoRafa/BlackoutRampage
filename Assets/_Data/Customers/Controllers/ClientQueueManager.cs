@@ -28,10 +28,15 @@ namespace _Data.Customers.Controllers {
         }
 
         private void AssignClientPositions() {
-            for (int i = 0; i < clientQueue.Count; i++) {
-                Vector3 pos = queuePositions[i].position;
-                bool isFront = (i == 0);
-                clientQueue[i].MoveToQueuePosition(pos, isFront);
+            int queueIndex = 0;
+
+            foreach (var client in clientQueue) {
+                if (client.IsLeaving()) continue;
+
+                Vector3 pos = queuePositions[queueIndex].position;
+                bool isFront = (queueIndex == 0);
+                client.MoveToQueuePosition(pos, isFront, queueIndex);
+                queueIndex++;
             }
         }
 

@@ -5328,7 +5328,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1645860479}
   queueManager: {fileID: 1548187833}
   spawnRate: 3
-  maxClients: 15
+  maxClients: 5
 --- !u!1 &942266259
 GameObject:
   m_ObjectHideFlags: 0
