@@ -94,5 +94,10 @@ namespace _Data.Customers.Controllers {
 
             Destroy(gameObject);
         }
+        
+        public void LeaveBecauseQueueIsFull(Vector3 exitPosition) {
+            Debug.Log("❌ Client couldn't join the queue and leaves angry.");
+            StartCoroutine(LeaveRoutine(exitPosition));
+        }
     }
 }

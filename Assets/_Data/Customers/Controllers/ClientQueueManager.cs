@@ -11,7 +11,8 @@ namespace _Data.Customers.Controllers {
 
         public void EnqueueClient(Client client) {
             if (clientQueue.Count >= queuePositions.Count) {
-                Debug.LogWarning("Queue is full!");
+                Debug.LogWarning("🚫 Queue is full! Client will leave angry.");
+                client.LeaveBecauseQueueIsFull(exitPoint.position);
                 return;
             }
 
