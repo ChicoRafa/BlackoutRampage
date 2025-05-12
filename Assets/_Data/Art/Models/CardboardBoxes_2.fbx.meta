@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0751b7a9bb7117c44bf82038fc94e6d8
+guid: 356be9bbc6f7fac46897da3d5d212431
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: -2669957238963622279, guid: c5f9bb43338387b44acf69d83ad2b8d4, type: 3}
+      name: Cardboard
+    second: {fileID: 2100000, guid: c67a1aab89e188847b67c49304b32111, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tape
+    second: {fileID: 2100000, guid: f20744e261e720f409f53cf9cfd5f48b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
