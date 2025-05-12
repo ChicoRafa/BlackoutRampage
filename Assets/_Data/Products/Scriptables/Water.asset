@@ -15,5 +15,5 @@ MonoBehaviour:
   productName: Water
   sellingPrice: 0
   buyingPrice: 0
-  sprite: {fileID: 0}
-  prefab: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 2a43ae58dd60d4b43a1f60643268882e, type: 3}
+  prefab: {fileID: 5644485133243229560, guid: 3e26a88725a12bc47beb945d0a412175, type: 3}

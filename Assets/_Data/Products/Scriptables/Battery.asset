@@ -15,5 +15,5 @@ MonoBehaviour:
   productName: Battery
   sellingPrice: 0
   buyingPrice: 0
-  sprite: {fileID: 0}
-  prefab: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 82d2c8b20df173542b5ef72305d95e8b, type: 3}
+  prefab: {fileID: 3859208556485601296, guid: 5f8ca448dfd6f6749ba164ff76cea1fc, type: 3}

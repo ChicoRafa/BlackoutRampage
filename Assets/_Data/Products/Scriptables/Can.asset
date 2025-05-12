@@ -15,5 +15,5 @@ MonoBehaviour:
   productName: Can
   sellingPrice: 0
   buyingPrice: 0
-  sprite: {fileID: 0}
-  prefab: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 0b8bd89d0f86ac24ca47ac579986c388, type: 3}
+  prefab: {fileID: 1437341998467785705, guid: ff252cc6d1657be44ac34be088fca997, type: 3}
