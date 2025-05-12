@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Product: {fileID: 11400000, guid: f67ae6d26d5accc4fb9e978ecaa2d60a, type: 2}
+  objectsParent: {fileID: 0}
+  objectType: Can

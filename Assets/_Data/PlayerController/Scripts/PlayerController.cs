@@ -17,7 +17,7 @@ namespace _Data.PlayerController.Scripts
 
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputReader inputReader;
-        private InteractionZone interactionZone;
+        [HideInInspector] public InteractionZone interactionZone;
 
         [Header("Animation")] [Tooltip("Player's animation variables")]
         private Animator playerAnimator;

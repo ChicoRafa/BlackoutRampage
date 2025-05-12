@@ -1,6 +1,7 @@
 using UnityEngine;
 using _Data.Products;
 using _Data.PlayerController.Scripts;
+using UnityEditor;
 //using _Data.PlayerInventory;
 
 public class ProductScript : MonoBehaviour, IInteractable
@@ -16,6 +17,27 @@ public class ProductScript : MonoBehaviour, IInteractable
     private Sprite _sprite;
     private GameObject _prefab;
 
+    [Header("Shelving")]
+    private Shelving shelving;
+    [HideInInspector] public Transform objectsParent;
+
+    [Header("Object Type")]
+    public string objectType;
+
+    //public enum typeOfObject
+    //{
+    //    Battery,
+    //    Can,
+    //    Candle,
+    //    Lantern,
+    //    Paper,
+    //    Radio,
+    //    Water
+    //}
+
+    //public typeOfObject objectType;
+
+
     private void Awake()
     {
         _productName = Product.productName;
@@ -23,6 +45,12 @@ public class ProductScript : MonoBehaviour, IInteractable
         _buyingPrice = Product.buyingPrice;
         _sprite = Product.sprite;
         _prefab = Product.prefab;
+    }
+
+    private void Start()
+    {
+        shelving = transform.parent.transform.parent.gameObject.GetComponent<Shelving>();
+        objectsParent = transform.parent;
     }
 
     public void Interact(GameObject interactor)
@@ -41,6 +69,19 @@ public class ProductScript : MonoBehaviour, IInteractable
 
                 gameObject.transform.position = interactor.GetComponent<PlayerController>().objectsTPSpot.position;
                 //gameObject.SetActive(false);
+
+                if (objectsParent != null && objectsParent == transform.parent)
+                    transform.parent = null;
+
+                for (int j = 0; j < shelving.objectsList.Count; j++)
+                {
+                    if (shelving.objectsList[j] != null && shelving.objectsList[j] == this.gameObject)
+                    {
+                        shelving.objectsList[j] = null;
+                        return;
+                    }
+                }
+
                 return;
             }
             if (i == interactor.GetComponent<PlayerInventoryScript>().playerInventorySlots.Count - 1)

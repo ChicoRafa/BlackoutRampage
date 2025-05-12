@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Product: {fileID: 11400000, guid: a001fdfedef14c2489b4427ab0e84ccc, type: 2}
+  objectsParent: {fileID: 0}
+  objectType: Radio
