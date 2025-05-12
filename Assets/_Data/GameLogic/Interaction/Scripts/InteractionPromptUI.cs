@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class InteractionPromptUI : MonoBehaviour
 {
+    [SerializeField] private InputSchemeEventChannel inputSchemeEventChannel;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI actionText;
     private Transform followTarget;
@@ -25,12 +26,12 @@ public class InteractionPromptUI : MonoBehaviour
     
     private void OnEnable()
     {
-        InputDeviceWatcher.OnInputSchemeChanged += OnInputSchemeChanged;
+        inputSchemeEventChannel.OnInputSchemeChanged += OnInputSchemeChanged;
     }
     
     private void OnDisable()
     {
-        InputDeviceWatcher.OnInputSchemeChanged -= OnInputSchemeChanged;
+        inputSchemeEventChannel.OnInputSchemeChanged -= OnInputSchemeChanged;
     }
     
     private void OnInputSchemeChanged(InputUtils.InputScheme newScheme)
