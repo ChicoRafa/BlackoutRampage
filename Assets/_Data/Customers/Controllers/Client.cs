@@ -15,7 +15,10 @@ namespace _Data.Customers.Controllers {
         [Header("Client Type")]
         [SerializeField] private ClientType clientType;
 
+        private GameObject modelInstance;
+        private Animator animator;
         private ClientPatienceUI patienceUI;
+
         private float patienceTimer;
         private float maxPatience;
         private bool hasStartedPatience = false;
@@ -23,7 +26,6 @@ namespace _Data.Customers.Controllers {
 
         private ClientState currentState = ClientState.WalkingToSlot;
         private Coroutine moveRoutine;
-
         private ClientQueueManager queueManager;
 
         public void SetQueueManager(ClientQueueManager manager) {
@@ -33,7 +35,18 @@ namespace _Data.Customers.Controllers {
         public Order CurrentOrder { get; private set; }
 
         private void Awake() {
-            GetComponent<Renderer>().material.color = clientType.bodyColor;
+            // Spawn and attach character model
+            if (clientType.modelPrefab != null) {
+                modelInstance = Instantiate(clientType.modelPrefab, transform);
+                modelInstance.transform.localPosition = new Vector3(0f, -0.7f, 0f);
+                modelInstance.transform.localRotation = Quaternion.identity;
+
+                animator = modelInstance.GetComponentInChildren<Animator>();
+                if (animator != null && clientType.animatorController != null) {
+                    animator.runtimeAnimatorController = clientType.animatorController;
+                }
+            }
+
             patienceUI = GetComponentInChildren<ClientPatienceUI>(true);
             if (patienceUI == null) {
                 Debug.LogError($"❌ {gameObject.name} is missing a ClientPatienceUI component!");
@@ -68,18 +81,30 @@ namespace _Data.Customers.Controllers {
                 StopCoroutine(moveRoutine);
             }
 
-            moveRoutine = StartCoroutine(MoveToPositionRoutine(targetPosition, queueIndex));
+            moveRoutine = StartCoroutine(MoveToPositionRoutine(targetPosition, queueIndex, isServiceSlot));
         }
 
-        private IEnumerator MoveToPositionRoutine(Vector3 targetPosition, int queueIndex) {
+        private IEnumerator MoveToPositionRoutine(Vector3 targetPosition, int queueIndex, bool isServiceSlot) {
             currentState = ClientState.WalkingToSlot;
 
+            SetAnimatorSpeed(1f);
+
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
+                Vector3 direction = (targetPosition - transform.position).normalized;
+                if (modelInstance != null && direction != Vector3.zero) {
+                    modelInstance.transform.forward = direction;
+                }
+
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, 3f * Time.deltaTime);
                 yield return null;
             }
 
+            SetAnimatorSpeed(0f);
             moveRoutine = null;
+
+            if (isServiceSlot && modelInstance != null) {
+                modelInstance.transform.forward = Vector3.forward;
+            }
 
             if (!hasStartedPatience) {
                 float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
@@ -127,16 +152,23 @@ namespace _Data.Customers.Controllers {
             queueManager.DequeueClient(this);
 
             if (patienceUI != null) patienceUI.gameObject.SetActive(false);
-
             StartCoroutine(MoveToExit(queueManager.GetExitPoint().position));
         }
 
         private IEnumerator MoveToExit(Vector3 exitPos) {
+            SetAnimatorSpeed(1f);
+
             while (Vector3.Distance(transform.position, exitPos) > 0.1f) {
+                Vector3 direction = (exitPos - transform.position).normalized;
+                if (modelInstance != null && direction != Vector3.zero) {
+                    modelInstance.transform.forward = direction;
+                }
+
                 transform.position = Vector3.MoveTowards(transform.position, exitPos, 3f * Time.deltaTime);
                 yield return null;
             }
 
+            SetAnimatorSpeed(0f);
             Debug.Log($"💥 {gameObject.name} exited the store.");
             Destroy(gameObject);
         }
@@ -148,6 +180,12 @@ namespace _Data.Customers.Controllers {
 
         public bool IsLeaving() {
             return currentState == ClientState.Leaving;
+        }
+
+        private void SetAnimatorSpeed(float value) {
+            if (animator != null) {
+                animator.SetFloat("Speed", value);
+            }
         }
     }
 }

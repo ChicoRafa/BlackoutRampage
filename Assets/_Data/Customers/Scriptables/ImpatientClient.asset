@@ -15,4 +15,5 @@ MonoBehaviour:
   typeName: ImpatientClient
   baseMinPatience: 4
   baseMaxPatience: 8
-  bodyColor: {r: 0.5999999, g: 0.026037665, b: 0.026037665, a: 1}
+  modelPrefab: {fileID: 919132149155446097, guid: 050e1725b55b877439751ec757a60d12, type: 3}
+  animatorController: {fileID: 9100000, guid: 7bd7bceaa5e40794f9fcc17ef68b1341, type: 2}

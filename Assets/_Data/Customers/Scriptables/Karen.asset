@@ -15,4 +15,5 @@ MonoBehaviour:
   typeName: Karen
   baseMinPatience: 5
   baseMaxPatience: 10
-  bodyColor: {r: 1, g: 0.073584795, b: 0.90295345, a: 1}
+  modelPrefab: {fileID: 919132149155446097, guid: 000dd5e9bc6f69048bbd414d7db8d80d, type: 3}
+  animatorController: {fileID: 9100000, guid: 12cf39c589db90141b0b8e5662565414, type: 2}

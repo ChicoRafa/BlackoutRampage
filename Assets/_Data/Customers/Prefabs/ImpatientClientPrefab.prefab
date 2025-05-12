@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8249442826219928825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientType: {fileID: 11400000, guid: 4a02e828777618a4eba77a88f3b8f24b, type: 2}
-  patienceUI: {fileID: 4062448088563090021}
 --- !u!54 &8070439093263669771
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -248,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7107308843851739517, guid: 781b1b30d6cc04a40a7177b937e7c4c2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7107308843851739517, guid: 781b1b30d6cc04a40a7177b937e7c4c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -272,14 +271,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7107308843851739517, guid: 781b1b30d6cc04a40a7177b937e7c4c2, type: 3}
   m_PrefabInstance: {fileID: 4722296032129279079}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4062448088563090021 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8784341699259917826, guid: 781b1b30d6cc04a40a7177b937e7c4c2, type: 3}
-  m_PrefabInstance: {fileID: 4722296032129279079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc1dd7741212ff458c7192f94320d60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
