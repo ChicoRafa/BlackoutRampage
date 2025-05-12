@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace _Data.PlayerController.Scripts
 {
@@ -36,7 +35,6 @@ namespace _Data.PlayerController.Scripts
         {
             gameManager = FindFirstObjectByType<GameManager>();
             playerRigidbody = GetComponent<Rigidbody>();
-            playerInputActionAsset = FindFirstObjectByType<InputActionAsset>();
             interactionZone = GetComponentInChildren<InteractionZone>();
 
             playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
@@ -56,8 +54,8 @@ namespace _Data.PlayerController.Scripts
             inputReader.MoveCanceledEvent += OnMoveCanceled;
             inputReader.InteractEvent += OnInteract;
             inputReader.SprintEvent += OnSprint;
-            playerInputActionAsset["Player/Drop"].performed += OnDrop;
-            playerInputActionAsset["Player/SelectItem"].performed += OnSelectItem;
+            inputReader.DropEvent += OnDrop;
+            inputReader.SelectItemEvent += OnSelectItem;
         }
 
         private void OnDisable()
@@ -66,8 +64,8 @@ namespace _Data.PlayerController.Scripts
             inputReader.MoveCanceledEvent -= OnMoveCanceled;
             inputReader.InteractEvent -= OnInteract;
             inputReader.SprintEvent -= OnSprint;
-            playerInputActionAsset["Player/Drop"].performed -= OnDrop;
-            playerInputActionAsset["Player/SelectItem"].performed -= OnSelectItem;
+            inputReader.DropEvent -= OnDrop;
+            inputReader.SelectItemEvent -= OnSelectItem;
         }
 
         private void OnMove(Vector2 input)
@@ -91,36 +89,14 @@ namespace _Data.PlayerController.Scripts
             currentSpeed = isSprinting ? movementConfig.sprintSpeed : movementConfig.walkSpeed;
         }
 
-        internal void OnDrop(InputAction.CallbackContext context)
+        private void OnDrop()
         {
-            if (!context.performed) return;
             playerInventory.DropItem();
         }
 
-        internal void OnSelectItem(InputAction.CallbackContext context)
+        private void OnSelectItem(int slotIndex)
         {
-            if (!context.performed) return;
-
-            #region Change Inventory Slot Color
-            if (Keyboard.current.digit1Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(0);
-            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(1);
-            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(2);
-            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(3);
-            else if (Keyboard.current.digit5Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(4);
-            else if (Keyboard.current.digit6Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(5);
-            else if (Keyboard.current.digit7Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(6);
-            else if (Keyboard.current.digit8Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(7);
-            else if (Keyboard.current.digit9Key.wasPressedThisFrame)
-                playerInventory.UpdateSelectedSlot(8);
-            #endregion
+            playerInventory.UpdateSelectedSlot(slotIndex);
         }
 
         private void PerformMovement()

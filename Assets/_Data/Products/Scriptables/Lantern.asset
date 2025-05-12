@@ -16,4 +16,4 @@ MonoBehaviour:
   sellingPrice: 0
   buyingPrice: 0
   sprite: {fileID: 21300000, guid: 02bd3678dedcf4e468cd286951407e54, type: 3}
-  prefab: {fileID: 1224620172304281288, guid: 8524002c610a6074f9e15c190bc0f3a5, type: 3}
+  prefab: {fileID: 3764933877325532627, guid: 324f910d95f902943a06c97c221bd609, type: 3}

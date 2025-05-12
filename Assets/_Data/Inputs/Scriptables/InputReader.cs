@@ -17,6 +17,8 @@ public class InputReader : ScriptableObject
     public UnityAction MoveCanceledEvent;
     public UnityAction InteractEvent;
     public UnityAction<bool> SprintEvent;
+    public UnityAction DropEvent;
+    public UnityAction<int> SelectItemEvent;
     
     private void BindInputAction(string actionName, Action<InputAction.CallbackContext> performed, Action<InputAction.CallbackContext> canceled)
     {
@@ -39,6 +41,8 @@ public class InputReader : ScriptableObject
         BindInputAction("Player/Move", OnMove, OnMove);
         BindInputAction("Player/Interact", OnInteract, OnInteract);
         BindInputAction("Player/Sprint", OnSprint, OnSprint);
+        BindInputAction(("Player/Drop"), OnDrop, OnDrop);
+        BindInputAction(("Player/SelectItem"), OnSelectItem, OnSelectItem);
     }
 
     private void OnDisable()
@@ -65,6 +69,25 @@ public class InputReader : ScriptableObject
     private void OnSprint(InputAction.CallbackContext context)
     {
         SprintEvent?.Invoke(context.performed);
+    }
+    
+    private void OnDrop(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            DropEvent?.Invoke();
+    }
+    
+    private void OnSelectItem(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        for (int i = 0; i < 9; i++)
+        {
+            var key = (Key)((int)Key.Digit1 + i);
+            if (!Keyboard.current[key].wasPressedThisFrame) continue;
+            SelectItemEvent?.Invoke(i);
+            break;
+        }
     }
 
 }
