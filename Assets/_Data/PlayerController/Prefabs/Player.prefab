@@ -98,11 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18856d5bd5a922844b2738e266413d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerWalkSpeed: 500
-  playerSprintSpeed: 650
-  playerRotationSpeed: 10
+  movementConfig: {fileID: 11400000, guid: accadac2c3ed3ad488282778e48d4935, type: 2}
   currentSpeed: 0
-  playerInputActionAsset: {fileID: -944628639613478452, guid: e5139d13c4dbf5340a81174d125cd323, type: 3}
+  inputReader: {fileID: 11400000, guid: f8f3d229b3279fb4e94a9ac8f9eddbf5, type: 2}
 --- !u!1 &7989037778644022121
 GameObject:
   m_ObjectHideFlags: 0
