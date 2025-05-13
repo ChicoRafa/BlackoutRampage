@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Sushi_Atlas
-    second: {fileID: 2800000, guid: b267c9b7c2693994393ea558f8155a79, type: 3}
+    second: {fileID: 2800000, guid: 0588144bef1d1634ebc6064a94055e35, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
