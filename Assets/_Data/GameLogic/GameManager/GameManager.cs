@@ -5,14 +5,8 @@ using _Data.Products;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    [Header("Available Products in the Store")]
-    public List<Product> productsInStore;
     [Header("Queue Manager")]
     public ClientQueueManager queueManager;
-
-    void Awake() {
-        OrderGenerator.AvailableProducts = productsInStore;
-    }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.B)) {
