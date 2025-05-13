@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Product: {fileID: 11400000, guid: c5c50c816f7145e4ba9e72004c4d8298, type: 2}
+  objectsParent: {fileID: 0}
+  objectType: Paper

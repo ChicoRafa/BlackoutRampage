@@ -372,6 +372,9 @@ Transform:
   m_Children:
   - {fileID: 3713537999491678277}
   - {fileID: 7947838930101792597}
+  - {fileID: 1960992343420224252}
+  - {fileID: 2078241849788633527}
+  - {fileID: 8189257012747016781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7997641166552582362
@@ -439,7 +442,6 @@ MonoBehaviour:
   movementConfig: {fileID: 11400000, guid: accadac2c3ed3ad488282778e48d4935, type: 2}
   currentSpeed: 0
   inputReader: {fileID: 11400000, guid: f8f3d229b3279fb4e94a9ac8f9eddbf5, type: 2}
-  playerInputActionAsset: {fileID: -944628639613478452, guid: e5139d13c4dbf5340a81174d125cd323, type: 3}
   objectsTPSpot: {fileID: 8189257012747016781}
 --- !u!114 &6934063224892259352
 MonoBehaviour:
@@ -485,6 +487,7 @@ MonoBehaviour:
   - {fileID: 767565900467761975}
   selectedSlotColor: {r: 1, g: 0, b: 0, a: 1}
   DropSpot: {fileID: 1960992343420224252}
+  interactionZone: {fileID: 7916786223728322870}
 --- !u!1 &2421733218620507645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,8 +1583,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.209165, z: 1.5179806}
-  m_Center: {x: 0, y: 0.35758638, z: 1.2466521}
+  m_Size: {x: 1, y: 3.0424676, z: 1.5179806}
+  m_Center: {x: 0, y: 0.77423763, z: 1.2466521}
 --- !u!114 &7916786223728322870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1596,6 +1599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
   iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+  shelving: {fileID: 0}
 --- !u!1 &8298394924045668989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,6 +1843,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d5567f5495442e044985d28f481adb7b, type: 2}
+    - target: {fileID: 3450624116827021058, guid: 0039834a416605c419c2b4ddac2b0d5c, type: 3}
+      propertyPath: m_Name
+      value: Eyes
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469361686611768163, guid: 0039834a416605c419c2b4ddac2b0d5c, type: 3}
+      propertyPath: m_Name
+      value: Body
+      objectReference: {fileID: 0}
     - target: {fileID: 5818614029508475129, guid: 0039834a416605c419c2b4ddac2b0d5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

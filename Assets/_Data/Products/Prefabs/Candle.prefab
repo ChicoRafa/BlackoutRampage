@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Product: {fileID: 11400000, guid: c232bba97c500da46b6a67b76c524afc, type: 2}
+  objectsParent: {fileID: 0}
+  objectType: Candle

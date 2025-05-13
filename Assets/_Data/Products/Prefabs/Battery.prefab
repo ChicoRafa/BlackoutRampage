@@ -124,3 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Product: {fileID: 11400000, guid: e0709b6783402e54995cb6fde8dad7c6, type: 2}
+  objectsParent: {fileID: 0}
+  objectType: Battery

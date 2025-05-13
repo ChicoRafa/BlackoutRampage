@@ -10,6 +10,9 @@ public class InteractionZone : MonoBehaviour
     private GameObject currentPromptInstance;
     private InteractionPromptUI currentPromptUI;
 
+    [Header("Shelving")]
+    public Shelving shelving;
+
     private void Awake()
     {
         interactor = transform.parent.gameObject;
@@ -22,11 +25,16 @@ public class InteractionZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.GetComponent<Shelving>())
+            shelving = other.GetComponent<Shelving>();
+
         if (!other.TryGetComponent(out IInteractable interactable)) return;
+
+        DestroyLastInteractableObjectUI();
+
         interactableObject = interactable;
 
         if (interactionPromptPrefab == null) return;
-        
         currentPromptInstance = Instantiate(interactionPromptPrefab);
         currentPromptUI = currentPromptInstance.GetComponent<InteractionPromptUI>();
         
@@ -40,7 +48,17 @@ public class InteractionZone : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
+        if (other.GetComponent<Shelving>() && shelving)
+            shelving = null;
+
+
         if (!other.TryGetComponent(out IInteractable interactable) || interactable != interactableObject) return;
+
+        DestroyLastInteractableObjectUI();
+    }
+
+    private void DestroyLastInteractableObjectUI()
+    {
         interactableObject = null;
 
         if (currentPromptInstance == null) return;

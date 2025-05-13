@@ -16,8 +16,8 @@ public class PlayerInventoryScript : MonoBehaviour
     [SerializeField] private Color selectedSlotColor;
     [SerializeField] private Transform DropSpot;
 
-    //[Header("Scriptable Object")]
-    //[SerializeField] private PlayerInventory PlayerInventory;
+    [Header("Interaction Zone")]
+    [SerializeField] private InteractionZone interactionZone;
 
     private void Start()
     {
@@ -47,13 +47,43 @@ public class PlayerInventoryScript : MonoBehaviour
 
     public void DropItem()
     {
-        if (playerInventorySlots[selectedSlot] != null)
+        if (itemsInInventory[selectedSlot] == null)
+            return;
+
+        if (interactionZone.shelving)
         {
+            if (itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectType == interactionZone.shelving.objectType)
+            {
+                for (int i = 0; i < interactionZone.shelving.objectsList.Count; i++)
+                {
+                    if (interactionZone.shelving.objectsList[i] == null)
+                    {
+                        if (playerInventorySlots[selectedSlot] == null)
+                            return;
+                        playerInventorySlots[selectedSlot].sprite = null;
+                        playerInventorySlots[selectedSlot].gameObject.SetActive(false);
+
+                        itemsInInventory[selectedSlot].transform.parent = itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectsParent;
+                        itemsInInventory[selectedSlot].transform.position = interactionZone.shelving.objectsPositionsList[i].position;
+                        interactionZone.shelving.objectsList[i] = itemsInInventory[selectedSlot].gameObject;
+                        itemsInInventory[selectedSlot] = null;
+
+                        return;
+                    }
+                }
+            }
+            else
+                return;
+        }
+        else
+        {
+            if (playerInventorySlots[selectedSlot] == null)
+                return;
             playerInventorySlots[selectedSlot].sprite = null;
             playerInventorySlots[selectedSlot].gameObject.SetActive(false);
 
-            if (itemsInInventory[selectedSlot] != null)
-                itemsInInventory[selectedSlot].transform.position = DropSpot.position;
+            itemsInInventory[selectedSlot].transform.position = DropSpot.position;
+            itemsInInventory[selectedSlot] = null;
         }
     }
 }
