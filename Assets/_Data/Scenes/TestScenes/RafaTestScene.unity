@@ -5573,15 +5573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84df2260a192b664ea1e28418e9bfea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productsInStore:
-  - {fileID: 11400000, guid: e0709b6783402e54995cb6fde8dad7c6, type: 2}
-  - {fileID: 11400000, guid: c232bba97c500da46b6a67b76c524afc, type: 2}
-  - {fileID: 11400000, guid: b9681f58ae7447549b999f3f020fd511, type: 2}
-  - {fileID: 11400000, guid: f67ae6d26d5accc4fb9e978ecaa2d60a, type: 2}
-  - {fileID: 11400000, guid: 53dc1fc66da13c34bb9a4a375471a9dd, type: 2}
-  - {fileID: 11400000, guid: c5c50c816f7145e4ba9e72004c4d8298, type: 2}
-  - {fileID: 11400000, guid: a001fdfedef14c2489b4427ab0e84ccc, type: 2}
-  queueManager: {fileID: 0}
+  queueManager: {fileID: 336077532}
 --- !u!1 &954862556
 GameObject:
   m_ObjectHideFlags: 0
@@ -10921,6 +10913,7 @@ MonoBehaviour:
   - {fileID: 8249442826219928825, guid: de971e159533b1849ba7a921ae0cd224, type: 3}
   spawnPoint: {fileID: 586906367}
   queueManager: {fileID: 336077532}
+  productCatalog: {fileID: 11400000, guid: 38e9e166619f1d542a99d07b30a046eb, type: 2}
   spawnRate: 3
   maxClients: 5
 --- !u!1001 &2128249300
