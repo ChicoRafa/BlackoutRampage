@@ -7256,28 +7256,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1991490377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1344932352
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1344932353}
-  - component: {fileID: 1344932358}
-  - component: {fileID: 1344932357}
-  - component: {fileID: 1344932356}
-  - component: {fileID: 1344932355}
-  - component: {fileID: 1344932354}
-  m_Layer: 0
-  m_Name: CMVCam1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1344932353
+--- !u!4 &1344932353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8024383630975460109, guid: 29b36d797baebd44b9eebc0249fdb1c5, type: 3}
   m_PrefabInstance: {fileID: 2626353116598626913}
