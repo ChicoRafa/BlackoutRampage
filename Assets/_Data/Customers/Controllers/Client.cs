@@ -56,6 +56,10 @@ namespace _Data.Customers.Controllers {
         private void Start() {
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
             Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.Items.Count} items.");
+            
+            if (patienceUI != null) {
+                patienceUI.SetOrder(CurrentOrder);
+            }
         }
 
         private void Update() {

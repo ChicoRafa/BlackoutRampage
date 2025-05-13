@@ -1,9 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using _Data.Customers.Orders;
+using _Data.Products;
 
 namespace _Data.Customers.Scripts {
     public class ClientPatienceUI : MonoBehaviour {
+        [Header("Patience UI")]
         [SerializeField] private Image fillBar;
+
+        [Header("Order UI")]
+        [SerializeField] private Transform orderItemsContainer;
+        [SerializeField] private GameObject orderItemUIPrefab;
 
         private Camera mainCamera;
 
@@ -12,26 +20,38 @@ namespace _Data.Customers.Scripts {
         }
 
         private void LateUpdate() {
-            // Make the UI face the camera
             if (mainCamera != null)
                 transform.forward = mainCamera.transform.forward;
         }
 
-        /// <summary>
-        /// Updates the fill amount and color based on normalized patience (0–1).
-        /// </summary>
-        /// <param name="normalizedValue">Value between 0 and 1.</param>
         public void UpdatePatience(float normalizedValue) {
             normalizedValue = Mathf.Clamp01(normalizedValue);
             fillBar.fillAmount = normalizedValue;
 
-            // Change color based on remaining patience
             if (normalizedValue > 0.6f) {
-                fillBar.color = new Color32(0, 255, 0, 255); // Green
+                fillBar.color = new Color32(0, 255, 0, 255);
             } else if (normalizedValue > 0.3f) {
-                fillBar.color = new Color32(255, 216, 0, 255); // Yellow
+                fillBar.color = new Color32(255, 216, 0, 255);
             } else {
-                fillBar.color = new Color32(255, 76, 76, 255); // Red
+                fillBar.color = new Color32(255, 76, 76, 255);
+            }
+        }
+        
+        public void SetOrder(Order order) {
+            foreach (Transform child in orderItemsContainer) {
+                Destroy(child.gameObject);
+            }
+
+            foreach (var item in order.Items) {
+                for (int i = 0; i < item.Quantity; i++) {
+                    GameObject iconGO = Instantiate(orderItemUIPrefab, orderItemsContainer);
+                    Image icon = iconGO.GetComponent<Image>();
+
+                    if (icon != null && item.Product.sprite != null)
+                    {
+                        icon.sprite = item.Product.sprite;
+                    }
+                }
             }
         }
     }
