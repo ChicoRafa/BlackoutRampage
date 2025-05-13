@@ -2,6 +2,8 @@ using UnityEngine;
 using _Data.Products;
 using _Data.PlayerController.Scripts;
 using UnityEditor;
+using NUnit.Framework;
+using System.Collections.Generic;
 //using _Data.PlayerInventory;
 
 public class ProductScript : MonoBehaviour, IInteractable
@@ -24,18 +26,13 @@ public class ProductScript : MonoBehaviour, IInteractable
     [Header("Object Type")]
     public string objectType;
 
-    //public enum typeOfObject
-    //{
-    //    Battery,
-    //    Can,
-    //    Candle,
-    //    Lantern,
-    //    Paper,
-    //    Radio,
-    //    Water
-    //}
+    public enum productOrigin
+    {
+        Shelving,
+        Truck
+    }
 
-    //public typeOfObject objectType;
+    public productOrigin origin;
 
 
     private void Awake()
@@ -49,8 +46,18 @@ public class ProductScript : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        shelving = transform.parent.transform.parent.gameObject.GetComponent<Shelving>();
-        objectsParent = transform.parent;
+        List<Shelving> allShelves = new List<Shelving>(FindObjectsByType<Shelving>(FindObjectsSortMode.None));
+        for (int i = 0; i < allShelves.Count; i++)
+        {
+            if (allShelves[i].objectType == objectType)
+            {
+                shelving = allShelves[i];
+                break;
+            }
+        }
+
+        if (transform.parent != null)
+            objectsParent = transform.parent;
     }
 
     public void Interact(GameObject interactor)
@@ -73,6 +80,29 @@ public class ProductScript : MonoBehaviour, IInteractable
                 if (objectsParent != null && objectsParent == transform.parent)
                     transform.parent = null;
 
+                if (interactor.GetComponent<PlayerController>().storage != null)
+                {
+                    for (int k = 0; k < interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList.Count; k++)
+                    {
+                        if (interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList[k] == gameObject)
+                        {
+                            interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList[k] = null;
+
+                            int nulls = 0;
+                            for (int l = 0; l < interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList.Count; l++)
+                            {
+                                if (interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList[l] == null)
+                                {
+                                    nulls++;
+                                    if (nulls == interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList.Count)
+                                        interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().ResetTruckTimer();
+                                }
+                                    
+                            }
+                        }
+                    }
+                }
+                    
                 for (int j = 0; j < shelving.objectsList.Count; j++)
                 {
                     if (shelving.objectsList[j] != null && shelving.objectsList[j] == this.gameObject)

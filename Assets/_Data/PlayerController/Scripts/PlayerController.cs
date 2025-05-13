@@ -26,6 +26,9 @@ namespace _Data.PlayerController.Scripts
         private PlayerInventoryScript playerInventory;
         public Transform objectsTPSpot;
 
+        [Header("Storehouse")]
+        [HideInInspector] public GameObject storage;
+
         private void Awake()
         {
             playerInventory = GetComponent<PlayerInventoryScript>();
