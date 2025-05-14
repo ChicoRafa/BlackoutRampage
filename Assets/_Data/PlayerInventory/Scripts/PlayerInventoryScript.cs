@@ -19,10 +19,14 @@ public class PlayerInventoryScript : MonoBehaviour
     [Header("Interaction Zone")]
     [SerializeField] private InteractionZone interactionZone;
 
+    [Header("Can drop")]
+    [HideInInspector] public bool canDrop; 
+
     private void Start()
     {
         selectedSlot = 0;
         UpdateSelectedSlot(selectedSlot);
+        canDrop = true;
     }
 
     public void UpdateSelectedSlot(int slot)
@@ -47,7 +51,7 @@ public class PlayerInventoryScript : MonoBehaviour
 
     public void DropItem()
     {
-        if (itemsInInventory[selectedSlot] == null)
+        if (itemsInInventory[selectedSlot] == null || !canDrop)
             return;
 
         if (interactionZone.shelving)

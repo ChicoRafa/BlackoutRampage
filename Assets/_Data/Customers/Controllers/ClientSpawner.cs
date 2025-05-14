@@ -1,4 +1,6 @@
 using UnityEngine;
+using _Data.Customers.Orders;
+using _Data.Customers.Scriptables;
 
 namespace _Data.Customers.Controllers {
     public class ClientSpawner : MonoBehaviour {
@@ -9,10 +11,21 @@ namespace _Data.Customers.Controllers {
         public Transform spawnPoint;
         public ClientQueueManager queueManager;
 
+        [Header("Order Generation")]
+        public ProductCatalog productCatalog;
+
         public float spawnRate = 5f;
         public int maxClients = 5;
 
         private float spawnTimer;
+
+        private void Awake() {
+            if (productCatalog != null) {
+                OrderGenerator.Initialize(productCatalog.availableProducts);
+            } else {
+                Debug.LogError("🚫 ClientSpawner: ProductCatalog is not assigned.");
+            }
+        }
 
         private void Update() {
             spawnTimer += Time.deltaTime;
