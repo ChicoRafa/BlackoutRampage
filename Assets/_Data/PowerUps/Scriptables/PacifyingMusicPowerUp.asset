@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5175881bd10f24e95c6a3eef336e5e, type: 3}
+  m_Name: PacifyingMusicPowerUp
+  m_EditorClassIdentifier: 
+  powerUpName: Pacifying Music
+  icon: {fileID: 0}
+  duration: 5
+  soundManagerSO: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
+  powerUpCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}

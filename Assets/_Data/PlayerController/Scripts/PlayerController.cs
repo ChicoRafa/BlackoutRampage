@@ -14,6 +14,7 @@ namespace _Data.PlayerController.Scripts
         [SerializeField] private float currentSpeed = 0f;
         private Vector3 moveDirection = Vector3.zero;
         private bool isSprinting = false;
+        private float speedMultiplier = 1f;
 
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputReader inputReader;
@@ -104,7 +105,7 @@ namespace _Data.PlayerController.Scripts
 
         private void PerformMovement()
         {
-            playerRigidbody.linearVelocity = moveDirection * (currentSpeed * Time.deltaTime);
+            playerRigidbody.linearVelocity = moveDirection * (currentSpeed * Time.deltaTime * speedMultiplier);
 
             if (moveDirection.Equals(Vector3.zero))
             {
@@ -128,6 +129,11 @@ namespace _Data.PlayerController.Scripts
 
             float normalizedSpeed = rawSpeed / movementConfig.sprintSpeed;
             playerAnimator.SetFloat("PlayerSpeed", normalizedSpeed, 0.1f, Time.deltaTime);
+        }
+
+        public void ModifySpeed(float speedMultiplier)
+        {
+            this.speedMultiplier = speedMultiplier;
         }
     }
 }
