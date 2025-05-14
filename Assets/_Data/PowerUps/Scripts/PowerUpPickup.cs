@@ -18,7 +18,7 @@ namespace _Data.PowerUps.Scripts
 
             powerUpData.Activate(other.gameObject);
             StartCoroutine(DeactivateAfterDelay(other.gameObject));
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
 
         private System.Collections.IEnumerator DeactivateAfterDelay(GameObject target)

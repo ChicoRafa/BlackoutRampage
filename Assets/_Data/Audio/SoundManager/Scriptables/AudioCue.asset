@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0a2294e0e7adb4d9cb0d15b1b368ea, type: 3}
+  m_Name: AudioCue
+  m_EditorClassIdentifier: 
+  clips:
+  - id: LV1_Music
+    tag: 0
+    clip: {fileID: 8300000, guid: b7d89560634821b44af4639761b70377, type: 3}
+  - id: LV2_Music
+    tag: 0
+    clip: {fileID: 8300000, guid: fe8f3f8175083604d90cc8e9c7e452df, type: 3}
+  - id: LV3_Music
+    tag: 0
+    clip: {fileID: 8300000, guid: 93f020e577a59224c950f06c86a9482e, type: 3}
+  - id: Pacify
+    tag: 2
+    clip: {fileID: 8300000, guid: 2045c5e6e96a82048aa4412038fb8ada, type: 3}
