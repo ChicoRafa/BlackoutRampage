@@ -50,6 +50,8 @@ public class InputReader : ScriptableObject
         UnbindInputAction("Player/Move", OnMove, OnMove);
         UnbindInputAction("Player/Interact", OnInteract, OnInteract);
         UnbindInputAction("Player/Sprint", OnSprint, OnSprint);
+        UnbindInputAction(("Player/Drop"), OnDrop, OnDrop);
+        UnbindInputAction(("Player/SelectItem"), OnSelectItem, OnSelectItem);
     }
     
     private void OnMove(InputAction.CallbackContext context)
