@@ -36,14 +36,8 @@ public class MainUI : MonoBehaviour
         }
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
-        gameManager.onEvery15SecondsPassed.AddListener(OnEvery15SecondsPassed);
-        gameManager.onEveryMinutePassed.AddListener(OnEveryMinutePassed);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
+        gameManager.onEveryHourPassed.AddListener(OnEveryHourPassed);
     }
 
     private void OnLevelStart()
@@ -56,27 +50,28 @@ public class MainUI : MonoBehaviour
         Debug.Log("Level ended");
     }
 
-    private void OnEvery15SecondsPassed()
+    private void OnEveryQuarterPassed()
     {
-        Debug.Log("15 SECONDS PASSED");
+        Debug.Log("A QUARTER PASSED");
         minutesCycleIndex++;
         if (minutesCycleIndex >= 4)
         {
             minutesCycleIndex = 0;
             currentMinuteText.text = "00";
+            //OnEveryMinutePassed();
         }
         else
         {
             int minuteValue = 15 * minutesCycleIndex;
             currentMinuteText.text = minuteValue.ToString("00");
-            
+
         }
         
     }
 
-    private void OnEveryMinutePassed()
+    private void OnEveryHourPassed()
     {
-        //Debug.Log("Minute passed, updated day time image");
+        Debug.Log("Hour passed, updated day time image");
         currentDayTimeImageIndex++;
         if (currentDayTimeImageIndex >= dayTimeSprites.Count)
         {
@@ -101,8 +96,8 @@ public class MainUI : MonoBehaviour
         {
             gameManager.onLevelStart.RemoveListener(OnLevelStart);
             gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
-            gameManager.onEvery15SecondsPassed.RemoveListener(OnEvery15SecondsPassed);
-            gameManager.onEveryMinutePassed.RemoveListener(OnEveryMinutePassed);
+            gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
+            gameManager.onEveryHourPassed.RemoveListener(OnEveryHourPassed);
         }
     }
 }

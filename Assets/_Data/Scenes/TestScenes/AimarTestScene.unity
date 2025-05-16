@@ -11656,10 +11656,10 @@ MonoBehaviour:
   onLevelEnd:
     m_PersistentCalls:
       m_Calls: []
-  onEvery15SecondsPassed:
+  onEveryQuarterPassed:
     m_PersistentCalls:
       m_Calls: []
-  onEveryMinutePassed:
+  onEveryHourPassed:
     m_PersistentCalls:
       m_Calls: []
   levelDurationInMinutes: 8
