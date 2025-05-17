@@ -2042,7 +2042,7 @@ RectTransform:
   m_GameObject: {fileID: 299216187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 720707026}
@@ -2052,8 +2052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 784.5, y: 265}
-  m_SizeDelta: {x: 274.90002, y: 150}
+  m_AnchoredPosition: {x: 777, y: 321}
+  m_SizeDelta: {x: 95.781, y: 35.952}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &312854728
 PrefabInstance:
@@ -3633,7 +3633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 08
+  m_text: 16
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -3668,7 +3668,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3981,7 +3981,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 778.6, y: 437}
-  m_SizeDelta: {x: 562, y: 444}
+  m_SizeDelta: {x: 540, y: 391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750913947
 MonoBehaviour:
@@ -4003,7 +4003,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cee0165e31aef4e4da8e06ed6c6b86b1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f5506cb9ca9d6641833f6208dc1448f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6993,14 +6993,11 @@ MonoBehaviour:
   currentHourText: {fileID: 720707027}
   currentMinuteText: {fileID: 1922475228}
   dayTimeSprites:
-  - {fileID: 21300000, guid: cee0165e31aef4e4da8e06ed6c6b86b1, type: 3}
-  - {fileID: 21300000, guid: 89c076a46e435a64a96c304ff9f83f6b, type: 3}
-  - {fileID: 21300000, guid: ab1eba141a130784a9bf489e24bd077f, type: 3}
-  - {fileID: 21300000, guid: 6017e2effe8bc2a4886cdd8851f5ec32, type: 3}
-  - {fileID: 21300000, guid: a2d0bcb3cb030e845ab64e3d7c7b2d97, type: 3}
-  - {fileID: 21300000, guid: 1607990ee7e3dcd4eb807fe1eb3009ef, type: 3}
-  - {fileID: 21300000, guid: 8b9e4a559af93f34b979556bdfa8cf46, type: 3}
-  - {fileID: 21300000, guid: e2f0fb8388cdd5549820f9978dc169a0, type: 3}
+  - {fileID: 21300000, guid: 8f5506cb9ca9d6641833f6208dc1448f, type: 3}
+  - {fileID: 21300000, guid: a6a35a2f0e42268479d15069cebb84da, type: 3}
+  - {fileID: 21300000, guid: 87ddbe30e944a31498ead7251e38b05b, type: 3}
+  - {fileID: 21300000, guid: 8b555c90ad4411845899426b34b7d036, type: 3}
+  - {fileID: 21300000, guid: 8b555c90ad4411845899426b34b7d036, type: 3}
 --- !u!1 &1344454394
 GameObject:
   m_ObjectHideFlags: 0
@@ -8353,7 +8350,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -9968,7 +9965,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

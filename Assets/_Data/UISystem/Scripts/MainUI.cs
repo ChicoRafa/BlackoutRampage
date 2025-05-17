@@ -12,6 +12,7 @@ public class MainUI : MonoBehaviour
 
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
+    private int passedHours = 0;
 
     void Awake()
     {
@@ -63,21 +64,28 @@ public class MainUI : MonoBehaviour
         {
             int minuteValue = 15 * minutesCycleIndex;
             currentMinuteText.text = minuteValue.ToString("00");
-
         }
-        
     }
 
     private void OnEveryHourPassed()
     {
-        Debug.Log("Hour passed, updated day time image");
-        currentDayTimeImageIndex++;
-        if (currentDayTimeImageIndex >= dayTimeSprites.Count)
+        Debug.Log("An hour passed");
+        passedHours++;
+        UpdateHourText();
+        if (passedHours % 2 == 0)
         {
-            currentDayTimeImageIndex = 0;
+            OnEveryTwoHoursPassed();
         }
-        currentDayTimeImage.sprite = dayTimeSprites[currentDayTimeImageIndex];
+    }
 
+    private void OnEveryTwoHoursPassed()
+    {
+        Debug.Log("Two hours passed");
+        UpdateDayTimeImage();
+    }
+
+    private void UpdateHourText()
+    {
         string hourText = currentHourText.text;
         int hourValue = int.Parse(hourText);
         hourValue++;
@@ -86,6 +94,17 @@ public class MainUI : MonoBehaviour
             hourValue = 0;
         }
         currentHourText.text = hourValue.ToString("00");
+    }
+
+    private void UpdateDayTimeImage()
+    {
+        Debug.Log("Updated day time image");
+        currentDayTimeImageIndex++;
+        if (currentDayTimeImageIndex >= dayTimeSprites.Count)
+        {
+            currentDayTimeImageIndex = 0;
+        }
+        currentDayTimeImage.sprite = dayTimeSprites[currentDayTimeImageIndex];
     }
 
     private void OnDisable()
