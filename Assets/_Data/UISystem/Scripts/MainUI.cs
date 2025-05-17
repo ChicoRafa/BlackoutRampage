@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class MainUI : MonoBehaviour
 {
     [SerializeField] private Image currentDayTimeImage;
+    [SerializeField] private GameObject TimeTextElement;
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
     [SerializeField] private List<Sprite> dayTimeSprites;
@@ -76,6 +78,10 @@ public class MainUI : MonoBehaviour
         {
             OnEveryTwoHoursPassed();
         }
+        if (passedHours == 7)
+        {
+            StartCoroutine(AnimateTimeTextScale());
+        }
     }
 
     private void OnEveryTwoHoursPassed()
@@ -117,4 +123,39 @@ public class MainUI : MonoBehaviour
             gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
         }
     }
+    IEnumerator AnimateTimeTextScale()
+{
+    Vector3 originalScale = TimeTextElement.transform.localScale;
+    Vector3 targetScale = originalScale * 2f;
+    float duration = 0.4f;
+    float elapsed = 0f;
+
+    // Get all TextMeshProUGUI children
+    TextMeshProUGUI[] texts = TimeTextElement.GetComponentsInChildren<TextMeshProUGUI>();
+    Color[] originalColors = new Color[texts.Length];
+    for (int i = 0; i < texts.Length; i++)
+        originalColors[i] = texts[i].color;
+    Color targetColor = Color.red;
+
+    // Scale up and color to red
+    while (elapsed < duration)
+    {
+        float t = elapsed / duration;
+        TimeTextElement.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+        for (int i = 0; i < texts.Length; i++)
+            texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    // Scale down and color back to original
+    elapsed = 0f;
+    while (elapsed < duration)
+    {
+        float t = elapsed / duration;
+        TimeTextElement.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+}
 }
