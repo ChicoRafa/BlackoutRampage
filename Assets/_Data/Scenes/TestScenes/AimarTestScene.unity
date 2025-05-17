@@ -11650,6 +11650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   queueManager: {fileID: 1511240503}
+  levelDurationInMinutes: 1
   onLevelStart:
     m_PersistentCalls:
       m_Calls: []
@@ -11659,10 +11660,6 @@ MonoBehaviour:
   onEveryQuarterPassed:
     m_PersistentCalls:
       m_Calls: []
-  onEveryHourPassed:
-    m_PersistentCalls:
-      m_Calls: []
-  levelDurationInMinutes: 8
 --- !u!1001 &2121126955
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,20 +9,19 @@ public class GameManager : MonoBehaviour {
     [Header("Queue Manager")]
     public ClientQueueManager queueManager;
 
+    [Header("Game Settings")]
+    [SerializeField] private float levelDurationInMinutes = 8f;
+
     [Header("Events")]
     public UnityEvent onLevelStart;
     public UnityEvent onLevelEnd;
     public UnityEvent onEveryQuarterPassed;
-    public UnityEvent onEveryHourPassed;
 
     [Header("Level Settings")]
-    [SerializeField] private float levelDurationInMinutes = 8f;
     private float levelDuration = 0;
     private float elapsedTime = 0;
     private float quarterDuration; 
-    private float hourDuration; 
     private float nextQuarterTime;
-    private float nextHourTime;
     private float passedSeconds = 0;
     private bool levelEnded = false;
 
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour {
     {
         levelDuration = levelDurationInMinutes * 60;
         quarterDuration = levelDuration / 32;
-        hourDuration = levelDuration / 8;
     }
     void Start()
     {
@@ -44,7 +42,6 @@ public class GameManager : MonoBehaviour {
         levelEnded = false;
         passedSeconds = 0;
         nextQuarterTime = quarterDuration;
-        nextHourTime = hourDuration;
         onLevelStart.Invoke();
         //Debug.Log("Level started");
     }
@@ -73,22 +70,17 @@ public class GameManager : MonoBehaviour {
         if (!levelEnded)
         {
             elapsedTime += Time.deltaTime;
+            if (elapsedTime >= nextQuarterTime)
+            {
+                onEveryQuarterPassed.Invoke();
+                nextQuarterTime += quarterDuration;
+            }
             if (elapsedTime - passedSeconds >= 1)
             {
-                if (elapsedTime >= nextQuarterTime && elapsedTime < levelDuration)
-                {
-                    onEveryQuarterPassed.Invoke();
-                    nextQuarterTime += quarterDuration;
-                }
-                if (elapsedTime >= nextHourTime && elapsedTime < levelDuration)
-                {
-                    onEveryHourPassed.Invoke();
-                    nextHourTime += hourDuration;
-                }
                 passedSeconds += 1;
                 Debug.Log("Level time: " + passedSeconds + " seconds");
             }
-            if (passedSeconds >= levelDuration)
+            if (elapsedTime >= levelDuration)
             {
                 EndLevel();
             }

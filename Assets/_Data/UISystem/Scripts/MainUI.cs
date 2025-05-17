@@ -37,7 +37,6 @@ public class MainUI : MonoBehaviour
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
-        gameManager.onEveryHourPassed.AddListener(OnEveryHourPassed);
     }
 
     private void OnLevelStart()
@@ -58,7 +57,7 @@ public class MainUI : MonoBehaviour
         {
             minutesCycleIndex = 0;
             currentMinuteText.text = "00";
-            //OnEveryMinutePassed();
+            OnEveryHourPassed();
         }
         else
         {
@@ -97,7 +96,6 @@ public class MainUI : MonoBehaviour
             gameManager.onLevelStart.RemoveListener(OnLevelStart);
             gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
             gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
-            gameManager.onEveryHourPassed.RemoveListener(OnEveryHourPassed);
         }
     }
 }
