@@ -7,6 +7,10 @@ public class InteractableCube : MonoBehaviour, IInteractable
         Debug.Log(interactor.name + " interacted with " + gameObject.name);
     }
 
+    public bool CanInteract(GameObject interactor)
+    {
+        return true;
+    }
     public string GetInteractionPrompt()
     {
         return "Interact with Cube";

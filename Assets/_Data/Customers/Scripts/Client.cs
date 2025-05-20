@@ -2,16 +2,15 @@ using System.Collections;
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
-using _Data.Customers.Scripts;
 
-namespace _Data.Customers.Controllers {
+namespace _Data.Customers.Scripts {
     public enum ClientState {
         WalkingToSlot,
         Waiting,
         Leaving
     }
 
-    public class Client : MonoBehaviour {
+    public class Client : MonoBehaviour, IInteractable {
         [Header("Client Type")]
         [SerializeField] private ClientType clientType;
 
@@ -190,6 +189,57 @@ namespace _Data.Customers.Controllers {
             if (animator != null) {
                 animator.SetFloat("Speed", value);
             }
+        }
+        
+        public void Interact(GameObject interactor)
+        {
+            if (!IsReadyToBeServed()) return;
+            var inventory = interactor.GetComponent<PlayerInventoryScript>();
+            if (inventory == null) return;
+
+            int selectedSlot = inventory.GetSelectedSlot();
+            var heldItem = inventory.itemsInInventory[selectedSlot];
+            if (heldItem == null) return;
+
+            var productScript = heldItem.GetComponent<ProductScript>();
+            if (productScript == null)
+            {
+                Debug.LogWarning("🛑 Held item doesn't have a ProductScript");
+                return;
+            }
+
+            var itemType = productScript.GetProduct();
+
+            if (CurrentOrder.Items.ContainsKey(itemType)) {
+                CurrentOrder.Items[itemType]--;
+
+                if (CurrentOrder.Items[itemType] <= 0)
+                    CurrentOrder.Items.Remove(itemType);
+
+                Debug.Log($"✅ {name} received: {itemType.name}");
+
+                Destroy(heldItem);
+                inventory.ClearSlot(selectedSlot);
+                patienceUI?.SetOrder(CurrentOrder);
+
+                // TODO:
+                if (CurrentOrder.Items.Count == 0)
+                    OnInteractSimulated();
+            } else {
+                Debug.Log($"❌ {name} didn't ask for {itemType.name}");
+                Destroy(heldItem);
+                inventory.ClearSlot(selectedSlot);
+            }
+        }
+
+        public string GetInteractionPrompt()
+        {
+            return "Give item";
+        }
+        
+        public bool CanInteract(GameObject interactor)
+        {
+            return IsReadyToBeServed();
         }
     }
 }

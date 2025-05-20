@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Data.Customers.Controllers {
+namespace _Data.Customers.Scripts {
     public class ClientQueueManager : MonoBehaviour {
         [Header("Queue Configuration")]
         public List<Transform> queuePositions;

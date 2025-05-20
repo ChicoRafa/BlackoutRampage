@@ -2,7 +2,7 @@ using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
 
-namespace _Data.Customers.Controllers {
+namespace _Data.Customers.Scripts {
     public class ClientSpawner : MonoBehaviour {
         [Header("Client Types")]
         public GameObject[] clientPrefabs;

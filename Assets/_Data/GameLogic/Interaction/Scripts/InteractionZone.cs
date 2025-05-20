@@ -30,6 +30,8 @@ public class InteractionZone : MonoBehaviour
 
         if (!other.TryGetComponent(out IInteractable interactable)) return;
 
+        if (!interactable.CanInteract(interactor)) return;
+
         DestroyLastInteractableObjectUI();
 
         interactableObject = interactable;

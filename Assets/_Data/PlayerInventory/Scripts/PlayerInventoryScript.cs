@@ -90,4 +90,22 @@ public class PlayerInventoryScript : MonoBehaviour
             itemsInInventory[selectedSlot] = null;
         }
     }
+    
+    public void ClearSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= itemsInInventory.Count) return;
+
+        if (playerInventorySlots[slotIndex] != null)
+        {
+            playerInventorySlots[slotIndex].sprite = null;
+            playerInventorySlots[slotIndex].gameObject.SetActive(false);
+        }
+
+        itemsInInventory[slotIndex] = null;
+    }
+    
+    public int GetSelectedSlot()
+    {
+        return selectedSlot;
+    }
 }
