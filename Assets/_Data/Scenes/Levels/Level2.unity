@@ -10577,6 +10577,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4047850789475485869}
     m_Modifications:
+    - target: {fileID: 1561152324066443425, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5382076609586082764, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10657,10 +10681,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
     - target: {fileID: 7622731712156820137, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_Name
       value: MainUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8158041937332324378, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

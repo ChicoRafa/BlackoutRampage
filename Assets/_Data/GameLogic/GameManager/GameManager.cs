@@ -5,7 +5,8 @@ using _Data.Products;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     [Header("Queue Manager")]
     public ClientQueueManager queueManager;
 
@@ -17,14 +18,12 @@ public class GameManager : MonoBehaviour {
     public UnityEvent onLevelEnd;
     public UnityEvent onEveryQuarterPassed;
 
-    [Header("Level Settings")]
     private float levelDuration = 0;
     private float elapsedTime = 0;
-    private float quarterDuration; 
+    private float quarterDuration;
     private float nextQuarterTime;
     private float passedSeconds = 0;
-    private bool levelEnded = false;
-
+    private bool levelRunning = false;
 
     void Awake()
     {
@@ -33,31 +32,29 @@ public class GameManager : MonoBehaviour {
     }
     void Start()
     {
-        StartLevel();
+        //StartLevel();
     }
 
     public void StartLevel()
     {
         elapsedTime = 0f;
-        levelEnded = false;
         passedSeconds = 0;
         nextQuarterTime = quarterDuration;
+        levelRunning = true;
         onLevelStart.Invoke();
         //Debug.Log("Level started");
     }
 
-    public void EndLevel()
-    {
-        levelEnded = true;
-        onLevelEnd.Invoke();
-        //Debug.Log("Level ended!");
-    }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.B)) {
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
             List<Client> clients = queueManager.GetClientsInServiceSlots();
-            foreach (var client in clients) {
-                if (client.IsReadyToBeServed()) {
+            foreach (var client in clients)
+            {
+                if (client.IsReadyToBeServed())
+                {
                     Debug.Log("🧪 Simulating interaction with service slot client");
                     client.OnInteractSimulated();
                     return;
@@ -67,7 +64,7 @@ public class GameManager : MonoBehaviour {
             Debug.LogWarning("❌ No client currently ready to be served");
         }
 
-        if (!levelEnded)
+        if (levelRunning)
         {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= nextQuarterTime)
@@ -85,6 +82,22 @@ public class GameManager : MonoBehaviour {
                 EndLevel();
             }
         }
+    }
+    public void EndLevel()
+    {
+        levelRunning = false;
+        onLevelEnd.Invoke();
+        //Debug.Log("Level ended!");
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }
     
