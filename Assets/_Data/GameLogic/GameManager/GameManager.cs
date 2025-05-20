@@ -11,14 +11,12 @@ public class GameManager : MonoBehaviour {
     public UnityEvent onLevelEnd;
     public UnityEvent onEveryQuarterPassed;
 
-    [Header("Level Settings")]
     private float levelDuration = 0;
     private float elapsedTime = 0;
-    private float quarterDuration; 
+    private float quarterDuration;
     private float nextQuarterTime;
     private float passedSeconds = 0;
-    private bool levelEnded = false;
-
+    private bool levelRunning = false;
 
     void Awake()
     {
@@ -27,29 +25,22 @@ public class GameManager : MonoBehaviour {
     }
     void Start()
     {
-        StartLevel();
+        onLevelEnd.Invoke();
     }
 
     public void StartLevel()
     {
         elapsedTime = 0f;
-        levelEnded = false;
         passedSeconds = 0;
         nextQuarterTime = quarterDuration;
+        levelRunning = true;
         onLevelStart.Invoke();
-        //Debug.Log("Level started");
-    }
-
-    public void EndLevel()
-    {
-        levelEnded = true;
-        onLevelEnd.Invoke();
-        //Debug.Log("Level ended!");
+        Debug.Log("Game Manager - Level started");
     }
 
     void Update() {
 
-        if (!levelEnded)
+        if (levelRunning)
         {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= nextQuarterTime)
@@ -60,12 +51,31 @@ public class GameManager : MonoBehaviour {
             if (elapsedTime - passedSeconds >= 1)
             {
                 passedSeconds += 1;
+                Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
             }
             if (elapsedTime >= levelDuration)
             {
                 EndLevel();
             }
         }
+    }
+    public void EndLevel()
+    {
+        levelRunning = false;
+        onLevelEnd.Invoke();
+        Debug.Log("Game Manager - Level ended");
+    }
+
+    public void PauseGame()
+    {
+        levelRunning = false;
+        Time.timeScale = 0;
+    }
+    
+    public void ResumeGame()
+    {
+        levelRunning = true;
+        Time.timeScale = 1;
     }
 }
     

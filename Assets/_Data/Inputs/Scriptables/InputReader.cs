@@ -8,18 +8,19 @@ public class InputReader : ScriptableObject
 {
     [Header("Input Actions Asset")]
     [SerializeField] private InputActionAsset inputActionAsset;
-    
+
     private InputAction moveInputAction;
     private InputAction interactInputAction;
     private InputAction sprintInputAction;
-    
+
     public UnityAction<Vector2> MoveEvent;
     public UnityAction MoveCanceledEvent;
     public UnityAction InteractEvent;
     public UnityAction<bool> SprintEvent;
     public UnityAction DropEvent;
     public UnityAction<int> SelectItemEvent;
-    
+    public UnityAction PauseEvent;
+
     private void BindInputAction(string actionName, Action<InputAction.CallbackContext> performed, Action<InputAction.CallbackContext> canceled)
     {
         var action = inputActionAsset.FindAction(actionName);
@@ -41,8 +42,9 @@ public class InputReader : ScriptableObject
         BindInputAction("Player/Move", OnMove, OnMove);
         BindInputAction("Player/Interact", OnInteract, OnInteract);
         BindInputAction("Player/Sprint", OnSprint, OnSprint);
-        BindInputAction(("Player/Drop"), OnDrop, OnDrop);
-        BindInputAction(("Player/SelectItem"), OnSelectItem, OnSelectItem);
+        BindInputAction("Player/Drop", OnDrop, OnDrop);
+        BindInputAction("Player/SelectItem", OnSelectItem, OnSelectItem);
+        BindInputAction("Player/Pause", OnPause, OnPause);
     }
 
     private void OnDisable()
@@ -50,10 +52,11 @@ public class InputReader : ScriptableObject
         UnbindInputAction("Player/Move", OnMove, OnMove);
         UnbindInputAction("Player/Interact", OnInteract, OnInteract);
         UnbindInputAction("Player/Sprint", OnSprint, OnSprint);
-        UnbindInputAction(("Player/Drop"), OnDrop, OnDrop);
-        UnbindInputAction(("Player/SelectItem"), OnSelectItem, OnSelectItem);
+        UnbindInputAction("Player/Drop", OnDrop, OnDrop);
+        UnbindInputAction("Player/SelectItem", OnSelectItem, OnSelectItem);
+        UnbindInputAction("Player/Pause", OnPause, OnPause);
     }
-    
+
     private void OnMove(InputAction.CallbackContext context)
     {
         if (!context.canceled)
@@ -72,13 +75,13 @@ public class InputReader : ScriptableObject
     {
         SprintEvent?.Invoke(context.performed);
     }
-    
+
     private void OnDrop(InputAction.CallbackContext context)
     {
         if (context.performed)
             DropEvent?.Invoke();
     }
-    
+
     private void OnSelectItem(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -90,6 +93,12 @@ public class InputReader : ScriptableObject
             SelectItemEvent?.Invoke(i);
             break;
         }
+    }
+    
+    private void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            PauseEvent?.Invoke();
     }
 
 }

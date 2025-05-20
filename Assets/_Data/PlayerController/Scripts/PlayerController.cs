@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace _Data.PlayerController.Scripts
 {
@@ -31,6 +33,9 @@ namespace _Data.PlayerController.Scripts
         [Header("Storehouse")]
         [HideInInspector] public GameObject storage;
 
+        [Header("Events")]
+        public UnityEvent onPause;
+
         private void Awake()
         {
             playerInventory = GetComponent<PlayerInventoryScript>();
@@ -52,7 +57,7 @@ namespace _Data.PlayerController.Scripts
             PerformMovement();
             UpdateAnimation();
         }
-        
+
         private void OnEnable()
         {
             inputReader.MoveEvent += OnMove;
@@ -61,6 +66,7 @@ namespace _Data.PlayerController.Scripts
             inputReader.SprintEvent += OnSprint;
             inputReader.DropEvent += OnDrop;
             inputReader.SelectItemEvent += OnSelectItem;
+            inputReader.PauseEvent += OnPause;
         }
 
         private void OnDisable()
@@ -71,6 +77,7 @@ namespace _Data.PlayerController.Scripts
             inputReader.SprintEvent -= OnSprint;
             inputReader.DropEvent -= OnDrop;
             inputReader.SelectItemEvent -= OnSelectItem;
+            inputReader.PauseEvent -= OnPause;
         }
 
         private void OnMove(Vector2 input)
@@ -112,6 +119,11 @@ namespace _Data.PlayerController.Scripts
         private void OnCollisionExit(Collision collision)
         {
             lastCollisionNormal = Vector3.up;
+        }
+
+        private void OnPause()
+        {
+            onPause.Invoke();
         }
 
         private void PerformMovement()

@@ -15,6 +15,7 @@ public class MainUI : MonoBehaviour
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
     private int passedHours = 0;
+    private TextMeshProUGUI startingHourText;
 
     void Awake()
     {
@@ -28,6 +29,7 @@ public class MainUI : MonoBehaviour
             Debug.LogError("Day Time Sprites not assigned or empty.");
             return;
         }
+        startingHourText = currentHourText;
     }
     void OnEnable()
     {
@@ -44,12 +46,15 @@ public class MainUI : MonoBehaviour
 
     private void OnLevelStart()
     {
-        Debug.Log("Level started");
+        //Debug.Log("Main UI - Level started");
+        currentDayTimeImage.sprite = dayTimeSprites[0];
+        currentHourText.text = startingHourText.text;
+        currentMinuteText.text = "00";
     }
 
     private void OnLevelEnd()
     {
-        Debug.Log("Level ended");
+        //Debug.Log("Main UI - Level ended");
     }
 
     private void OnEveryQuarterPassed()
