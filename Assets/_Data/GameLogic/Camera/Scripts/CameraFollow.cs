@@ -3,13 +3,11 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform playerTarget;
-    [SerializeField] private CameraSettings cameraSettings;
+    [SerializeField] private float smoothSpeed = 10f;
 
     private void LateUpdate()
     {
-        if (!playerTarget || !cameraSettings) return;
-
-        Vector3 targetPosition = playerTarget.position + cameraSettings.offset;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSettings.followSpeed * Time.deltaTime);
+        if (!playerTarget) return; 
+        transform.position = Vector3.Lerp(transform.position, playerTarget.position, smoothSpeed * Time.deltaTime);
     }
 }
