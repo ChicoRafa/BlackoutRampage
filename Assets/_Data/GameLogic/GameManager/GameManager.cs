@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
             if (elapsedTime - passedSeconds >= 1)
             {
                 passedSeconds += 1;
+                Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
             }
             if (elapsedTime >= levelDuration)
             {
