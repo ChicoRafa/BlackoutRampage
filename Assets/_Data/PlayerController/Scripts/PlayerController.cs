@@ -115,6 +115,11 @@ namespace _Data.PlayerController.Scripts
         {
             lastCollisionNormal = collision.contacts[0].normal;
         }
+        
+        private void OnCollisionExit(Collision collision)
+        {
+            lastCollisionNormal = Vector3.up;
+        }
 
         private void OnPause()
         {
@@ -125,7 +130,12 @@ namespace _Data.PlayerController.Scripts
         {
             Vector3 desiredMove = moveDirection * (currentSpeed * Time.deltaTime * speedMultiplier);
 
-            if (moveDirection != Vector3.zero)
+            if (Vector3.Dot(lastCollisionNormal, Vector3.up) < 0.7f && Vector3.Dot(moveDirection, lastCollisionNormal) > 0.1f)
+            {
+                lastCollisionNormal = Vector3.up;
+            }
+
+            if (moveDirection != Vector3.zero && Vector3.Dot(lastCollisionNormal, Vector3.up) < 0.7f)
             {
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, lastCollisionNormal);
             }
