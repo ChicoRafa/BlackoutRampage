@@ -14,6 +14,8 @@ namespace _Data.PlayerController.Scripts
         private Vector3 moveDirection = Vector3.zero;
         private bool isSprinting = false;
         private float speedMultiplier = 1f;
+        private Vector3 lastCollisionNormal = Vector3.up;
+
 
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputReader inputReader;
@@ -101,15 +103,34 @@ namespace _Data.PlayerController.Scripts
         {
             playerInventory.UpdateSelectedSlot(slotIndex);
         }
+        
+        private void OnCollisionStay(Collision collision)
+        {
+            lastCollisionNormal = collision.contacts[0].normal;
+        }
+        
+        private void OnCollisionExit(Collision collision)
+        {
+            lastCollisionNormal = Vector3.up;
+        }
 
         private void PerformMovement()
         {
-            playerRigidbody.linearVelocity = moveDirection * (currentSpeed * Time.deltaTime * speedMultiplier);
+            Vector3 desiredMove = moveDirection * (currentSpeed * Time.deltaTime * speedMultiplier);
 
-            if (moveDirection.Equals(Vector3.zero))
+            if (Vector3.Dot(lastCollisionNormal, Vector3.up) < 0.7f && Vector3.Dot(moveDirection, lastCollisionNormal) > 0.1f)
             {
-                return;
+                lastCollisionNormal = Vector3.up;
             }
+
+            if (moveDirection != Vector3.zero && Vector3.Dot(lastCollisionNormal, Vector3.up) < 0.7f)
+            {
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, lastCollisionNormal);
+            }
+
+            playerRigidbody.linearVelocity = desiredMove;
+
+            if (moveDirection.Equals(Vector3.zero)) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             playerRigidbody.rotation = Quaternion.Slerp(
