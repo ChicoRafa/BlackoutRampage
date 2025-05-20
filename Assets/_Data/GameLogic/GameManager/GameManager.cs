@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //StartLevel();
+        onLevelEnd.Invoke();
     }
 
     public void StartLevel()
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         nextQuarterTime = quarterDuration;
         levelRunning = true;
         onLevelStart.Invoke();
-        //Debug.Log("Level started");
+        Debug.Log("Game Manager - Level started");
     }
 
 
@@ -87,16 +87,18 @@ public class GameManager : MonoBehaviour
     {
         levelRunning = false;
         onLevelEnd.Invoke();
-        //Debug.Log("Level ended!");
+        Debug.Log("Game Manager - Level ended");
     }
 
     public void PauseGame()
     {
+        levelRunning = false;
         Time.timeScale = 0;
     }
     
     public void ResumeGame()
     {
+        levelRunning = true;
         Time.timeScale = 1;
     }
 }
