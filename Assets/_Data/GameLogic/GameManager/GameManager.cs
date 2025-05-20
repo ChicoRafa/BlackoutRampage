@@ -1,14 +1,7 @@
-using System.Collections.Generic;
-using _Data.Customers.Controllers;
-using _Data.Customers.Orders;
-using _Data.Products;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
-{
-    [Header("Queue Manager")]
-    public ClientQueueManager queueManager;
+public class GameManager : MonoBehaviour {
 
     [Header("Game Settings")]
     [SerializeField] private float levelDurationInMinutes = 8f;
@@ -45,24 +38,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Manager - Level started");
     }
 
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            List<Client> clients = queueManager.GetClientsInServiceSlots();
-            foreach (var client in clients)
-            {
-                if (client.IsReadyToBeServed())
-                {
-                    Debug.Log("🧪 Simulating interaction with service slot client");
-                    client.OnInteractSimulated();
-                    return;
-                }
-            }
-
-            Debug.LogWarning("❌ No client currently ready to be served");
-        }
+    void Update() {
 
         if (levelRunning)
         {
@@ -75,7 +51,6 @@ public class GameManager : MonoBehaviour
             if (elapsedTime - passedSeconds >= 1)
             {
                 passedSeconds += 1;
-                Debug.Log("Level time: " + passedSeconds + " seconds");
             }
             if (elapsedTime >= levelDuration)
             {

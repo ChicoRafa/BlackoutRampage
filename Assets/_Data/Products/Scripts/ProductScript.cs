@@ -119,8 +119,17 @@ public class ProductScript : MonoBehaviour, IInteractable
         }
     }
 
+    public bool CanInteract(GameObject interactor)
+    {
+        return true;
+    }
     public string GetInteractionPrompt()
     {
         return "Interact with " + _productName;
+    }
+    
+    public Product GetProduct()
+    {
+        return Product;
     }
 }

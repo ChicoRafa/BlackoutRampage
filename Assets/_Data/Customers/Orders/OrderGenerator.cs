@@ -11,7 +11,7 @@ namespace _Data.Customers.Orders {
         }
 
         public static Order GenerateRandomOrder() {
-            List<ItemRequest> items = new List<ItemRequest>();
+            Dictionary<Product, int> items = new();
 
             if (availableProducts == null || availableProducts.Count == 0) {
                 Debug.LogError("🚫 OrderGenerator: No available products!");
@@ -22,21 +22,22 @@ namespace _Data.Customers.Orders {
             Shuffle(shuffledProducts);
 
             int remainingQuantity = Random.Range(1, 4);
-
             int index = 0;
+
             while (remainingQuantity > 0 && index < shuffledProducts.Count) {
                 Product product = shuffledProducts[index];
                 int maxQuantityForThisItem = Mathf.Min(remainingQuantity, 3);
                 int quantity = Random.Range(1, maxQuantityForThisItem + 1);
 
-                items.Add(new ItemRequest(product, quantity));
+                items.Add(product, quantity);
+
                 remainingQuantity -= quantity;
                 index++;
             }
 
             return new Order(items);
         }
-        
+
         private static void Shuffle<T>(List<T> list) {
             for (int i = 0; i < list.Count; i++) {
                 int randIndex = Random.Range(i, list.Count);

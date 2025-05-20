@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using _Data.Products;
 
 namespace _Data.Customers.Orders {
     public class Order {
-        public List<ItemRequest> Items;
+        public Dictionary<Product, int> Items;
 
-        public Order(List<ItemRequest> items) {
+        public Order(Dictionary<Product, int> items) {
             Items = items;
         }
     }
