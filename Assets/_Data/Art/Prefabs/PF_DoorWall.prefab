@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 640657717517050530}
   - component: {fileID: 6758474488853959540}
   - component: {fileID: 8355330419240355345}
-  - component: {fileID: 5878509764285460609}
+  - component: {fileID: 4154634982274553718}
+  - component: {fileID: 467116913988222753}
   m_Layer: 0
   m_Name: wall_doorway (1)
   m_TagString: Untagged
@@ -119,8 +120,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5878509764285460609
-MeshCollider:
+--- !u!65 &4154634982274553718
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,7 +138,27 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4196161430825003242, guid: 643dbf4d3abdd094d99cbb86293820aa, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.01044864, y: 0.040000044, z: 0.0050000064}
+  m_Center: {x: -0.0147757195, y: 0.020000022, z: -0.0000000030994416}
+--- !u!65 &467116913988222753
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326349429542598262}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.009798881, y: 0.040000044, z: 0.0050000064}
+  m_Center: {x: 0.015100633, y: 0.020000022, z: -0.0000000030994416}
