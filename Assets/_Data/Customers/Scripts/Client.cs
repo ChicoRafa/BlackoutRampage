@@ -9,10 +9,10 @@ namespace _Data.Customers.Scripts {
         Leaving
     }
 
-    public class Client : MonoBehaviour, IInteractable {
+    public class Client : InteractableBase {
         [Header("Client Type")]
         [SerializeField] private ClientType clientType;
-
+        
         private GameObject modelInstance;
         private Animator animator;
         private ClientPatienceUI patienceUI;
@@ -25,6 +25,7 @@ namespace _Data.Customers.Scripts {
         private ClientState currentState = ClientState.WalkingToSlot;
 
         private ClientQueueManager queueManager;
+        
         public Order CurrentOrder { get; private set; }
 
         private void Awake() {
@@ -119,7 +120,7 @@ namespace _Data.Customers.Scripts {
             return currentState == ClientState.Leaving;
         }
 
-        public void Interact(GameObject interactor) {
+        public override void Interact(GameObject interactor) {
             if (!IsReadyToBeServed()) return;
 
             var inventory = interactor.GetComponent<PlayerInventoryScript>();
@@ -160,11 +161,11 @@ namespace _Data.Customers.Scripts {
             }
         }
 
-        public string GetInteractionPrompt() {
+        public override string GetInteractionPrompt() {
             return "Give item";
         }
 
-        public bool CanInteract(GameObject interactor) {
+        public override bool CanInteract(GameObject interactor) {
             return IsReadyToBeServed();
         }
     }

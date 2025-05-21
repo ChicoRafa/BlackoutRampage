@@ -124,6 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198916a40ec47b54e996364c36481db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+  iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+  promptOffset: {x: 0, y: 4, z: 0}
   Product: {fileID: 11400000, guid: 53dc1fc66da13c34bb9a4a375471a9dd, type: 2}
   objectsParent: {fileID: 0}
   objectType: Lantern
+  origin: 0

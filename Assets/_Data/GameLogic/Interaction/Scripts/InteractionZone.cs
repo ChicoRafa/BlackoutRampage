@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InteractionZone : MonoBehaviour
@@ -7,8 +8,6 @@ public class InteractionZone : MonoBehaviour
     
     [SerializeField] private GameObject interactionPromptPrefab;
     [SerializeField] private PromptIconSet iconSet;
-    private GameObject currentPromptInstance;
-    private InteractionPromptUI currentPromptUI;
 
     [Header("Shelving")]
     [HideInInspector] public Shelving shelving;
@@ -41,6 +40,33 @@ public class InteractionZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (interactableObject != null) return;
+        OnInteractableDetected(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (interactableObject != null) return;
+        OnInteractableDetected(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Computer"))
+            isLookingAtComputer = false;
+
+        if (other.GetComponent<Shelving>() && shelving)
+            shelving = null;
+
+        if (!other.TryGetComponent(out IInteractable interactable)) return;
+        if (interactable != interactableObject) return;
+
+        interactable.HideInteractPrompt();
+        interactableObject = null;
+    }
+
+    private void OnInteractableDetected(Collider other)
+    {
         if (other.gameObject.CompareTag("Computer"))
             isLookingAtComputer = true;
 
@@ -51,41 +77,8 @@ public class InteractionZone : MonoBehaviour
 
         if (!interactable.CanInteract(interactor)) return;
 
-        DestroyLastInteractableObjectUI();
-
         interactableObject = interactable;
-
-        if (interactionPromptPrefab == null) return;
-        currentPromptInstance = Instantiate(interactionPromptPrefab);
-        currentPromptUI = currentPromptInstance.GetComponent<InteractionPromptUI>();
         
-        var scheme = InputUtils.GetCurrentScheme();
-        Sprite icon = InputUtils.GetIcon(scheme, iconSet);
-        string interactionPrompt = interactable.GetInteractionPrompt();
-
-        currentPromptUI.SetPrompt(icon, interactionPrompt, iconSet);
-        currentPromptUI.SetTarget(other.transform);
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Computer"))
-            isLookingAtComputer = false;
-
-        if (other.GetComponent<Shelving>() && shelving)
-            shelving = null;
-
-        if (!other.TryGetComponent(out IInteractable interactable) || interactable != interactableObject) return;
-
-        DestroyLastInteractableObjectUI();
-    }
-
-    private void DestroyLastInteractableObjectUI()
-    {
-        interactableObject = null;
-
-        if (currentPromptInstance == null) return;
-        Destroy(currentPromptInstance);
-        currentPromptInstance = null;
+        interactableObject.ShowInteractPrompt(interactor);
     }
 }

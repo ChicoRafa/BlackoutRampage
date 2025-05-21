@@ -1,18 +1,20 @@
 using UnityEngine;
 
-public class InteractableCube : MonoBehaviour, IInteractable
+public class InteractableCube : InteractableBase
 {
-    public void Interact(GameObject interactor)
+    public override void Interact(GameObject interactor)
     {
         Debug.Log(interactor.name + " interacted with " + gameObject.name);
     }
 
-    public bool CanInteract(GameObject interactor)
+    public override bool CanInteract(GameObject interactor)
     {
         return true;
     }
-    public string GetInteractionPrompt()
+    public override string GetInteractionPrompt()
     {
         return "Interact with Cube";
     }
+    
+    
 }

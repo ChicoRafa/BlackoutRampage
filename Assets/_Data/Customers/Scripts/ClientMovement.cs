@@ -7,10 +7,12 @@ namespace _Data.Customers.Scripts {
         private Animator animator;
         private Coroutine moveRoutine;
         private GameObject modelInstance;
+        private Rigidbody rigidBody;
 
         public void Init(Animator animator, GameObject modelInstance) {
             this.animator = animator;
             this.modelInstance = modelInstance;
+            rigidBody = GetComponent<Rigidbody>();
         }
 
         public void MoveTo(Vector3 targetPosition, Action onComplete = null) {
@@ -30,7 +32,9 @@ namespace _Data.Customers.Scripts {
                     modelInstance.transform.forward = direction;
                 }
 
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, 3f * Time.deltaTime);
+                Vector3 nextPos = Vector3.MoveTowards(rigidBody.position, targetPosition, 10f * Time.deltaTime);
+                rigidBody.MovePosition(nextPos);
+                //transform.position = Vector3.MoveTowards(transform.position, targetPosition, 3f * Time.deltaTime);
                 yield return null;
             }
 

@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109200e8f383fb24a8aacbdb3ca2f689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+  iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+  promptOffset: {x: 0, y: 6, z: 0}
   clientType: {fileID: 11400000, guid: 870e8e98fae297b448fd6a9a3904f2e0, type: 2}
 --- !u!54 &8070439093263669771
 Rigidbody:
@@ -90,7 +93,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

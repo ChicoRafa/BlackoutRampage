@@ -10523,6 +10523,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 265320979}
     m_Modifications:
+    - target: {fileID: 2945407368568502427, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: iconSet
+      value: 
+      objectReference: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+    - target: {fileID: 2945407368568502427, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: interactionPromptPrefab
+      value: 
+      objectReference: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+    - target: {fileID: 4114365774345195520, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: iconSet
+      value: 
+      objectReference: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+    - target: {fileID: 4114365774345195520, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: interactionPromptPrefab
+      value: 
+      objectReference: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+    - target: {fileID: 5770493942801572798, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: iconSet
+      value: 
+      objectReference: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+    - target: {fileID: 5770493942801572798, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: interactionPromptPrefab
+      value: 
+      objectReference: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+    - target: {fileID: 6065212159928229911, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: iconSet
+      value: 
+      objectReference: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+    - target: {fileID: 6065212159928229911, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: interactionPromptPrefab
+      value: 
+      objectReference: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
+    - target: {fileID: 6258993566344978138, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: iconSet
+      value: 
+      objectReference: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
+    - target: {fileID: 6258993566344978138, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
+      propertyPath: interactionPromptPrefab
+      value: 
+      objectReference: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
     - target: {fileID: 7468359731206765646, guid: 4fbda1a4e5df45f478c190fe01ea2667, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10839,6 +10879,10 @@ PrefabInstance:
     - target: {fileID: 7279987199071532527, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989037778644022121, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8347214639607621120, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
       propertyPath: m_LocalPosition.x

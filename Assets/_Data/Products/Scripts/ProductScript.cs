@@ -6,7 +6,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 //using _Data.PlayerInventory;
 
-public class ProductScript : MonoBehaviour, IInteractable
+public class ProductScript : InteractableBase
 {
     [Header("Scriptable Object")]
     [SerializeField] private Product Product;
@@ -25,7 +25,7 @@ public class ProductScript : MonoBehaviour, IInteractable
 
     [Header("Object Type")]
     public string objectType;
-
+    
     public enum productOrigin
     {
         Shelving,
@@ -60,7 +60,7 @@ public class ProductScript : MonoBehaviour, IInteractable
             objectsParent = transform.parent;
     }
 
-    public void Interact(GameObject interactor)
+    public override void Interact(GameObject interactor)
     {
         //Debug.Log(interactor.name + " interacted with " + gameObject.name);
 
@@ -119,11 +119,11 @@ public class ProductScript : MonoBehaviour, IInteractable
         }
     }
 
-    public bool CanInteract(GameObject interactor)
+    public override bool CanInteract(GameObject interactor)
     {
         return true;
     }
-    public string GetInteractionPrompt()
+    public override string GetInteractionPrompt()
     {
         return "Interact with " + _productName;
     }
