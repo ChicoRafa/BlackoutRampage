@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float levelDurationInMinutes = 8f;
 
     [Header("Events")]
+    public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
     public UnityEvent onLevelEnd;
     public UnityEvent onEveryQuarterPassed;
+    public UnityEvent onPause;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        onLevelEnd.Invoke();
+        onGameStart.Invoke();
+        Debug.Log("Game Manager - Game started");
     }
 
     public void StartLevel()
@@ -53,13 +56,14 @@ public class GameManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= nextQuarterTime)
             {
+                Debug.Log("Game Manager - A quarter passed");
                 onEveryQuarterPassed.Invoke();
                 nextQuarterTime += quarterDuration;
             }
             if (elapsedTime - passedSeconds >= 1)
             {
                 passedSeconds += 1;
-                Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
+                //Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
             }
             if (elapsedTime >= levelDuration)
             {
@@ -76,8 +80,10 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("Game Manager - Game paused");
         levelRunning = false;
         Time.timeScale = 0;
+        onPause.Invoke();
     }
 
     public void ResumeGame()

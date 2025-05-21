@@ -1,16 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Data.PlayerController.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] private Image currentDayTimeImage;
-    [SerializeField] private GameObject TimeTextElement;
+    [Header("UI GameObjects")]
+    [SerializeField] private GameObject levelMenuObject;
+    [SerializeField] private GameObject inGameElementsObject;
+    [SerializeField] private GameObject timeTextObject;
+    [SerializeField] private GameObject resumeGameButtonObject;
+    [SerializeField] private GameObject nextLevelButtonObject;
+    [SerializeField] private GameObject helpButtonObject;
+
+    [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
+
+
+    [Header("UI Images")]
+    [SerializeField] private Image currentDayTimeImage;
     [SerializeField] private List<Sprite> dayTimeSprites;
+    [SerializeField] private Image failureImage;
+    [SerializeField] private Image successImage;
 
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
@@ -42,6 +56,7 @@ public class MainUI : MonoBehaviour
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
+        gameManager.onPause.AddListener(OnPause);
     }
 
     private void OnLevelStart()
@@ -55,11 +70,24 @@ public class MainUI : MonoBehaviour
     private void OnLevelEnd()
     {
         //Debug.Log("Main UI - Level ended");
+
+        nextLevelButtonObject.SetActive(true);
+        resumeGameButtonObject.SetActive(false);
+        helpButtonObject.SetActive(false);
+        failureImage.gameObject.SetActive(true);
+        levelMenuObject.SetActive(true);
+        inGameElementsObject.SetActive(false);
+    }
+
+    private void OnPause()
+    {
+        levelMenuObject.SetActive(true);
+        inGameElementsObject.SetActive(false);
     }
 
     private void OnEveryQuarterPassed()
     {
-        Debug.Log("A QUARTER PASSED");
+        //Debug.Log("A QUARTER PASSED");
         minutesCycleIndex++;
         if (minutesCycleIndex >= 4)
         {
@@ -76,7 +104,7 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryHourPassed()
     {
-        Debug.Log("An hour passed");
+        //Debug.Log("An hour passed");
         passedHours++;
         UpdateHourText();
         if (passedHours % 2 == 0)
@@ -91,7 +119,7 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryTwoHoursPassed()
     {
-        Debug.Log("Two hours passed");
+        //Debug.Log("Two hours passed");
         UpdateDayTimeImage();
     }
 
@@ -109,7 +137,7 @@ public class MainUI : MonoBehaviour
 
     private void UpdateDayTimeImage()
     {
-        Debug.Log("Updated day time image");
+        //Debug.Log("Updated day time image");
         currentDayTimeImageIndex++;
         if (currentDayTimeImageIndex >= dayTimeSprites.Count)
         {
@@ -126,41 +154,41 @@ public class MainUI : MonoBehaviour
             gameManager.onLevelStart.RemoveListener(OnLevelStart);
             gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
             gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
+            gameManager.onPause.RemoveListener(OnPause);
         }
     }
     IEnumerator AnimateTimeTextScale()
-{
-    Vector3 originalScale = TimeTextElement.transform.localScale;
-    Vector3 targetScale = originalScale * 2f;
-    float duration = 0.4f;
-    float elapsed = 0f;
-
-    // Get all TextMeshProUGUI children
-    TextMeshProUGUI[] texts = TimeTextElement.GetComponentsInChildren<TextMeshProUGUI>();
-    Color[] originalColors = new Color[texts.Length];
-    for (int i = 0; i < texts.Length; i++)
-        originalColors[i] = texts[i].color;
-    Color targetColor = Color.red;
-
-    // Scale up and color to red
-    while (elapsed < duration)
     {
-        float t = elapsed / duration;
-        TimeTextElement.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+        Vector3 originalScale = timeTextObject.transform.localScale;
+        Vector3 targetScale = originalScale * 1.5f;
+        float duration = 0.4f;
+        float elapsed = 0f;
+
+        TextMeshProUGUI[] texts = timeTextObject.GetComponentsInChildren<TextMeshProUGUI>();
+        Color[] originalColors = new Color[texts.Length];
         for (int i = 0; i < texts.Length; i++)
-            texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
-        elapsed += Time.deltaTime;
-        yield return null;
-    }
+            originalColors[i] = texts[i].color;
+        Color targetColor = Color.red;
 
-    // Scale down and color back to original
-    elapsed = 0f;
-    while (elapsed < duration)
-    {
-        float t = elapsed / duration;
-        TimeTextElement.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
-        elapsed += Time.deltaTime;
-        yield return null;
+        // Scale up and color to red
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextObject.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            for (int i = 0; i < texts.Length; i++)
+                texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Scale down and color back to original
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextObject.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
-}
 }
