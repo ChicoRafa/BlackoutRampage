@@ -10,7 +10,7 @@ public class InteractionPromptUI : MonoBehaviour
     private Transform followTarget;
     private InputUtils.InputScheme currentInputScheme;
     private PromptIconSet iconSet;
-    private Vector3 customOffset = Vector3.up * 4f;
+    private Vector3 customOffset = Vector3.up * 3f;
 
 
     public void SetPrompt(Sprite iconSprite, string text, PromptIconSet iconSetRef)
@@ -24,10 +24,6 @@ public class InteractionPromptUI : MonoBehaviour
     public void SetTarget(Transform target)
     {
         followTarget = target;
-    }
-    
-    public void SetOffset(Vector3 offset) {
-        customOffset = offset;
     }
     
     private void OnEnable()

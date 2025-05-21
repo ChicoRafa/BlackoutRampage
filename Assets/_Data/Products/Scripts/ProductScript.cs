@@ -125,7 +125,7 @@ public class ProductScript : InteractableBase
     }
     public override string GetInteractionPrompt()
     {
-        return "Interact with " + _productName;
+        return "Pick up " + _productName;
     }
     
     public Product GetProduct()
