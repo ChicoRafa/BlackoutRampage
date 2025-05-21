@@ -87,7 +87,7 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryQuarterPassed()
     {
-        Debug.Log("A QUARTER PASSED");
+        //Debug.Log("A QUARTER PASSED");
         minutesCycleIndex++;
         if (minutesCycleIndex >= 4)
         {
@@ -104,7 +104,7 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryHourPassed()
     {
-        Debug.Log("An hour passed");
+        //Debug.Log("An hour passed");
         passedHours++;
         UpdateHourText();
         if (passedHours % 2 == 0)
@@ -119,7 +119,7 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryTwoHoursPassed()
     {
-        Debug.Log("Two hours passed");
+        //Debug.Log("Two hours passed");
         UpdateDayTimeImage();
     }
 
@@ -137,7 +137,7 @@ public class MainUI : MonoBehaviour
 
     private void UpdateDayTimeImage()
     {
-        Debug.Log("Updated day time image");
+        //Debug.Log("Updated day time image");
         currentDayTimeImageIndex++;
         if (currentDayTimeImageIndex >= dayTimeSprites.Count)
         {
@@ -160,7 +160,7 @@ public class MainUI : MonoBehaviour
     IEnumerator AnimateTimeTextScale()
     {
         Vector3 originalScale = timeTextObject.transform.localScale;
-        Vector3 targetScale = originalScale * 2f;
+        Vector3 targetScale = originalScale * 1.5f;
         float duration = 0.4f;
         float elapsed = 0f;
 

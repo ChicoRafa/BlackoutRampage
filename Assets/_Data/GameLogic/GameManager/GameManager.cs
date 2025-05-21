@@ -56,13 +56,14 @@ public class GameManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= nextQuarterTime)
             {
+                Debug.Log("Game Manager - A quarter passed");
                 onEveryQuarterPassed.Invoke();
                 nextQuarterTime += quarterDuration;
             }
             if (elapsedTime - passedSeconds >= 1)
             {
                 passedSeconds += 1;
-                Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
+                //Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
             }
             if (elapsedTime >= levelDuration)
             {
