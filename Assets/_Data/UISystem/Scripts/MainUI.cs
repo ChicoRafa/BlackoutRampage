@@ -9,12 +9,13 @@ public class MainUI : MonoBehaviour
 {
     [Header("UI GameObjects")]
     [SerializeField] private GameObject levelMenuObject;
-    [SerializeField] private GameObject inGameElementsObejct;
-    [SerializeField] private GameObject timeTextElement;
+    [SerializeField] private GameObject inGameElementsObject;
+    [SerializeField] private GameObject timeTextObject;
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
+
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -69,7 +70,7 @@ public class MainUI : MonoBehaviour
     private void OnPause()
     {
         levelMenuObject.SetActive(true);
-        inGameElementsObejct.SetActive(false);
+        inGameElementsObject.SetActive(false);
     }
 
     private void OnEveryQuarterPassed()
@@ -146,12 +147,12 @@ public class MainUI : MonoBehaviour
     }
     IEnumerator AnimateTimeTextScale()
     {
-        Vector3 originalScale = timeTextElement.transform.localScale;
+        Vector3 originalScale = timeTextObject.transform.localScale;
         Vector3 targetScale = originalScale * 2f;
         float duration = 0.4f;
         float elapsed = 0f;
 
-        TextMeshProUGUI[] texts = timeTextElement.GetComponentsInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI[] texts = timeTextObject.GetComponentsInChildren<TextMeshProUGUI>();
         Color[] originalColors = new Color[texts.Length];
         for (int i = 0; i < texts.Length; i++)
             originalColors[i] = texts[i].color;
@@ -161,7 +162,7 @@ public class MainUI : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            timeTextElement.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            timeTextObject.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
             elapsed += Time.deltaTime;
@@ -173,7 +174,7 @@ public class MainUI : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            timeTextElement.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            timeTextObject.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
             elapsed += Time.deltaTime;
             yield return null;
         }

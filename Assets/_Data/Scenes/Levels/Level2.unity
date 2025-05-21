@@ -10256,11 +10256,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082705247}
   m_Mesh: {fileID: -6281424698479989189, guid: 643dbf4d3abdd094d99cbb86293820aa, type: 3}
---- !u!1 &2092038064 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1026836827917892634, guid: b8980961221036d47bb45f63af927609, type: 3}
-  m_PrefabInstance: {fileID: 1271513855958204396}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2117406627
 GameObject:
   m_ObjectHideFlags: 0
@@ -10664,7 +10659,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 4047850789475485869}
     m_Modifications:
     - target: {fileID: 1561152324066443425, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
       objectReference: {fileID: 953438048}
     - target: {fileID: 5382076609586082764, guid: b8980961221036d47bb45f63af927609, type: 3}
@@ -10747,26 +10742,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: LevelMenuObject
-      value: 
-      objectReference: {fileID: 112487156}
-    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: levelMenuObject
-      value: 
-      objectReference: {fileID: 112487156}
-    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: timeTextElement
-      value: 
-      objectReference: {fileID: 2092038064}
-    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: InGameElementsObejct
-      value: 
-      objectReference: {fileID: 1934511768}
-    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: inGameElementsObejct
-      value: 
-      objectReference: {fileID: 1934511768}
     - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10776,7 +10751,7 @@ PrefabInstance:
       value: MainUICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8158041937332324378, guid: b8980961221036d47bb45f63af927609, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[8].m_Target
       value: 
       objectReference: {fileID: 953438048}
     m_RemovedComponents: []
