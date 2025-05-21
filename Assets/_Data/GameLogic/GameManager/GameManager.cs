@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private float levelDurationInMinutes = 8f;
 
     [Header("Events")]
+    public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
     public UnityEvent onLevelEnd;
     public UnityEvent onEveryQuarterPassed;
+    public UnityEvent onPause;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -25,7 +27,8 @@ public class GameManager : MonoBehaviour {
     }
     void Start()
     {
-        onLevelEnd.Invoke();
+        onGameStart.Invoke();
+        Debug.Log("Game Manager - Game started");
     }
 
     public void StartLevel()
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour {
     {
         levelRunning = false;
         Time.timeScale = 0;
+        onPause.Invoke();
     }
     
     public void ResumeGame()

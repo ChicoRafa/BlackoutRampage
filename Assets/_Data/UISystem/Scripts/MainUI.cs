@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Data.PlayerController.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] private Image currentDayTimeImage;
-    [SerializeField] private GameObject TimeTextElement;
+    [Header("UI GameObjects")]
+    [SerializeField] private GameObject levelMenuObject;
+    [SerializeField] private GameObject inGameElementsObejct;
+    [SerializeField] private GameObject timeTextElement;
+
+    [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
+
+    [Header("UI Images")]
+    [SerializeField] private Image currentDayTimeImage;
     [SerializeField] private List<Sprite> dayTimeSprites;
 
     private int currentDayTimeImageIndex = 0;
@@ -42,6 +50,7 @@ public class MainUI : MonoBehaviour
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
+        gameManager.onPause.AddListener(OnPause);
     }
 
     private void OnLevelStart()
@@ -55,6 +64,12 @@ public class MainUI : MonoBehaviour
     private void OnLevelEnd()
     {
         //Debug.Log("Main UI - Level ended");
+    }
+
+    private void OnPause()
+    {
+        levelMenuObject.SetActive(true);
+        inGameElementsObejct.SetActive(false);
     }
 
     private void OnEveryQuarterPassed()
@@ -126,41 +141,41 @@ public class MainUI : MonoBehaviour
             gameManager.onLevelStart.RemoveListener(OnLevelStart);
             gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
             gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
+            gameManager.onPause.RemoveListener(OnPause);
         }
     }
     IEnumerator AnimateTimeTextScale()
-{
-    Vector3 originalScale = TimeTextElement.transform.localScale;
-    Vector3 targetScale = originalScale * 2f;
-    float duration = 0.4f;
-    float elapsed = 0f;
-
-    // Get all TextMeshProUGUI children
-    TextMeshProUGUI[] texts = TimeTextElement.GetComponentsInChildren<TextMeshProUGUI>();
-    Color[] originalColors = new Color[texts.Length];
-    for (int i = 0; i < texts.Length; i++)
-        originalColors[i] = texts[i].color;
-    Color targetColor = Color.red;
-
-    // Scale up and color to red
-    while (elapsed < duration)
     {
-        float t = elapsed / duration;
-        TimeTextElement.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+        Vector3 originalScale = timeTextElement.transform.localScale;
+        Vector3 targetScale = originalScale * 2f;
+        float duration = 0.4f;
+        float elapsed = 0f;
+
+        TextMeshProUGUI[] texts = timeTextElement.GetComponentsInChildren<TextMeshProUGUI>();
+        Color[] originalColors = new Color[texts.Length];
         for (int i = 0; i < texts.Length; i++)
-            texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
-        elapsed += Time.deltaTime;
-        yield return null;
-    }
+            originalColors[i] = texts[i].color;
+        Color targetColor = Color.red;
 
-    // Scale down and color back to original
-    elapsed = 0f;
-    while (elapsed < duration)
-    {
-        float t = elapsed / duration;
-        TimeTextElement.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
-        elapsed += Time.deltaTime;
-        yield return null;
+        // Scale up and color to red
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextElement.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            for (int i = 0; i < texts.Length; i++)
+                texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Scale down and color back to original
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextElement.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
-}
 }
