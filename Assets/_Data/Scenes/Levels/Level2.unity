@@ -5828,6 +5828,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 31.75288
       objectReference: {fileID: 0}
+    - target: {fileID: 1203820164947188562, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8379688818691025040, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.61
@@ -5867,6 +5871,10 @@ PrefabInstance:
     - target: {fileID: 8379688818691025040, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458408131614333941, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
+      propertyPath: timeForTruckToArrive
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10821,6 +10829,14 @@ PrefabInstance:
     - target: {fileID: 2113956879138234158, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262054456634534973, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279987199071532527, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347214639607621120, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkShelvingLvl2: 0
   perkShelvingLvl3: 0
-  perkCallTruck: 0
+  perkCallTruck: 1
