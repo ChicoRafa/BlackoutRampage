@@ -64,7 +64,7 @@ public class Truck : MonoBehaviour
         truckIsComing = true;
     }
 
-    private void TruckArrives()
+    public void TruckArrives()
     {
         Debug.Log("Track has arrived");
 
