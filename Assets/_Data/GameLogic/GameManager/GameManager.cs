@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("Game Manager - Game paused");
         levelRunning = false;
         Time.timeScale = 0;
         onPause.Invoke();
