@@ -11,6 +11,9 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject levelMenuObject;
     [SerializeField] private GameObject inGameElementsObject;
     [SerializeField] private GameObject timeTextObject;
+    [SerializeField] private GameObject resumeGameButtonObject;
+    [SerializeField] private GameObject nextLevelButtonObject;
+    [SerializeField] private GameObject helpButtonObject;
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
@@ -20,6 +23,8 @@ public class MainUI : MonoBehaviour
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
     [SerializeField] private List<Sprite> dayTimeSprites;
+    [SerializeField] private Image failureImage;
+    [SerializeField] private Image successImage;
 
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
@@ -65,6 +70,13 @@ public class MainUI : MonoBehaviour
     private void OnLevelEnd()
     {
         //Debug.Log("Main UI - Level ended");
+
+        nextLevelButtonObject.SetActive(true);
+        resumeGameButtonObject.SetActive(false);
+        helpButtonObject.SetActive(false);
+        failureImage.gameObject.SetActive(true);
+        levelMenuObject.SetActive(true);
+        inGameElementsObject.SetActive(false);
     }
 
     private void OnPause()
