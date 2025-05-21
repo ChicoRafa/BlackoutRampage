@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     [Header("Game Settings")]
     [SerializeField] private float levelDurationInMinutes = 8f;
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour {
     private float passedSeconds = 0;
     private bool levelRunning = false;
 
+    [Header("Perks")]
+    [SerializeField] private PerksSO perksData;
+
     void Awake()
     {
         levelDuration = levelDurationInMinutes * 60;
@@ -37,11 +41,15 @@ public class GameManager : MonoBehaviour {
         passedSeconds = 0;
         nextQuarterTime = quarterDuration;
         levelRunning = true;
+
+        CheckPerks();
+
         onLevelStart.Invoke();
         Debug.Log("Game Manager - Level started");
     }
 
-    void Update() {
+    void Update()
+    {
 
         if (levelRunning)
         {
@@ -75,11 +83,41 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         onPause.Invoke();
     }
-    
+
     public void ResumeGame()
     {
         levelRunning = true;
         Time.timeScale = 1;
     }
+
+    private void CheckPerks()
+    {
+        GameObject[] shelvingParents = GameObject.FindGameObjectsWithTag("ShelvingParent");
+
+        foreach (GameObject parent in shelvingParents)
+        {
+            Transform child1 = parent.transform.GetChild(0);
+            Transform child2 = parent.transform.GetChild(1);
+            Transform child3 = parent.transform.GetChild(2);
+
+            if (!perksData.perkShelvingLvl2 && !perksData.perkShelvingLvl3)
+            {
+                child1.gameObject.SetActive(true);
+                child2.gameObject.SetActive(false);
+                child3.gameObject.SetActive(false);
+            }
+            else if (perksData.perkShelvingLvl2 && !perksData.perkShelvingLvl3)
+            {
+                child1.gameObject.SetActive(false);
+                child2.gameObject.SetActive(true);
+                child3.gameObject.SetActive(false);
+            }
+            else if (perksData.perkShelvingLvl3)
+            {
+                child1.gameObject.SetActive(false);
+                child2.gameObject.SetActive(false);
+                child3.gameObject.SetActive(true);
+            }
+        }
+    }
 }
-    
