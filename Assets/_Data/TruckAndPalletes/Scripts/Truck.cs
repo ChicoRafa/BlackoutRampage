@@ -18,7 +18,13 @@ public class Truck : MonoBehaviour
     [SerializeField] private int timeForTruckToArrive = 90;
     private float timer;
     private int remainingSeconds;
+    private int totalSeconds;
     private bool truckIsComing;
+
+    [Header("UI")]
+    [SerializeField] private RectTransform truckIcon;
+    [SerializeField] private Vector3 truckStartPos = new Vector3(-900f, 400f, 0f);
+    [SerializeField] private Vector3 truckEndPos = new Vector3(-675f, 400f, 0f);
 
     private void Start()
     {
@@ -27,15 +33,18 @@ public class Truck : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-            TruckArrives();
+        //if (Input.GetKeyDown(KeyCode.T))
+        //    TruckArrives();
 
-        if (truckIsComing)
-            TruckTimer();
+        TruckTimer();
     }
 
     private void TruckTimer()
     {
+        if (!truckIsComing) return;
+
+        UpdateTruckPosition();
+
         if (remainingSeconds <= 0)
         {
             TruckArrives();
@@ -57,16 +66,41 @@ public class Truck : MonoBehaviour
         }
     }
 
+    private void UpdateTruckPosition()
+    {
+        float progress = 1f - (float)remainingSeconds / totalSeconds;
+        truckIcon.anchoredPosition = Vector3.Lerp(truckStartPos, truckEndPos, progress);
+    }
+
+    public void StartTruckJourney(int durationSeconds)
+    {
+        totalSeconds = durationSeconds;
+        remainingSeconds = durationSeconds;
+        truckIsComing = true;
+        timer = 0f;
+
+        truckIcon.anchoredPosition = truckStartPos;
+    }
+
+    public void SkipTruckJourney()
+    {
+        remainingSeconds = 0;
+        UpdateTruckPosition();
+    }
+
     public void ResetTruckTimer()
     {
         remainingSeconds = timeForTruckToArrive;
         timer = 0f;
         truckIsComing = true;
+        StartTruckJourney(timeForTruckToArrive);
     }
 
     public void TruckArrives()
     {
         Debug.Log("Track has arrived");
+
+        SkipTruckJourney();
 
         for (int i = 0; i < productsToBring; i++)
         {

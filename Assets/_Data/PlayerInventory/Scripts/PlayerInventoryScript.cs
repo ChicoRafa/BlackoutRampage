@@ -32,7 +32,7 @@ public class PlayerInventoryScript : MonoBehaviour
     public void UpdateSelectedSlot(int slot)
     {
         for (int i = 0; i < playerInventorySlotsBox.Count; i++)
-            playerInventorySlotsBox[i].color = Color.white;
+            playerInventorySlotsBox[i].color = Color.black;
 
         selectedSlot = slot;
         playerInventorySlotsBox[selectedSlot].color = selectedSlotColor;
