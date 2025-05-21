@@ -11,30 +11,14 @@ public class InteractionZone : MonoBehaviour
 
     [Header("Shelving")]
     [HideInInspector] public Shelving shelving;
-
-    [Header("Computer and Truck perk")]
-    [SerializeField] private PerksSO perksData;
-    [HideInInspector] public bool isLookingAtComputer = false;
-    private Truck truck;
-
+    
     private void Awake()
     {
         interactor = transform.parent.gameObject;
     }
-
-    private void Start()
-    {
-        truck = FindFirstObjectByType<Truck>();
-    }
-
+    
     internal void TryInteract()
     {
-        if (perksData.perkCallTruck && isLookingAtComputer)
-        {
-            truck.TruckArrives();
-            return;
-        }
-
         interactableObject?.Interact(interactor);
     }
 
@@ -52,9 +36,6 @@ public class InteractionZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Computer"))
-            isLookingAtComputer = false;
-
         if (other.GetComponent<Shelving>() && shelving)
             shelving = null;
 
@@ -67,9 +48,6 @@ public class InteractionZone : MonoBehaviour
 
     private void OnInteractableDetected(Collider other)
     {
-        if (other.gameObject.CompareTag("Computer"))
-            isLookingAtComputer = true;
-
         if (other.GetComponent<Shelving>())
             shelving = other.GetComponent<Shelving>();
 

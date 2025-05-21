@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a93ec4e1f7372945a07a9b5cb3a6794, type: 3}
   m_Name: Perks
   m_EditorClassIdentifier: 
-  perkShelvingLvl2: 0
+  perkShelvingLvl2: 1
   perkShelvingLvl3: 0
   perkCallTruck: 1
