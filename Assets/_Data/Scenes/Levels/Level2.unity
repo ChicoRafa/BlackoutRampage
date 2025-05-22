@@ -2241,6 +2241,8 @@ Transform:
   m_Children:
   - {fileID: 142316375}
   - {fileID: 754847213}
+  - {fileID: 1166028227}
+  - {fileID: 1441492578}
   m_Father: {fileID: 1363954512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &256533133
@@ -4610,6 +4612,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d2c28189658b8e419f25705f47834be, type: 3}
   m_PrefabInstance: {fileID: 661786953}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &794222045 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4961046477526458021, guid: b8980961221036d47bb45f63af927609, type: 3}
+  m_PrefabInstance: {fileID: 1271513855958204396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &810134749
 GameObject:
   m_ObjectHideFlags: 0
@@ -5310,6 +5317,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onPause:
+    m_PersistentCalls:
+      m_Calls: []
+  onShelvingPerkLVL2Bought:
+    m_PersistentCalls:
+      m_Calls: []
+  onShelvingPerkLVL3Bought:
     m_PersistentCalls:
       m_Calls: []
   perksData: {fileID: 11400000, guid: 026f41cda53e1c342b7440fd8d53188c, type: 2}
@@ -6376,6 +6389,59 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1166028226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166028227}
+  - component: {fileID: 1166028228}
+  m_Layer: 0
+  m_Name: MainUIToPerkShopUITimeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1166028227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166028226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 250697762}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1166028228
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166028226}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: c455c5b2fc4b0244fbe9460001ba6176, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 2
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -7448772401904978869, guid: c455c5b2fc4b0244fbe9460001ba6176, type: 2}
+    value: {fileID: 112487158}
+  - key: {fileID: -5116790393574996756, guid: c455c5b2fc4b0244fbe9460001ba6176, type: 2}
+    value: {fileID: 794222045}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1172893248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7357,6 +7423,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
   m_PrefabInstance: {fileID: 647051991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1441492577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1441492578}
+  - component: {fileID: 1441492579}
+  m_Layer: 0
+  m_Name: PerkShopUIToMainUITimeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1441492578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441492577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 250697762}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1441492579
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441492577}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: e824622583492ef4896b6a882f5fc73b, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 2
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -8699832813139121219, guid: e824622583492ef4896b6a882f5fc73b, type: 2}
+    value: {fileID: 112487158}
+  - key: {fileID: -2673999657185458423, guid: e824622583492ef4896b6a882f5fc73b, type: 2}
+    value: {fileID: 794222045}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1445693114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10545,6 +10664,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
       objectReference: {fileID: 953438048}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1166028226}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1441492577}
+    - target: {fileID: 2790908080453493606, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
+    - target: {fileID: 4055736427922245248, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1441492577}
+    - target: {fileID: 4055736427922245248, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1166028226}
     - target: {fileID: 5382076609586082764, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10634,6 +10773,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 754847212}
     - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 953438048}
+    - target: {fileID: 6468888064789052832, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 953438048}

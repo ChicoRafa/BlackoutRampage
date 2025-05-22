@@ -14,11 +14,15 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject resumeGameButtonObject;
     [SerializeField] private GameObject nextLevelButtonObject;
     [SerializeField] private GameObject helpButtonObject;
+    [SerializeField] private GameObject shelvesBuyButtonObject;
+    [SerializeField] private GameObject shelvesSoldOutButtonObject;
+    [SerializeField] private GameObject shelvesCapacityPriceElementObject;
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
-
+    [SerializeField] private TextMeshProUGUI shelvesLevelNumberText;
+    [SerializeField] private TextMeshProUGUI shelvesLevelPriceText;
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -57,6 +61,9 @@ public class MainUI : MonoBehaviour
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
         gameManager.onPause.AddListener(OnPause);
+        gameManager.onShelvingPerkLVL2Bought.AddListener(OnShelvingPerkLVL2Bought);
+        gameManager.onShelvingPerkLVL3Bought.AddListener(OnShelvingPerkLVL3Bought);
+
     }
 
     private void OnLevelStart()
@@ -155,6 +162,8 @@ public class MainUI : MonoBehaviour
             gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
             gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
             gameManager.onPause.RemoveListener(OnPause);
+            gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
+            gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
         }
     }
     IEnumerator AnimateTimeTextScale()
@@ -190,5 +199,21 @@ public class MainUI : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private void OnShelvingPerkLVL2Bought()
+    {
+        int shelvesLevelPrice = int.Parse(shelvesLevelPriceText.text);
+        shelvesLevelPrice += 2500;
+        shelvesLevelPriceText.text = shelvesLevelPrice.ToString();
+        shelvesLevelNumberText.text = "3";
+    }
+
+    private void OnShelvingPerkLVL3Bought()
+    {
+        shelvesLevelNumberText.text = "3";
+        shelvesCapacityPriceElementObject.SetActive(false);
+        shelvesBuyButtonObject.SetActive(false);
+        shelvesSoldOutButtonObject.SetActive(true);
     }
 }
