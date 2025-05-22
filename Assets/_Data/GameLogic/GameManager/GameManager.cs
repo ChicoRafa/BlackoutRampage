@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
     public UnityEvent onLevelEnd;
-    public UnityEvent onEveryQuarterPassed;
-    public UnityEvent onPause;
+    [HideInInspector] public UnityEvent onEveryQuarterPassed;
+    [HideInInspector] public UnityEvent onPause;
+    [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
+    [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    private void CheckPerks()
+    public void CheckPerks()
     {
         GameObject[] shelvingParents = GameObject.FindGameObjectsWithTag("ShelvingParent");
 
@@ -113,13 +115,29 @@ public class GameManager : MonoBehaviour
                 child1.gameObject.SetActive(false);
                 child2.gameObject.SetActive(true);
                 child3.gameObject.SetActive(false);
+                onShelvingPerkLVL2Bought.Invoke();
             }
             else if (perksData.perkShelvingLvl3)
             {
                 child1.gameObject.SetActive(false);
                 child2.gameObject.SetActive(false);
                 child3.gameObject.SetActive(true);
+                onShelvingPerkLVL3Bought.Invoke();
             }
+        }
+    }
+
+    public void BuyShelvesCapacityPerk()
+    {
+        if (!perksData.perkShelvingLvl2)
+        {
+            perksData.perkShelvingLvl2 = true;
+            onShelvingPerkLVL2Bought.Invoke();
+        }
+        else if (!perksData.perkShelvingLvl3)
+        {
+            perksData.perkShelvingLvl3 = true;
+            onShelvingPerkLVL3Bought.Invoke();
         }
     }
 }
