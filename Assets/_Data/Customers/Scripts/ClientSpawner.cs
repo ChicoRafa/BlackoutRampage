@@ -12,10 +12,12 @@ namespace _Data.Customers.Scripts {
         [Header("References")]
         public Transform spawnPoint;
         public ClientQueueManager queueManager;
+        public GameManager gameManager;
 
         [Header("Order Generation")]
         public ProductCatalog productCatalog;
 
+        [Header("Spawn Rates")]
         public float spawnRate = 5f;
         public int maxClients = 5;
 
@@ -28,7 +30,7 @@ namespace _Data.Customers.Scripts {
                 Debug.LogError("🚫 ClientSpawner: ProductCatalog is not assigned.");
             }
         }
-
+        
         private void Update() {
             spawnTimer += Time.deltaTime;
 
@@ -49,7 +51,7 @@ namespace _Data.Customers.Scripts {
 
             if (client != null) {
                 int index = Random.Range(0, clientTypes.Length);
-                client.Init(clientTypes[index], queueManager);
+                client.Init(clientTypes[index], queueManager, gameManager);
                 queueManager.EnqueueClient(client);
             }
         }

@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-
-    [Header("Game Settings")]
-    [SerializeField] private float levelDurationInMinutes = 8f;
+    [Header("Sriptable Objects")]
+    [SerializeField] private GameDataSO gameData;
+    [SerializeField] private List<LevelConfigSO> levelConfigs;
+    [SerializeField] private PerksSO perksData;
 
     [Header("Events")]
     public UnityEvent onGameStart;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onPacifyingMusicEnd;
     [HideInInspector] public UnityEvent onMoneyChanged;
     [HideInInspector] public UnityEvent onHappinessChanged;
+    [HideInInspector] public UnityEvent<string, string> onObjectivesChanged;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -28,21 +31,18 @@ public class GameManager : MonoBehaviour
     private float passedSeconds = 0;
     private bool levelRunning = false;
 
-    [Header("Sriptable Objects")]
-    [SerializeField] private GameDataSO gameData;
-    [SerializeField] private PerksSO perksData;
-
     void Awake()
     {
-        levelDuration = levelDurationInMinutes * 60;
+        levelDuration = gameData.levelDurationInMinutes * 60;
         quarterDuration = levelDuration / 32;
     }
     void Start()
     {
         onGameStart.Invoke();
         Debug.Log("Game Manager - Game started");
-        MoneyChanged();
-        HappinessChanged();
+        onMoneyChanged.Invoke();
+        onHappinessChanged.Invoke();
+        UpdateObjective();
         CheckPerks();
     }
 
@@ -103,14 +103,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void MoneyChanged()
+    public void UpdateMoney(int money)
     {
+        gameData.money += money;
         onMoneyChanged.Invoke();
     }
 
-    public void HappinessChanged()
+    public void UpdateHappiness(int happiness)
     {
+        gameData.happiness += happiness;
         onHappinessChanged.Invoke();
+    }
+
+    public void UpdateObjective()
+    {
+        string newMoneyObjective = levelConfigs[gameData.currentLevelIndex].moneyObjective.ToString();
+        string newHappinessObjective = levelConfigs[gameData.currentLevelIndex].happinessObjective.ToString();
+        onObjectivesChanged.Invoke(newMoneyObjective, newHappinessObjective);
     }
 
     public void CheckPerks()
@@ -155,15 +164,13 @@ public class GameManager : MonoBehaviour
     {
         if (!perksData.perkShelvingLvl2 && perksData.perkShelvingLvl2Price <= gameData.money)
         {
-            gameData.money -= perksData.perkShelvingLvl2Price;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkShelvingLvl2Price);
             perksData.perkShelvingLvl2 = true;
             onShelvingPerkLVL2Bought.Invoke();
         }
         else if (!perksData.perkShelvingLvl3 && perksData.perkShelvingLvl3Price <= gameData.money)
         {
-            gameData.money -= perksData.perkShelvingLvl3Price;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkShelvingLvl3Price);
             perksData.perkShelvingLvl3 = true;
             onShelvingPerkLVL3Bought.Invoke();
         }
@@ -177,8 +184,7 @@ public class GameManager : MonoBehaviour
     {
         if (!perksData.perkCallTruck && perksData.perkCallTruckPrice <= gameData.money)
         {
-            gameData.money -= perksData.perkCallTruckPrice;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkCallTruckPrice);
             perksData.perkCallTruck = true;
             onTruckCallingPerkBought.Invoke();
         }

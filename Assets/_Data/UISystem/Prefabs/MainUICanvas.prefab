@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 852855586048744278}
   - component: {fileID: 7669209777800204904}
   m_Layer: 0
-  m_Name: TargetHappinessNumberText (1)
+  m_Name: ObjectiveHappinessNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7290ce01171c8a44ba57639562ba5e27, type: 2}
   m_sharedMaterial: {fileID: -3829085632063550198, guid: 7290ce01171c8a44ba57639562ba5e27, type: 2}
@@ -7913,6 +7913,8 @@ MonoBehaviour:
   currentMinuteText: {fileID: 5581336957375519187}
   inGameCurrentMoneyNumberText: {fileID: 3402004236423924918}
   inGameHappinessNumberText: {fileID: 3375789362234490776}
+  objectiveMoneyNumberText: {fileID: 9145726203840087190}
+  objectiveHappinessNumberText: {fileID: 7669209777800204904}
   resultsMoneyNumberText: {fileID: 7497464408333791572}
   resultsHappinessNumberText: {fileID: 8519376719633514719}
   perkShopMoneyNumberText: {fileID: 827780933058416828}
@@ -8704,7 +8706,7 @@ GameObject:
   - component: {fileID: 1113553521511430293}
   - component: {fileID: 9145726203840087190}
   m_Layer: 0
-  m_Name: TargetMoneyNumberText
+  m_Name: ObjectiveMoneyNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8757,7 +8759,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7290ce01171c8a44ba57639562ba5e27, type: 2}
   m_sharedMaterial: {fileID: -3829085632063550198, guid: 7290ce01171c8a44ba57639562ba5e27, type: 2}

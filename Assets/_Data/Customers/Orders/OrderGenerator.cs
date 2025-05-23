@@ -10,29 +10,25 @@ namespace _Data.Customers.Orders {
             availableProducts = products;
         }
 
-        public static Order GenerateRandomOrder() {
-            Dictionary<Product, int> items = new();
+        public static Order GenerateRandomOrder()
+        {
 
             if (availableProducts == null || availableProducts.Count == 0) {
                 Debug.LogError("🚫 OrderGenerator: No available products!");
                 return null;
             }
 
+            List<Product> items = new();
             List<Product> shuffledProducts = new List<Product>(availableProducts);
             Shuffle(shuffledProducts);
 
             int remainingQuantity = Random.Range(1, 4);
-            int index = 0;
 
-            while (remainingQuantity > 0 && index < shuffledProducts.Count) {
-                Product product = shuffledProducts[index];
-                int maxQuantityForThisItem = Mathf.Min(remainingQuantity, 3);
-                int quantity = Random.Range(1, maxQuantityForThisItem + 1);
-
-                items.Add(product, quantity);
-
-                remainingQuantity -= quantity;
-                index++;
+            while (remainingQuantity > 0) {
+                int randomIndex = Random.Range(0, shuffledProducts.Count); 
+                Product product = shuffledProducts[randomIndex];
+                items.Add(product);
+                remainingQuantity--;
             }
 
             return new Order(items);
