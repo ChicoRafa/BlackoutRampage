@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject resumeGameButtonObject;
     [SerializeField] private GameObject nextLevelButtonObject;
     [SerializeField] private GameObject helpButtonObject;
+    [SerializeField] private GameObject currentMoneyElementObject;
     [SerializeField] private GameObject shelvesBuyButtonObject;
     [SerializeField] private GameObject shelvesSoldOutButtonObject;
     [SerializeField] private GameObject shelvesCapacityPriceElementObject;
@@ -85,6 +87,7 @@ public class MainUI : MonoBehaviour
         gameManager.onTruckCallingPerkBought.AddListener(OnTruckCallingPerkBought);
         gameManager.onPowerUpDurationPerkBought.AddListener(OnPowerUpDurationPerkBought);
         gameManager.onExtraServiceSlotsPerkBought.AddListener(OnExtraServiceSlotsPerkBought);
+        gameManager.onNotEnoughMoneyToBuyPerk.AddListener(OnNotEnoughMoneyToBuyPerk);
         gameManager.onMoneyChanged.AddListener(OnMoneyChanged);
         gameManager.onHappinessChanged.AddListener(OnHappinessChanged);
         gameManager.onObjectivesChanged.AddListener(OnObjectivesChanged);
@@ -150,18 +153,18 @@ public class MainUI : MonoBehaviour
         }
         if (passedHours == 7)
         {
-            StartCoroutine(AnimateTimeTextScale());
+            StartCoroutine(AnimateTimeTextScale(timeTextObject));
         }
     }
 
-    IEnumerator AnimateTimeTextScale()
+    IEnumerator AnimateTimeTextScale(GameObject objectToAnimate)
     {
-        Vector3 originalScale = timeTextObject.transform.localScale;
+        Vector3 originalScale = objectToAnimate.transform.localScale;
         Vector3 targetScale = originalScale * 1.5f;
         float duration = 0.4f;
         float elapsed = 0f;
 
-        TextMeshProUGUI[] texts = timeTextObject.GetComponentsInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI[] texts = objectToAnimate.GetComponentsInChildren<TextMeshProUGUI>();
         Color[] originalColors = new Color[texts.Length];
         for (int i = 0; i < texts.Length; i++)
             originalColors[i] = texts[i].color;
@@ -171,7 +174,7 @@ public class MainUI : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            timeTextObject.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            objectToAnimate.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
             elapsed += Time.deltaTime;
@@ -183,7 +186,9 @@ public class MainUI : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            timeTextObject.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            objectToAnimate.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            for (int i = 0; i < texts.Length; i++)
+                texts[i].color = Color.Lerp(targetColor, originalColors[i], t);
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -231,6 +236,7 @@ public class MainUI : MonoBehaviour
         gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
         gameManager.onPowerUpDurationPerkBought.RemoveListener(OnPowerUpDurationPerkBought);
         gameManager.onExtraServiceSlotsPerkBought.RemoveListener(OnExtraServiceSlotsPerkBought);
+        gameManager.onNotEnoughMoneyToBuyPerk.RemoveListener(OnNotEnoughMoneyToBuyPerk);
         gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
         gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
         gameManager.onObjectivesChanged.RemoveListener(OnObjectivesChanged);
@@ -292,5 +298,10 @@ public class MainUI : MonoBehaviour
         extraServiceSlotsBuyButtonObject.SetActive(false);
         extraServiceSlotsSoldOutButtonObject.SetActive(true);
         extraServiceSlotsPriceElementObject.SetActive(false);
+    }
+
+    private void OnNotEnoughMoneyToBuyPerk()
+    {
+        StartCoroutine(AnimateTimeTextScale(currentMoneyElementObject));        
     }
 }

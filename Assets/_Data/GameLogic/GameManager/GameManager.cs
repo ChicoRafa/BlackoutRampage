@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
     [HideInInspector] public UnityEvent onPowerUpDurationPerkBought;
     [HideInInspector] public UnityEvent onExtraServiceSlotsPerkBought;
+    [HideInInspector] public UnityEvent onNotEnoughMoneyToBuyPerk;
     [HideInInspector] public UnityEvent onPacifyingMusicStart;
     [HideInInspector] public UnityEvent onPacifyingMusicEnd;
     [HideInInspector] public UnityEvent onMoneyChanged;
@@ -187,6 +188,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy shelves capacity perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
 
@@ -201,6 +203,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy truck calling perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
 
@@ -215,6 +218,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy power up duration perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
 
@@ -229,6 +233,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy extra service slots perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
 }
