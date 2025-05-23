@@ -10,6 +10,8 @@ namespace _Data.Customers.Scripts {
     }
 
     public class Client : InteractableBase {
+        [Header("Client Type")]
+        [SerializeField] private ClientType clientType;
         
         private GameObject modelInstance;
         private Animator animator;
@@ -23,27 +25,31 @@ namespace _Data.Customers.Scripts {
         private ClientState currentState = ClientState.WalkingToSlot;
 
         private ClientQueueManager queueManager;
-        public Order CurrentOrder { get; private set; }
+         public Order CurrentOrder { get; private set; }
+         
+        [Header("Sound")]
+        [SerializeField] private SoundManagerSO soundManager;
+        [SerializeField] private AudioCueSO audioCue;
         
         public void Init(ClientType clientType, ClientQueueManager queueManager)
         {
-            if (clientType == null || queueManager == null) return;
+            if (!clientType || !queueManager) return;
             
             this.queueManager = queueManager;
             // Attach character model
-            if (clientType.modelPrefab != null) {
+            if (clientType.modelPrefab) {
                 modelInstance = Instantiate(clientType.modelPrefab, transform);
                 modelInstance.transform.localPosition = new Vector3(0f, -0.7f, 0f);
                 modelInstance.transform.localRotation = Quaternion.identity;
 
                 animator = modelInstance.GetComponentInChildren<Animator>();
-                if (animator != null && clientType.animatorController != null) {
+                if (animator && clientType.animatorController) {
                     animator.runtimeAnimatorController = clientType.animatorController;
                 }
             }
 
             patienceUI = GetComponentInChildren<ClientPatienceUI>(true);
-            if (patienceUI == null) {
+            if (!patienceUI) {
                 Debug.LogError($"❌ {gameObject.name} is missing a ClientPatienceUI component!");
             }
 
@@ -65,7 +71,7 @@ namespace _Data.Customers.Scripts {
         }
 
         private void OnReachedQueuePosition(int queueIndex, bool isServiceSlot) {
-            if (isServiceSlot && modelInstance != null) {
+            if (isServiceSlot && modelInstance) {
                 modelInstance.transform.forward = Vector3.forward;
             }
 

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
     [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
+    [HideInInspector] public UnityEvent onPacifyingMusicStart;
+    [HideInInspector] public UnityEvent onPacifyingMusicEnd;
     [HideInInspector] public UnityEvent onMoneyChanged;
     [HideInInspector] public UnityEvent onHappinessChanged;
 

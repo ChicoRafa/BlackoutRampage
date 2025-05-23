@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8808662637465042752, guid: ba50381d8470ca24f88e4ec763c89edc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8808662637465042752, guid: ba50381d8470ca24f88e4ec763c89edc, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -106,6 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpData: {fileID: 11400000, guid: 7e0389b1698f8294e9e23d3f6b461589, type: 2}
   rotationSpeed: {x: 0, y: 90, z: 0}
+  soundManagerSO: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
+  powerUpCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}
 --- !u!65 &8586326732958860927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,7 +123,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

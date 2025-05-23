@@ -31,3 +31,12 @@ MonoBehaviour:
   - id: PickUp
     tag: 1
     clip: {fileID: 8300000, guid: 43f208d96dba1514abab6822aedd4f64, type: 3}
+  - id: PickPower
+    tag: 1
+    clip: {fileID: 8300000, guid: b6cad0aa8d4921f4ba318bbafc958347, type: 3}
+  - id: Truck
+    tag: 1
+    clip: {fileID: 8300000, guid: b9d600fbf5aff7d41a48314b9c5356da, type: 3}
+  - id: Select
+    tag: 1
+    clip: {fileID: 8300000, guid: db09748f798cca849adcf2f57b2d2c0b, type: 3}
