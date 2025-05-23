@@ -6221,7 +6221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84df2260a192b664ea1e28418e9bfea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelDurationInMinutes: 0.5
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -6352,6 +6351,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onTruckCallingPerkBought:
+    m_PersistentCalls:
+      m_Calls: []
+  onPacifyingMusicStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPacifyingMusicEnd:
     m_PersistentCalls:
       m_Calls: []
   onMoneyChanged:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424f188cb41ddc042887d6a5a23fd215, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
+  levelDurationInMinutes: 0.5
   workdayStartingHour: 16
   money: 700
   happiness: 200

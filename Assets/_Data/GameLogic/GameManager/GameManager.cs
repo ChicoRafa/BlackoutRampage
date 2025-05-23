@@ -3,10 +3,6 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-
-    [Header("Game Settings")]
-    [SerializeField] private float levelDurationInMinutes = 8f;
-
     [Header("Events")]
     public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
@@ -34,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        levelDuration = levelDurationInMinutes * 60;
+        levelDuration = gameData.levelDurationInMinutes * 60;
         quarterDuration = levelDuration / 32;
     }
     void Start()
