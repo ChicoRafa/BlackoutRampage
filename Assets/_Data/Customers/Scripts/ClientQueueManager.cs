@@ -8,12 +8,24 @@ namespace _Data.Customers.Scripts {
 
         [Header("Service Slots")]
         public List<Transform> serviceSlots;
-
+        
+        [Header("Perks")]
+        public PerksSO perksData;
+        public List<Transform> extraServiceSlots;
+        
+        [Header("Exit Scenario Point")]
         public Transform exitPoint;
 
         private List<Client> clientQueue = new List<Client>();
         private Dictionary<Transform, Client> activeServiceClients = new Dictionary<Transform, Client>();
 
+        private void Start()
+        {
+            if (perksData != null && perksData.perkExtraServiceSlots)
+            {
+                serviceSlots.AddRange(extraServiceSlots);
+            } 
+        }
         public void EnqueueClient(Client client) {
             if (clientQueue.Count >= queuePositions.Count) {
                 Debug.LogWarning("🚫 Queue is full! Client will leave angry.");

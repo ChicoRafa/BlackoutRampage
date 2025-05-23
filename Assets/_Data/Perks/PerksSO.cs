@@ -10,4 +10,10 @@ public class PerksSO : ScriptableObject
 
     public int perkCallTruckPrice = 0;
     public bool perkCallTruck = false;
+    
+    public int perkExtraServiceSlotsPrice = 0;
+    public bool perkExtraServiceSlots = false;
+    
+    public int perkLongerPowerUpsPrice = 0;
+    public bool perkLongerPowerUps = false;
 }
