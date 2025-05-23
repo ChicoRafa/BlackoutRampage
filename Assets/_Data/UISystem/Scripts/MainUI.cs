@@ -17,6 +17,9 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject shelvesBuyButtonObject;
     [SerializeField] private GameObject shelvesSoldOutButtonObject;
     [SerializeField] private GameObject shelvesCapacityPriceElementObject;
+    [SerializeField] private GameObject truckCallingBuyButtonObject;
+    [SerializeField] private GameObject truckCallingSoldOutButtonObject;
+    [SerializeField] private GameObject truckCallingPriceElementObject;
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
@@ -63,7 +66,7 @@ public class MainUI : MonoBehaviour
         gameManager.onPause.AddListener(OnPause);
         gameManager.onShelvingPerkLVL2Bought.AddListener(OnShelvingPerkLVL2Bought);
         gameManager.onShelvingPerkLVL3Bought.AddListener(OnShelvingPerkLVL3Bought);
-
+        gameManager.onTruckCallingPerkBought.AddListener(OnTruckCallingPerkBought);
     }
 
     private void OnLevelStart()
@@ -164,6 +167,7 @@ public class MainUI : MonoBehaviour
             gameManager.onPause.RemoveListener(OnPause);
             gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
             gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
+            gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
         }
     }
     IEnumerator AnimateTimeTextScale()
@@ -215,5 +219,12 @@ public class MainUI : MonoBehaviour
         shelvesCapacityPriceElementObject.SetActive(false);
         shelvesBuyButtonObject.SetActive(false);
         shelvesSoldOutButtonObject.SetActive(true);
+    }
+
+    private void OnTruckCallingPerkBought()
+    {
+        truckCallingBuyButtonObject.SetActive(false);
+        truckCallingSoldOutButtonObject.SetActive(true);
+        truckCallingPriceElementObject.SetActive(false);
     }
 }

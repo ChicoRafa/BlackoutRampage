@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onPause;
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
     [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
+    [HideInInspector] public UnityEvent onTruckCallingPerkBought;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -125,6 +126,11 @@ public class GameManager : MonoBehaviour
                 onShelvingPerkLVL3Bought.Invoke();
             }
         }
+
+        if (perksData.perkCallTruck)
+        {
+            onTruckCallingPerkBought.Invoke();
+        }
     }
 
     public void BuyShelvesCapacityPerk()
@@ -138,6 +144,15 @@ public class GameManager : MonoBehaviour
         {
             perksData.perkShelvingLvl3 = true;
             onShelvingPerkLVL3Bought.Invoke();
+        }
+    }
+
+    public void BuyTruckCallingPerk()
+    {
+        if (!perksData.perkCallTruck)
+        {
+            perksData.perkCallTruck = true;
+            onTruckCallingPerkBought.Invoke();
         }
     }
 }
