@@ -25,3 +25,9 @@ MonoBehaviour:
   - id: Pacify
     tag: 2
     clip: {fileID: 8300000, guid: 2045c5e6e96a82048aa4412038fb8ada, type: 3}
+  - id: Coins
+    tag: 1
+    clip: {fileID: 8300000, guid: 3c235ef86bdd5234d843c6255e13bde1, type: 3}
+  - id: PickUp
+    tag: 1
+    clip: {fileID: 8300000, guid: 43f208d96dba1514abab6822aedd4f64, type: 3}
