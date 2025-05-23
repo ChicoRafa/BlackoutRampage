@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1504622059271504496}
   - component: {fileID: 5737759999383672038}
   - component: {fileID: 8070439093263669771}
-  - component: {fileID: 4695657094222039406}
+  - component: {fileID: 1714024787163905001}
   m_Layer: 3
-  m_Name: ImpatientClientPrefab
+  m_Name: ClientPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
   iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
   promptOffset: {x: 0, y: 6, z: 0}
-  clientType: {fileID: 11400000, guid: 4a02e828777618a4eba77a88f3b8f24b, type: 2}
+  clientType: {fileID: 11400000, guid: 0d98ab70fbb085c458d792f8b688947c, type: 2}
 --- !u!54 &8070439093263669771
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4695657094222039406
+--- !u!65 &1714024787163905001
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

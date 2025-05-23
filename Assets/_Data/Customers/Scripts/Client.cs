@@ -10,8 +10,6 @@ namespace _Data.Customers.Scripts {
     }
 
     public class Client : InteractableBase {
-        [Header("Client Type")]
-        [SerializeField] private ClientType clientType;
         
         private GameObject modelInstance;
         private Animator animator;
@@ -25,11 +23,14 @@ namespace _Data.Customers.Scripts {
         private ClientState currentState = ClientState.WalkingToSlot;
 
         private ClientQueueManager queueManager;
-        
         public Order CurrentOrder { get; private set; }
-
-        private void Awake() {
-            // Spawn and attach character model
+        
+        public void Init(ClientType clientType, ClientQueueManager queueManager)
+        {
+            if (clientType == null || queueManager == null) return;
+            
+            this.queueManager = queueManager;
+            // Attach character model
             if (clientType.modelPrefab != null) {
                 modelInstance = Instantiate(clientType.modelPrefab, transform);
                 modelInstance.transform.localPosition = new Vector3(0f, -0.7f, 0f);
@@ -50,18 +51,12 @@ namespace _Data.Customers.Scripts {
             movement.Init(animator, modelInstance);
 
             patienceController = gameObject.AddComponent<ClientPatienceController>();
-        }
-
-        private void Start() {
+            
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
             Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.Items.Count} items.");
             patienceUI?.SetOrder(CurrentOrder);
         }
-
-        public void SetQueueManager(ClientQueueManager manager) {
-            queueManager = manager;
-        }
-
+        
         public void MoveToQueuePosition(Vector3 targetPosition, int queueIndex, bool isServiceSlot) {
             isBeingServed = isServiceSlot;
             currentState = ClientState.WalkingToSlot;
