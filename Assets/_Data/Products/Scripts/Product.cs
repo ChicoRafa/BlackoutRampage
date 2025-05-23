@@ -6,7 +6,7 @@ namespace _Data.Products
     public class Product : ScriptableObject
     {
         public string productName;
-        public float sellingPrice;
+        public int sellingPrice;
         public Sprite sprite;
         public GameObject prefab;
     }

@@ -42,17 +42,11 @@ namespace _Data.Customers.Scripts {
                 Destroy(child.gameObject);
             }
 
-            foreach (KeyValuePair<Product, int> kvp in order.Items) {
-                Product product = kvp.Key;
-                int quantity = kvp.Value;
-
-                for (int i = 0; i < quantity; i++) {
-                    GameObject iconGO = Instantiate(orderItemUIPrefab, orderItemsContainer);
-                    Image icon = iconGO.GetComponent<Image>();
-
-                    if (icon != null && product.sprite != null) {
-                        icon.sprite = product.sprite;
-                    }
+            foreach (Product product in order.GetItemsFlatList()) {
+                GameObject iconGO = Instantiate(orderItemUIPrefab, orderItemsContainer);
+                Image icon = iconGO.GetComponent<Image>();
+                if (icon != null && product.sprite != null) {
+                    icon.sprite = product.sprite;
                 }
             }
         }

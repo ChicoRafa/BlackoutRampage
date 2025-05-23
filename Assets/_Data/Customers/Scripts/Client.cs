@@ -12,7 +12,11 @@ namespace _Data.Customers.Scripts {
     public class Client : InteractableBase {
         [Header("Client Type")]
         [SerializeField] private ClientType clientType;
-        
+
+        [Header("Sound")]
+        [SerializeField] private SoundManagerSO soundManager;
+        [SerializeField] private AudioCueSO audioCue;
+
         private GameObject modelInstance;
         private Animator animator;
         private ClientPatienceUI patienceUI;
@@ -25,17 +29,16 @@ namespace _Data.Customers.Scripts {
         private ClientState currentState = ClientState.WalkingToSlot;
 
         private ClientQueueManager queueManager;
+        private GameManager gameManager;
          public Order CurrentOrder { get; private set; }
-         
-        [Header("Sound")]
-        [SerializeField] private SoundManagerSO soundManager;
-        [SerializeField] private AudioCueSO audioCue;
         
-        public void Init(ClientType clientType, ClientQueueManager queueManager)
+        public void Init(ClientType clientType, ClientQueueManager queueManager, GameManager gameManager)
         {
             if (!clientType || !queueManager) return;
             
             this.queueManager = queueManager;
+            this.gameManager = gameManager;
+  
             // Attach character model
             if (clientType.modelPrefab) {
                 modelInstance = Instantiate(clientType.modelPrefab, transform);
@@ -59,7 +62,7 @@ namespace _Data.Customers.Scripts {
             patienceController = gameObject.AddComponent<ClientPatienceController>();
             
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
-            Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.Items.Count} items.");
+            Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.GetOriginalCount()} items.");
             patienceUI?.SetOrder(CurrentOrder);
         }
         
@@ -102,6 +105,13 @@ namespace _Data.Customers.Scripts {
         }
 
         private void StartLeaving() {
+
+            int score = Mathf.FloorToInt(
+                (float)(CurrentOrder.GetOriginalCount() - CurrentOrder.GetRemainingCount()) 
+                / CurrentOrder.GetOriginalCount() * 100
+            );
+            gameManager.UpdateHappiness(score);
+
             currentState = ClientState.Leaving;
             queueManager.DequeueClient(this);
             patienceController.DeactivateUI();
@@ -139,19 +149,19 @@ namespace _Data.Customers.Scripts {
 
             var itemType = productScript.GetProduct();
 
-            if (CurrentOrder.Items.ContainsKey(itemType)) {
-                CurrentOrder.Items[itemType]--;
-
-                if (CurrentOrder.Items[itemType] <= 0)
-                    CurrentOrder.Items.Remove(itemType);
-
+            if (CurrentOrder.ContainsProduct(itemType)) {
+                
+                CurrentOrder.RemoveProduct(itemType);
+                gameManager.UpdateMoney(itemType.sellingPrice);
+                soundManager.PlaySFX(audioCue, "Coins", 1f);
+                
                 Debug.Log($"✅ {name} received: {itemType.name}");
 
                 Destroy(heldItem);
                 inventory.ClearSlot(selectedSlot);
                 patienceUI?.SetOrder(CurrentOrder);
-
-                if (CurrentOrder.Items.Count == 0) {
+                
+                if (CurrentOrder.GetRemainingCount() == 0) {
                     LeaveSatisfied();
                 }
             } else {
