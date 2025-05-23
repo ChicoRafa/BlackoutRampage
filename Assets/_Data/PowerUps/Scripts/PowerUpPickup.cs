@@ -6,7 +6,7 @@ namespace _Data.PowerUps.Scripts
     public class PowerUpPickup : MonoBehaviour
     {
         [SerializeField] private PowerUpSO powerUpData;
-        [SerializeField] private Vector3 rotationSpeed = new Vector3(0f, 90f, 0f); // grados por segundo
+        [SerializeField] private Vector3 rotationSpeed = new Vector3(0f, 90f, 0f);
 
         private void Update()
         {
