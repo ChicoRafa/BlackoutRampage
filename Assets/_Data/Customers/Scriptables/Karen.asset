@@ -15,5 +15,5 @@ MonoBehaviour:
   typeName: Karen
   baseMinPatience: 25
   baseMaxPatience: 30
-  modelPrefab: {fileID: 919132149155446097, guid: 000dd5e9bc6f69048bbd414d7db8d80d, type: 3}
-  animatorController: {fileID: 9100000, guid: 12cf39c589db90141b0b8e5662565414, type: 2}
+  modelPrefab: {fileID: 919132149155446097, guid: c9001a1178d68a246bc9055f3588eec6, type: 3}
+  animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}

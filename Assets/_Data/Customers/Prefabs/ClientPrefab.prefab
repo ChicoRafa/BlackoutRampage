@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1504622059271504496}
   - component: {fileID: 5737759999383672038}
   - component: {fileID: 8070439093263669771}
-  - component: {fileID: 6901756394747163383}
+  - component: {fileID: 1714024787163905001}
   m_Layer: 3
-  m_Name: KarenPrefab
+  m_Name: ClientPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
   iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
-  clientType: {fileID: 11400000, guid: 870e8e98fae297b448fd6a9a3904f2e0, type: 2}
+  clientType: {fileID: 11400000, guid: 0d98ab70fbb085c458d792f8b688947c, type: 2}
   soundManager: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
   audioCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}
 --- !u!54 &8070439093263669771
@@ -79,7 +79,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6901756394747163383
+--- !u!65 &1714024787163905001
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

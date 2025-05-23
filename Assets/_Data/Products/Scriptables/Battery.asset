@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Battery
   m_EditorClassIdentifier: 
   productName: Battery
-  sellingPrice: 0
-  buyingPrice: 0
+  sellingPrice: 35
   sprite: {fileID: 21300000, guid: b82ea743af12a0a4091aefd7d5d7ac0f, type: 3}
   prefab: {fileID: 3859208556485601296, guid: 5f8ca448dfd6f6749ba164ff76cea1fc, type: 3}

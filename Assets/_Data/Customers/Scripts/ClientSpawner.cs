@@ -1,11 +1,13 @@
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
+using Unity.VisualScripting;
 
 namespace _Data.Customers.Scripts {
     public class ClientSpawner : MonoBehaviour {
-        [Header("Client Types")]
-        public GameObject[] clientPrefabs;
+        [Header("Client Prefab & types")]
+        public GameObject clientPrefab;
+        public ClientType[] clientTypes;
 
         [Header("References")]
         public Transform spawnPoint;
@@ -40,14 +42,14 @@ namespace _Data.Customers.Scripts {
         }
 
         private void SpawnRandomClient() {
-            if (clientPrefabs.Length == 0 || queueManager == null || spawnPoint == null) return;
+            if (clientPrefab == null || clientTypes.Length == 0 || queueManager == null || spawnPoint == null) return;
 
-            int index = Random.Range(0, clientPrefabs.Length);
-            GameObject clientGO = Instantiate(clientPrefabs[index], spawnPoint.position, Quaternion.identity);
+            GameObject clientGO = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity);
             Client client = clientGO.GetComponent<Client>();
 
             if (client != null) {
-                client.SetQueueManager(queueManager);
+                int index = Random.Range(0, clientTypes.Length);
+                client.Init(clientTypes[index], queueManager);
                 queueManager.EnqueueClient(client);
             }
         }

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Paper
   m_EditorClassIdentifier: 
   productName: Paper
-  sellingPrice: 0
-  buyingPrice: 0
+  sellingPrice: 10
   sprite: {fileID: 21300000, guid: 2cd6495a19a84b8408faf373509600d1, type: 3}
   prefab: {fileID: 2501560518315117334, guid: fdd0018e1775773429fb692018e75516, type: 3}

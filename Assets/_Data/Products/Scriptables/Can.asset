@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Can
   m_EditorClassIdentifier: 
   productName: Can
-  sellingPrice: 0
-  buyingPrice: 0
+  sellingPrice: 25
   sprite: {fileID: 21300000, guid: 9844c07700137414cad056e28366335f, type: 3}
   prefab: {fileID: 1437341998467785705, guid: ff252cc6d1657be44ac34be088fca997, type: 3}

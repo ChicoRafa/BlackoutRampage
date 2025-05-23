@@ -15,7 +15,6 @@ public class ProductScript : InteractableBase
     [Header("Product characteristics")]
     private string _productName;
     private float _sellingPrice;
-    private float _buyingPrice;
     private Sprite _sprite;
     private GameObject _prefab;
 
@@ -38,12 +37,10 @@ public class ProductScript : InteractableBase
 
     public productOrigin origin;
 
-
     private void Awake()
     {
         _productName = Product.productName;
         _sellingPrice = Product.sellingPrice;
-        _buyingPrice = Product.buyingPrice;
         _sprite = Product.sprite;
         _prefab = Product.prefab;
     }

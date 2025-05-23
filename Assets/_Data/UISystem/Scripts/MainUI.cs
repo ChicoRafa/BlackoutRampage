@@ -24,8 +24,14 @@ public class MainUI : MonoBehaviour
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
+    [SerializeField] private TextMeshProUGUI inGameCurrentMoneyNumberText;
+    [SerializeField] private TextMeshProUGUI inGameHappinessNumberText;
+    [SerializeField] private TextMeshProUGUI resultsMoneyNumberText;
+    [SerializeField] private TextMeshProUGUI resultsHappinessNumberText;
+    [SerializeField] private TextMeshProUGUI perkShopMoneyNumberText;
     [SerializeField] private TextMeshProUGUI shelvesLevelNumberText;
     [SerializeField] private TextMeshProUGUI shelvesLevelPriceText;
+    [SerializeField] private TextMeshProUGUI truckCallingPriceText;
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -33,11 +39,14 @@ public class MainUI : MonoBehaviour
     [SerializeField] private Image failureImage;
     [SerializeField] private Image successImage;
 
+    [Header("Scriptable Objects")]
+    [SerializeField] private GameDataSO gameData;
+    [SerializeField] private PerksSO perksData;
+
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
     private int passedHours = 0;
-    private TextMeshProUGUI startingHourText;
-
+    
     void Awake()
     {
         if (currentDayTimeImage == null)
@@ -50,7 +59,6 @@ public class MainUI : MonoBehaviour
             Debug.LogError("Day Time Sprites not assigned or empty.");
             return;
         }
-        startingHourText = currentHourText;
     }
     void OnEnable()
     {
@@ -67,13 +75,19 @@ public class MainUI : MonoBehaviour
         gameManager.onShelvingPerkLVL2Bought.AddListener(OnShelvingPerkLVL2Bought);
         gameManager.onShelvingPerkLVL3Bought.AddListener(OnShelvingPerkLVL3Bought);
         gameManager.onTruckCallingPerkBought.AddListener(OnTruckCallingPerkBought);
+        gameManager.onMoneyChanged.AddListener(OnMoneyChanged);
+        gameManager.onHappinessChanged.AddListener(OnHappinessChanged);
+
+        shelvesLevelPriceText.text = perksData.perkShelvingLvl2Price.ToString();
+        shelvesLevelNumberText.text = "2";
+        truckCallingPriceText.text = perksData.perkCallTruckPrice.ToString();
     }
 
     private void OnLevelStart()
     {
         //Debug.Log("Main UI - Level started");
         currentDayTimeImage.sprite = dayTimeSprites[0];
-        currentHourText.text = startingHourText.text;
+        currentHourText.text = gameData.workdayStartingHour.ToString("00");
         currentMinuteText.text = "00";
     }
 
@@ -127,6 +141,41 @@ public class MainUI : MonoBehaviour
         }
     }
 
+    IEnumerator AnimateTimeTextScale()
+    {
+        Vector3 originalScale = timeTextObject.transform.localScale;
+        Vector3 targetScale = originalScale * 1.5f;
+        float duration = 0.4f;
+        float elapsed = 0f;
+
+        TextMeshProUGUI[] texts = timeTextObject.GetComponentsInChildren<TextMeshProUGUI>();
+        Color[] originalColors = new Color[texts.Length];
+        for (int i = 0; i < texts.Length; i++)
+            originalColors[i] = texts[i].color;
+        Color targetColor = Color.red;
+
+        // Scale up and color to red
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextObject.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            for (int i = 0; i < texts.Length; i++)
+                texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Scale down and color back to original
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            timeTextObject.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     private void OnEveryTwoHoursPassed()
     {
         //Debug.Log("Two hours passed");
@@ -168,48 +217,31 @@ public class MainUI : MonoBehaviour
             gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
             gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
             gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
+            gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
+            gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
         }
     }
-    IEnumerator AnimateTimeTextScale()
+
+    private void OnMoneyChanged()
     {
-        Vector3 originalScale = timeTextObject.transform.localScale;
-        Vector3 targetScale = originalScale * 1.5f;
-        float duration = 0.4f;
-        float elapsed = 0f;
+        //Debug.Log("Main UI - Money changed: " + money);
+        string newMoneyText = gameData.money.ToString();
+        inGameCurrentMoneyNumberText.text = newMoneyText;
+        resultsMoneyNumberText.text = newMoneyText;
+        perkShopMoneyNumberText.text = newMoneyText;
+    }
 
-        TextMeshProUGUI[] texts = timeTextObject.GetComponentsInChildren<TextMeshProUGUI>();
-        Color[] originalColors = new Color[texts.Length];
-        for (int i = 0; i < texts.Length; i++)
-            originalColors[i] = texts[i].color;
-        Color targetColor = Color.red;
-
-        // Scale up and color to red
-        while (elapsed < duration)
-        {
-            float t = elapsed / duration;
-            timeTextObject.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
-            for (int i = 0; i < texts.Length; i++)
-                texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        // Scale down and color back to original
-        elapsed = 0f;
-        while (elapsed < duration)
-        {
-            float t = elapsed / duration;
-            timeTextObject.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+    private void OnHappinessChanged()
+    {
+        //Debug.Log("Main UI - Happiness changed: " + happiness);
+        string newHappinessText = gameData.happiness.ToString();
+        inGameHappinessNumberText.text = newHappinessText;
+        resultsHappinessNumberText.text = newHappinessText;
     }
 
     private void OnShelvingPerkLVL2Bought()
     {
-        int shelvesLevelPrice = int.Parse(shelvesLevelPriceText.text);
-        shelvesLevelPrice += 2500;
-        shelvesLevelPriceText.text = shelvesLevelPrice.ToString();
+        shelvesLevelPriceText.text = perksData.perkShelvingLvl3Price.ToString();
         shelvesLevelNumberText.text = "3";
     }
 

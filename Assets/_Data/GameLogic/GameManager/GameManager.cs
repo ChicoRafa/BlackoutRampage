@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +18,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
     [HideInInspector] public UnityEvent onPacifyingMusicStart;
     [HideInInspector] public UnityEvent onPacifyingMusicEnd;
+    [HideInInspector] public UnityEvent onMoneyChanged;
+    [HideInInspector] public UnityEvent onHappinessChanged;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -27,7 +28,8 @@ public class GameManager : MonoBehaviour
     private float passedSeconds = 0;
     private bool levelRunning = false;
 
-    [Header("Perks")]
+    [Header("Sriptable Objects")]
+    [SerializeField] private GameDataSO gameData;
     [SerializeField] private PerksSO perksData;
 
     void Awake()
@@ -39,6 +41,9 @@ public class GameManager : MonoBehaviour
     {
         onGameStart.Invoke();
         Debug.Log("Game Manager - Game started");
+        MoneyChanged();
+        HappinessChanged();
+        CheckPerks();
     }
 
     public void StartLevel()
@@ -98,6 +103,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void MoneyChanged()
+    {
+        onMoneyChanged.Invoke();
+    }
+
+    public void HappinessChanged()
+    {
+        onHappinessChanged.Invoke();
+    }
+
     public void CheckPerks()
     {
         GameObject[] shelvingParents = GameObject.FindGameObjectsWithTag("ShelvingParent");
@@ -138,24 +153,38 @@ public class GameManager : MonoBehaviour
 
     public void BuyShelvesCapacityPerk()
     {
-        if (!perksData.perkShelvingLvl2)
+        if (!perksData.perkShelvingLvl2 && perksData.perkShelvingLvl2Price <= gameData.money)
         {
+            gameData.money -= perksData.perkShelvingLvl2Price;
+            MoneyChanged();
             perksData.perkShelvingLvl2 = true;
             onShelvingPerkLVL2Bought.Invoke();
         }
-        else if (!perksData.perkShelvingLvl3)
+        else if (!perksData.perkShelvingLvl3 && perksData.perkShelvingLvl3Price <= gameData.money)
         {
+            gameData.money -= perksData.perkShelvingLvl3Price;
+            MoneyChanged();
             perksData.perkShelvingLvl3 = true;
             onShelvingPerkLVL3Bought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy shelves capacity perk");
         }
     }
 
     public void BuyTruckCallingPerk()
     {
-        if (!perksData.perkCallTruck)
+        if (!perksData.perkCallTruck && perksData.perkCallTruckPrice <= gameData.money)
         {
+            gameData.money -= perksData.perkCallTruckPrice;
+            MoneyChanged();
             perksData.perkCallTruck = true;
             onTruckCallingPerkBought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy truck calling perk");
         }
     }
 }
