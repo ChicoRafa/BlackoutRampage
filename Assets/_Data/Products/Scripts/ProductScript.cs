@@ -26,6 +26,10 @@ public class ProductScript : InteractableBase
     [Header("Object Type")]
     public string objectType;
     
+    [Header("Sound effects")]
+    [SerializeField] private SoundManagerSO soundManagerSO;
+    [SerializeField] private AudioCueSO pickUpCue;
+    
     public enum productOrigin
     {
         Shelving,
@@ -73,6 +77,7 @@ public class ProductScript : InteractableBase
             {
                 interactor.GetComponent<PlayerInventoryScript>().UpdateInventorySlot(i, _sprite);
                 interactor.GetComponent<PlayerInventoryScript>().AddItemToInventory(i, gameObject);
+                PlayPickUpSound();
 
                 gameObject.transform.position = interactor.GetComponent<PlayerController>().objectsTPSpot.position;
                 //gameObject.SetActive(false);
@@ -117,6 +122,11 @@ public class ProductScript : InteractableBase
             if (i == interactor.GetComponent<PlayerInventoryScript>().playerInventorySlots.Count - 1)
                 Debug.Log("Player has full inventory");
         }
+    }
+
+    private void PlayPickUpSound()
+    {
+        soundManagerSO.PlaySFX(pickUpCue, "PickUp", 1f);
     }
 
     public override bool CanInteract(GameObject interactor)

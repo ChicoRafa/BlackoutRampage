@@ -14,7 +14,6 @@ namespace _Data.PlayerController.Scripts
         [SerializeField] private PlayerMovementConfig movementConfig;
         [SerializeField] private float currentSpeed = 0f;
         private Vector3 moveDirection = Vector3.zero;
-        private bool isSprinting = false;
         private float speedMultiplier = 1f;
         private Vector3 lastCollisionNormal = Vector3.up;
 
@@ -22,6 +21,18 @@ namespace _Data.PlayerController.Scripts
         [Header("Interaction")] [Tooltip("Player's interaction variables")] [SerializeField]
         private InputReader inputReader;
         [HideInInspector] public InteractionZone interactionZone;
+        
+        [Header("Stamina Management")] [Tooltip("Player's stamina variables")]
+        [SerializeField] private StaminaBarUI staminaBarUI;
+        [SerializeField] private float maxStamina = 100f;
+        [SerializeField] private float staminaDrainRate = 20f;
+        [SerializeField] private float staminaRegenRate = 10f;
+        [SerializeField] private float regenDelay = 5f;
+        private bool isSprinting = false;
+        private float currentStamina;
+        private bool wantsToSprint;
+        private float timeSinceLastSprint;
+
 
         [Header("Animation")] [Tooltip("Player's animation variables")]
         private Animator playerAnimator;
@@ -50,12 +61,16 @@ namespace _Data.PlayerController.Scripts
             playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             playerAnimator = GetComponentInChildren<Animator>();
             currentSpeed = movementConfig.walkSpeed;
+            currentStamina = maxStamina;
+            staminaBarUI.UpdateStamina(currentStamina / maxStamina);
         }
 
         private void FixedUpdate()
         {
             PerformMovement();
             UpdateAnimation();
+            UpdateSprintState();
+            HandleStamina(Time.deltaTime);
         }
 
         private void OnEnable()
@@ -97,10 +112,25 @@ namespace _Data.PlayerController.Scripts
 
         private void OnSprint(bool isPressed)
         {
-            isSprinting = isPressed;
-            currentSpeed = isSprinting ? movementConfig.sprintSpeed : movementConfig.walkSpeed;
+            wantsToSprint = isPressed;
         }
 
+        private void UpdateSprintState()
+        {
+            if (wantsToSprint && currentStamina > 0f)
+            {
+                isSprinting = true;
+                timeSinceLastSprint = 0f;
+            }
+            else
+            {
+                isSprinting = false;
+                timeSinceLastSprint += Time.deltaTime;
+            }
+
+            currentSpeed = isSprinting ? movementConfig.sprintSpeed : movementConfig.walkSpeed;
+        }
+        
         private void OnDrop()
         {
             playerInventory.DropItem();
@@ -166,6 +196,38 @@ namespace _Data.PlayerController.Scripts
         public void ModifySpeed(float speedMultiplier)
         {
             this.speedMultiplier = speedMultiplier;
+        }
+        
+        private void HandleStamina(float deltaTime)
+        {
+            switch (isSprinting)
+            {
+                case true when currentStamina > 0:
+                {
+                    currentStamina -= staminaDrainRate * deltaTime;
+                    currentStamina = Mathf.Max(currentStamina, 0f);
+
+                    if (currentStamina <= 0f)
+                    {
+                        isSprinting = false;
+                        currentSpeed = movementConfig.walkSpeed;
+                        timeSinceLastSprint = 0f;
+                    }
+
+                    break;
+                }
+                default:
+                {
+                    if (timeSinceLastSprint >= regenDelay && currentStamina < maxStamina)
+                    {
+                        currentStamina += staminaRegenRate * deltaTime;
+                        currentStamina = Mathf.Min(currentStamina, maxStamina);
+                    }
+
+                    break;
+                }
+            }
+            staminaBarUI.UpdateStamina(currentStamina / maxStamina);
         }
     }
 }

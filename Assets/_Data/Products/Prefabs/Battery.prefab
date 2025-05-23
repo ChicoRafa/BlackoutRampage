@@ -125,8 +125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
   iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
-  promptOffset: {x: 0, y: 4, z: 0}
   Product: {fileID: 11400000, guid: e0709b6783402e54995cb6fde8dad7c6, type: 2}
   objectsParent: {fileID: 0}
   objectType: Battery
+  soundManagerSO: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
+  pickUpCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}
   origin: 0
