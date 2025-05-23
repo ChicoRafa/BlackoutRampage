@@ -19,6 +19,12 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject truckCallingBuyButtonObject;
     [SerializeField] private GameObject truckCallingSoldOutButtonObject;
     [SerializeField] private GameObject truckCallingPriceElementObject;
+    [SerializeField] private GameObject powerUpDurationBuyButtonObject;
+    [SerializeField] private GameObject powerUpDurationSoldOutButtonObject;
+    [SerializeField] private GameObject powerUpDurationPriceElementObject;
+    [SerializeField] private GameObject extraServiceSlotsBuyButtonObject;
+    [SerializeField] private GameObject extraServiceSlotsSoldOutButtonObject;
+    [SerializeField] private GameObject extraServiceSlotsPriceElementObject;
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI currentHourText;
@@ -33,6 +39,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI shelvesLevelNumberText;
     [SerializeField] private TextMeshProUGUI shelvesLevelPriceText;
     [SerializeField] private TextMeshProUGUI truckCallingPriceText;
+    [SerializeField] private TextMeshProUGUI powerUpDurationPriceText;
+    [SerializeField] private TextMeshProUGUI extraServiceSlotsPriceText;
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -47,7 +55,7 @@ public class MainUI : MonoBehaviour
     private int currentDayTimeImageIndex = 0;
     private int minutesCycleIndex = 0;
     private int passedHours = 0;
-    
+
     void Awake()
     {
         if (!currentDayTimeImage)
@@ -75,6 +83,8 @@ public class MainUI : MonoBehaviour
         gameManager.onShelvingPerkLVL2Bought.AddListener(OnShelvingPerkLVL2Bought);
         gameManager.onShelvingPerkLVL3Bought.AddListener(OnShelvingPerkLVL3Bought);
         gameManager.onTruckCallingPerkBought.AddListener(OnTruckCallingPerkBought);
+        gameManager.onPowerUpDurationPerkBought.AddListener(OnPowerUpDurationPerkBought);
+        gameManager.onExtraServiceSlotsPerkBought.AddListener(OnExtraServiceSlotsPerkBought);
         gameManager.onMoneyChanged.AddListener(OnMoneyChanged);
         gameManager.onHappinessChanged.AddListener(OnHappinessChanged);
         gameManager.onObjectivesChanged.AddListener(OnObjectivesChanged);
@@ -82,6 +92,8 @@ public class MainUI : MonoBehaviour
         shelvesLevelPriceText.text = perksData.perkShelvingLvl2Price.ToString();
         shelvesLevelNumberText.text = "2";
         truckCallingPriceText.text = perksData.perkCallTruckPrice.ToString();
+        powerUpDurationPriceText.text = perksData.perkPowerUpDurationPrice.ToString();
+        extraServiceSlotsPriceText.text = perksData.perkExtraServiceSlotsPrice.ToString();
     }
 
     private void OnLevelStart()
@@ -217,6 +229,8 @@ public class MainUI : MonoBehaviour
         gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
         gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
         gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
+        gameManager.onPowerUpDurationPerkBought.RemoveListener(OnPowerUpDurationPerkBought);
+        gameManager.onExtraServiceSlotsPerkBought.RemoveListener(OnExtraServiceSlotsPerkBought);
         gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
         gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
         gameManager.onObjectivesChanged.RemoveListener(OnObjectivesChanged);
@@ -244,6 +258,7 @@ public class MainUI : MonoBehaviour
         objectiveMoneyNumberText.text = newMoneyObjectiveText;
         objectiveHappinessNumberText.text = newHappinessObjectiveText;
     }
+
     private void OnShelvingPerkLVL2Bought()
     {
         shelvesLevelPriceText.text = perksData.perkShelvingLvl3Price.ToString();
@@ -263,5 +278,19 @@ public class MainUI : MonoBehaviour
         truckCallingBuyButtonObject.SetActive(false);
         truckCallingSoldOutButtonObject.SetActive(true);
         truckCallingPriceElementObject.SetActive(false);
+    }
+
+    private void OnPowerUpDurationPerkBought()
+    {
+        powerUpDurationBuyButtonObject.SetActive(false);
+        powerUpDurationSoldOutButtonObject.SetActive(true);
+        powerUpDurationPriceElementObject.SetActive(false);
+    }
+
+    private void OnExtraServiceSlotsPerkBought()
+    {
+        extraServiceSlotsBuyButtonObject.SetActive(false);
+        extraServiceSlotsSoldOutButtonObject.SetActive(true);
+        extraServiceSlotsPriceElementObject.SetActive(false);
     }
 }

@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
     [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
+    [HideInInspector] public UnityEvent onPowerUpDurationPerkBought;
+    [HideInInspector] public UnityEvent onExtraServiceSlotsPerkBought;
     [HideInInspector] public UnityEvent onPacifyingMusicStart;
     [HideInInspector] public UnityEvent onPacifyingMusicEnd;
     [HideInInspector] public UnityEvent onMoneyChanged;
@@ -158,6 +160,14 @@ public class GameManager : MonoBehaviour
         {
             onTruckCallingPerkBought.Invoke();
         }
+        if (perksData.perkPowerUpDuration)
+        {
+            onPowerUpDurationPerkBought.Invoke();
+        }
+        if (perksData.perkExtraServiceSlots)
+        {
+            onExtraServiceSlotsPerkBought.Invoke();
+        }
     }
 
     public void BuyShelvesCapacityPerk()
@@ -191,6 +201,34 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy truck calling perk");
+        }
+    }
+
+    public void BuyPowerUpDurationPerk()
+    {
+        if (!perksData.perkPowerUpDuration && perksData.perkPowerUpDurationPrice <= gameData.money)
+        {
+            UpdateMoney(-perksData.perkPowerUpDurationPrice);
+            perksData.perkPowerUpDuration = true;
+            onPowerUpDurationPerkBought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy power up duration perk");
+        }
+    }
+
+    public void BuyExtraServiceSlotsPerk()
+    {
+        if (!perksData.perkExtraServiceSlots && perksData.perkExtraServiceSlotsPrice <= gameData.money)
+        {
+            UpdateMoney(-perksData.perkExtraServiceSlotsPrice);
+            perksData.perkExtraServiceSlots = true;
+            onExtraServiceSlotsPerkBought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy extra service slots perk");
         }
     }
 }
