@@ -26,6 +26,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentMinuteText;
     [SerializeField] private TextMeshProUGUI inGameCurrentMoneyNumberText;
     [SerializeField] private TextMeshProUGUI inGameHappinessNumberText;
+    [SerializeField] private TextMeshProUGUI objectiveMoneyNumberText;
+    [SerializeField] private TextMeshProUGUI objectiveHappinessNumberText;
     [SerializeField] private TextMeshProUGUI resultsMoneyNumberText;
     [SerializeField] private TextMeshProUGUI resultsHappinessNumberText;
     [SerializeField] private TextMeshProUGUI perkShopMoneyNumberText;
@@ -76,6 +78,7 @@ public class MainUI : MonoBehaviour
         gameManager.onTruckCallingPerkBought.AddListener(OnTruckCallingPerkBought);
         gameManager.onMoneyChanged.AddListener(OnMoneyChanged);
         gameManager.onHappinessChanged.AddListener(OnHappinessChanged);
+        gameManager.onObjectivesChanged.AddListener(OnObjectivesChanged);
 
         shelvesLevelPriceText.text = perksData.perkShelvingLvl2Price.ToString();
         shelvesLevelNumberText.text = "2";
@@ -217,6 +220,7 @@ public class MainUI : MonoBehaviour
         gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
         gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
         gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
+        gameManager.onObjectivesChanged.RemoveListener(OnObjectivesChanged);
     }
 
     private void OnMoneyChanged()
@@ -236,6 +240,11 @@ public class MainUI : MonoBehaviour
         resultsHappinessNumberText.text = newHappinessText;
     }
 
+    private void OnObjectivesChanged(string newMoneyObjectiveText, string newHappinessObjectiveText)
+    {
+        objectiveMoneyNumberText.text = newMoneyObjectiveText;
+        objectiveHappinessNumberText.text = newHappinessObjectiveText;
+    }
     private void OnShelvingPerkLVL2Bought()
     {
         shelvesLevelPriceText.text = perksData.perkShelvingLvl3Price.ToString();

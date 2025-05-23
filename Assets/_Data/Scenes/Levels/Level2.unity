@@ -6221,6 +6221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84df2260a192b664ea1e28418e9bfea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
+  levelConfigs:
+  - {fileID: 11400000, guid: daf840fc0196d404898f543db7bdacfe, type: 2}
+  - {fileID: 11400000, guid: f507e951a0ff4bf4696163149a921d8f, type: 2}
+  - {fileID: 11400000, guid: 518e517b561cf67468abbbebfdb74b5e, type: 2}
+  perksData: {fileID: 11400000, guid: 026f41cda53e1c342b7440fd8d53188c, type: 2}
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -6365,8 +6371,9 @@ MonoBehaviour:
   onHappinessChanged:
     m_PersistentCalls:
       m_Calls: []
-  gameData: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
-  perksData: {fileID: 11400000, guid: 026f41cda53e1c342b7440fd8d53188c, type: 2}
+  onObjectivesChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &954862556
 GameObject:
   m_ObjectHideFlags: 0

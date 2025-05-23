@@ -16,4 +16,4 @@ MonoBehaviour:
   workdayStartingHour: 16
   money: 700
   happiness: 200
-  currentLevelIndex: 0
+  currentLevelIndex: 1

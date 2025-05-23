@@ -1,8 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Sriptable Objects")]
+    [SerializeField] private GameDataSO gameData;
+    [SerializeField] private List<LevelConfigSO> levelConfigs;
+    [SerializeField] private PerksSO perksData;
+
     [Header("Events")]
     public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
@@ -16,6 +22,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onPacifyingMusicEnd;
     [HideInInspector] public UnityEvent onMoneyChanged;
     [HideInInspector] public UnityEvent onHappinessChanged;
+    [HideInInspector] public UnityEvent<string, string> onObjectivesChanged;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
@@ -23,10 +30,6 @@ public class GameManager : MonoBehaviour
     private float nextQuarterTime;
     private float passedSeconds = 0;
     private bool levelRunning = false;
-
-    [Header("Sriptable Objects")]
-    [SerializeField] private GameDataSO gameData;
-    [SerializeField] private PerksSO perksData;
 
     void Awake()
     {
@@ -39,6 +42,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Manager - Game started");
         onMoneyChanged.Invoke();
         onHappinessChanged.Invoke();
+        UpdateObjective();
         CheckPerks();
     }
 
@@ -109,6 +113,13 @@ public class GameManager : MonoBehaviour
     {
         gameData.happiness += happiness;
         onHappinessChanged.Invoke();
+    }
+
+    public void UpdateObjective()
+    {
+        string newMoneyObjective = levelConfigs[gameData.currentLevelIndex].moneyObjective.ToString();
+        string newHappinessObjective = levelConfigs[gameData.currentLevelIndex].happinessObjective.ToString();
+        onObjectivesChanged.Invoke(newMoneyObjective, newHappinessObjective);
     }
 
     public void CheckPerks()
