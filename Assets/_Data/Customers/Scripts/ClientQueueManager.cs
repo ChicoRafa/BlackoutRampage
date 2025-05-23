@@ -72,14 +72,5 @@ namespace _Data.Customers.Scripts {
         public int CurrentClientCount() {
             return clientQueue.Count;
         }
-
-        public List<Client> GetClientsInServiceSlots() {
-            List<Client> activeClients = new List<Client>();
-            foreach (var pair in activeServiceClients) {
-                if (pair.Value != null)
-                    activeClients.Add(pair.Value);
-            }
-            return activeClients;
-        }
     }
 }
