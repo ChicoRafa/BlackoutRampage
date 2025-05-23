@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a93ec4e1f7372945a07a9b5cb3a6794, type: 3}
-  m_Name: Perks
+  m_Script: {fileID: 11500000, guid: 424f188cb41ddc042887d6a5a23fd215, type: 3}
+  m_Name: GameData
   m_EditorClassIdentifier: 
-  perkShelvingLvl2Price: 100
-  perkShelvingLvl2: 0
-  perkShelvingLvl3Price: 250
-  perkShelvingLvl3: 0
-  perkCallTruckPrice: 300
-  perkCallTruck: 0
+  workdayStartingHour: 16
+  money: 0
+  totalHappiness: 0
+  currentLevelIndex: 0
