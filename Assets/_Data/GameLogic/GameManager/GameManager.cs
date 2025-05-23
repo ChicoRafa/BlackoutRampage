@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour
     {
         onGameStart.Invoke();
         Debug.Log("Game Manager - Game started");
-        MoneyChanged();
-        HappinessChanged();
+        onMoneyChanged.Invoke();
+        onHappinessChanged.Invoke();
         CheckPerks();
     }
 
@@ -103,13 +103,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void MoneyChanged()
+    public void UpdateMoney(int money)
     {
+        gameData.money += money;
         onMoneyChanged.Invoke();
     }
 
-    public void HappinessChanged()
+    public void UpdateHappiness(int happiness)
     {
+        gameData.happiness += happiness;
         onHappinessChanged.Invoke();
     }
 
@@ -155,15 +157,13 @@ public class GameManager : MonoBehaviour
     {
         if (!perksData.perkShelvingLvl2 && perksData.perkShelvingLvl2Price <= gameData.money)
         {
-            gameData.money -= perksData.perkShelvingLvl2Price;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkShelvingLvl2Price);
             perksData.perkShelvingLvl2 = true;
             onShelvingPerkLVL2Bought.Invoke();
         }
         else if (!perksData.perkShelvingLvl3 && perksData.perkShelvingLvl3Price <= gameData.money)
         {
-            gameData.money -= perksData.perkShelvingLvl3Price;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkShelvingLvl3Price);
             perksData.perkShelvingLvl3 = true;
             onShelvingPerkLVL3Bought.Invoke();
         }
@@ -177,8 +177,7 @@ public class GameManager : MonoBehaviour
     {
         if (!perksData.perkCallTruck && perksData.perkCallTruckPrice <= gameData.money)
         {
-            gameData.money -= perksData.perkCallTruckPrice;
-            MoneyChanged();
+            UpdateMoney(-perksData.perkCallTruckPrice);
             perksData.perkCallTruck = true;
             onTruckCallingPerkBought.Invoke();
         }
