@@ -10,6 +10,8 @@ namespace _Data.PowerUps.Scripts
 
         [SerializeField] private SoundManagerSO soundManagerSO;
         [SerializeField] private AudioCueSO powerUpCue;
+        
+        private GameManager gameManager;
 
         private void Update()
         {
@@ -19,18 +21,26 @@ namespace _Data.PowerUps.Scripts
         {
             if (!other.CompareTag("Player")) return;
 
-            powerUpData.Activate(other.gameObject);
+            powerUpData.Activate(other.gameObject, gameManager);
             soundManagerSO.OnPlaySFX(powerUpCue, "PickPower", 1f);
+            
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<MeshRenderer>().enabled = false;
+            
             StartCoroutine(DeactivateAfterDelay(other.gameObject));
-            Destroy(transform.parent.gameObject);
         }
 
         private System.Collections.IEnumerator DeactivateAfterDelay(GameObject target)
         {
             yield return new WaitForSeconds(powerUpData.duration);
-            powerUpData.Deactivate(target);
+            powerUpData.Deactivate(target, gameManager);
+            Destroy(transform.parent.gameObject);
         }
         
-        public void SetPowerUp(PowerUpSO powerUp) => powerUpData = powerUp;
+        public void Init(PowerUpSO powerUp, GameManager gameManager)
+        {
+            powerUpData = powerUp;
+            this.gameManager = gameManager;
+        }
     }
 }

@@ -12,11 +12,14 @@ namespace _Data.Customers.Scripts {
 
         private ClientPatienceUI ui;
         private Action onPatienceDepleted;
+        private GameManager gameManager;
+        private float patienceSpeedMultiplier = 1f;
 
         private void Update() {
             if (!isActive || currentPatience <= 0f) return;
 
-            currentPatience -= Time.deltaTime;
+            
+            currentPatience -= Time.deltaTime * patienceSpeedMultiplier;
 
             float normalized = Mathf.Clamp01(currentPatience / maxPatience);
             ui?.UpdatePatience(normalized);
@@ -27,10 +30,20 @@ namespace _Data.Customers.Scripts {
             }
         }
 
+        public void SetGameManager(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+            if (this.gameManager != null)
+            {
+                gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
+            }
+        }
+
         public void StartPatience(ClientPatienceUI ui, int queueIndex, Action onDepletedCallback) {
             this.ui = ui;
             onPatienceDepleted = onDepletedCallback;
 
+            patienceSpeedMultiplier = gameManager.GetPatienceLevelMultiplier();
             float rawPatience = UnityEngine.Random.Range(minBasePatience, maxBasePatience);
             float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
             maxPatience = rawPatience * patienceBonus;
@@ -56,8 +69,18 @@ namespace _Data.Customers.Scripts {
             }
         }
 
-        public void DeactivateUI() {
+        public void Deactivate() {
+            if (gameManager != null)
+            {
+
+                gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
+            }
             ui?.gameObject.SetActive(false);
+        }
+        
+        private void OnPatienceLevelMultiplierChanged()
+        {
+            patienceSpeedMultiplier = gameManager.GetPatienceLevelMultiplier();
         }
     }
 }

@@ -50,3 +50,4 @@ MonoBehaviour:
   spawnInterval: 10
   spawnAreaMin: {x: 2, y: -10}
   spawnAreaMax: {x: 20, y: 20}
+  gameManager: {fileID: 0}

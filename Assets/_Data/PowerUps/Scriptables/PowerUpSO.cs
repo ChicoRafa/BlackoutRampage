@@ -11,8 +11,8 @@ namespace _Data.PowerUps.Scriptables
         public float duration = 5f;
         public GameObject pickupPrefab;
 
-        public abstract void Activate(GameObject target);
+        public abstract void Activate(GameObject target, GameManager gameManager);
 
-        public abstract void Deactivate(GameObject target);
+        public abstract void Deactivate(GameObject target, GameManager gameManager);
     }
 }

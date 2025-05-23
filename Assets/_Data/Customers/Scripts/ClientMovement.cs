@@ -34,7 +34,6 @@ namespace _Data.Customers.Scripts {
 
                 Vector3 nextPos = Vector3.MoveTowards(rigidBody.position, targetPosition, 10f * Time.deltaTime);
                 rigidBody.MovePosition(nextPos);
-                //transform.position = Vector3.MoveTowards(transform.position, targetPosition, 3f * Time.deltaTime);
                 yield return null;
             }
 

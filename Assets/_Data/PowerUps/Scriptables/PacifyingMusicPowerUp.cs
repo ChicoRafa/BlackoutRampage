@@ -7,16 +7,16 @@ namespace _Data.PowerUps.Scriptables
     {
         [SerializeField] private SoundManagerSO soundManagerSO;
         [SerializeField] private AudioCueSO powerUpCue;
-        [SerializeField] private GameManager gameManager;
-        public override void Activate(GameObject target)
+        [SerializeField] private float patienceMultiplier = 0.5f;
+        public override void Activate(GameObject target, GameManager gameManager)
         {
             soundManagerSO.PlayDiegeticMusic(powerUpCue, duration, "Pacify" );
-            gameManager.onPacifyingMusicStart?.Invoke();
+            gameManager.ChangePatienceLevelMultiplier(patienceMultiplier);
         }
 
-        public override void Deactivate(GameObject target)
+        public override void Deactivate(GameObject target, GameManager gameManager)
         {
-            gameManager.onPacifyingMusicEnd?.Invoke();
+            gameManager.RestorePatienceLevelMultiplier();
         }
     }
 }

@@ -3572,6 +3572,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
   m_PrefabInstance: {fileID: 1767334574}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &453465136
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1363954512}
+    m_Modifications:
+    - target: {fileID: 537876454161610438, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_Name
+      value: PF_PowerUpSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2931750448225060842, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 953438048}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
 --- !u!1001 &460338094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5610,7 +5671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214450030825407224, guid: 15219066aefa702468fca0021bd8c1ad, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6386,10 +6447,7 @@ MonoBehaviour:
   onExtraServiceSlotsPerkBought:
     m_PersistentCalls:
       m_Calls: []
-  onPacifyingMusicStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPacifyingMusicEnd:
+  onPatienceLevelMultiplierChanged:
     m_PersistentCalls:
       m_Calls: []
   onMoneyChanged:
@@ -8747,6 +8805,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2116442273}
   - {fileID: 1954948968}
   - {fileID: 953438047}
   - {fileID: 1398196104}
@@ -12455,6 +12514,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
   m_PrefabInstance: {fileID: 1758706601}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2116442273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+  m_PrefabInstance: {fileID: 453465136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2117406627
 GameObject:
   m_ObjectHideFlags: 0
@@ -13978,6 +14042,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1363954512}
     m_Modifications:
+    - target: {fileID: 329833421801876658, guid: e08edd58e3cad5c4dacd3d764719132f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 943650611555131496, guid: e08edd58e3cad5c4dacd3d764719132f, type: 3}
       propertyPath: m_Name
       value: Customers

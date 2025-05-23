@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
     [HideInInspector] public UnityEvent onPowerUpDurationPerkBought;
     [HideInInspector] public UnityEvent onExtraServiceSlotsPerkBought;
-    [HideInInspector] public UnityEvent onPacifyingMusicStart;
-    [HideInInspector] public UnityEvent onPacifyingMusicEnd;
+    [HideInInspector] public UnityEvent onPatienceLevelMultiplierChanged;
     [HideInInspector] public UnityEvent onMoneyChanged;
     [HideInInspector] public UnityEvent onHappinessChanged;
     [HideInInspector] public UnityEvent<string, string> onObjectivesChanged;
@@ -32,6 +31,7 @@ public class GameManager : MonoBehaviour
     private float nextQuarterTime;
     private float passedSeconds = 0;
     private bool levelRunning = false;
+    private float patienceLevelMultiplier = 1;
 
     void Awake()
     {
@@ -231,4 +231,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Manager - Not enough money to buy extra service slots perk");
         }
     }
+
+    public void ChangePatienceLevelMultiplier(float newValue)
+    {
+        patienceLevelMultiplier = newValue;
+        onPatienceLevelMultiplierChanged?.Invoke();
+    }
+    public void RestorePatienceLevelMultiplier()
+    {
+        patienceLevelMultiplier = levelConfigs[gameData.currentLevelIndex].levelBasePatienceMultiplier;
+        onPatienceLevelMultiplierChanged?.Invoke();
+    }
+
+    public float GetPatienceLevelMultiplier() => patienceLevelMultiplier;
 }

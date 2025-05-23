@@ -30,7 +30,7 @@ namespace _Data.Customers.Scripts {
 
         private ClientQueueManager queueManager;
         private GameManager gameManager;
-         public Order CurrentOrder { get; private set; }
+        public Order CurrentOrder { get; private set; }
         
         public void Init(ClientType clientType, ClientQueueManager queueManager, GameManager gameManager)
         {
@@ -39,7 +39,6 @@ namespace _Data.Customers.Scripts {
             this.queueManager = queueManager;
             this.gameManager = gameManager;
   
-            // Attach character model
             if (clientType.modelPrefab) {
                 modelInstance = Instantiate(clientType.modelPrefab, transform);
                 modelInstance.transform.localPosition = new Vector3(0f, -0.7f, 0f);
@@ -60,9 +59,8 @@ namespace _Data.Customers.Scripts {
             movement.Init(animator, modelInstance);
 
             patienceController = gameObject.AddComponent<ClientPatienceController>();
-            
+            patienceController.SetGameManager(gameManager);
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
-            Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.GetOriginalCount()} items.");
             patienceUI?.SetOrder(CurrentOrder);
         }
         
@@ -114,7 +112,7 @@ namespace _Data.Customers.Scripts {
 
             currentState = ClientState.Leaving;
             queueManager.DequeueClient(this);
-            patienceController.DeactivateUI();
+            patienceController.Deactivate();
 
             movement.MoveTo(queueManager.GetExitPoint().position, () => {
                 Debug.Log($"💥 {gameObject.name} exited the store.");
