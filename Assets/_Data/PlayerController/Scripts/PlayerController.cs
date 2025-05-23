@@ -33,6 +33,9 @@ namespace _Data.PlayerController.Scripts
         private bool wantsToSprint;
         private float timeSinceLastSprint;
 
+        [Header("Sound Manager")][Tooltip("sound manager")]
+        [SerializeField] private SoundManagerSO soundManagerSO;
+        [SerializeField] private AudioCueSO playerSoundCueSO;
 
         [Header("Animation")] [Tooltip("Player's animation variables")]
         private Animator playerAnimator;
@@ -46,6 +49,7 @@ namespace _Data.PlayerController.Scripts
 
         [Header("Events")]
         public UnityEvent onPause;
+        
 
         private void Awake()
         {
@@ -133,7 +137,10 @@ namespace _Data.PlayerController.Scripts
         
         private void OnDrop()
         {
+            if (!playerInventory.canDrop) return;
+            
             playerInventory.DropItem();
+            soundManagerSO.PlaySFX(playerSoundCueSO, "PickUp", 1f);
         }
 
         private void OnSelectItem(int slotIndex)

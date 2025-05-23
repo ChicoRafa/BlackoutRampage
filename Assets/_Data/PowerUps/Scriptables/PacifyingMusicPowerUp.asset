@@ -15,5 +15,6 @@ MonoBehaviour:
   powerUpName: Pacifying Music
   icon: {fileID: 0}
   duration: 17
+  pickupPrefab: {fileID: 6255434521972209932, guid: aa4e9e0e84a686240ac14f6f301c8328, type: 3}
   soundManagerSO: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
   powerUpCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}

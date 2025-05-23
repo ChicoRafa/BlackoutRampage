@@ -25,9 +25,12 @@ namespace _Data.Customers.Scripts {
         private ClientState currentState = ClientState.WalkingToSlot;
 
         private ClientQueueManager queueManager;
+         public Order CurrentOrder { get; private set; }
+         
+        [Header("Sound")]
+        [SerializeField] private SoundManagerSO soundManager;
+        [SerializeField] private AudioCueSO audioCue;
         
-        public Order CurrentOrder { get; private set; }
-
         private void Awake() {
             // Spawn and attach character model
             if (clientType.modelPrefab != null) {
@@ -52,7 +55,8 @@ namespace _Data.Customers.Scripts {
             patienceController = gameObject.AddComponent<ClientPatienceController>();
         }
 
-        private void Start() {
+        private void Start()
+        {
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
             Debug.Log($"🟢 {gameObject.name} spawned with order of {CurrentOrder.Items.Count} items.");
             patienceUI?.SetOrder(CurrentOrder);
@@ -102,6 +106,7 @@ namespace _Data.Customers.Scripts {
 
         private void StartLeaving() {
             currentState = ClientState.Leaving;
+            soundManager.PlaySFX(audioCue, "Coins", 1f);
             queueManager.DequeueClient(this);
             patienceController.DeactivateUI();
 

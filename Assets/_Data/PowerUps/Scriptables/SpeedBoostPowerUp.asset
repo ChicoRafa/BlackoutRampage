@@ -15,4 +15,5 @@ MonoBehaviour:
   powerUpName: SpeedUp
   icon: {fileID: 21300000, guid: 5dd75afdc0af03d49b4748699907b629, type: 3}
   duration: 5
+  pickupPrefab: {fileID: 7683621821135707911, guid: 8ee15ee694f5a8e4c83892049019e7ea, type: 3}
   speedMultiplier: 1.5

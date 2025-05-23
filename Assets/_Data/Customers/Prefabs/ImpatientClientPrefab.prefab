@@ -49,8 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPromptPrefab: {fileID: 7369235856540839181, guid: f867f228d8357414a9a078164df4e33c, type: 3}
   iconSet: {fileID: 11400000, guid: cd4f2660e9416de4eae6620d3694e749, type: 2}
-  promptOffset: {x: 0, y: 6, z: 0}
   clientType: {fileID: 11400000, guid: 4a02e828777618a4eba77a88f3b8f24b, type: 2}
+  soundManager: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
+  audioCue: {fileID: 11400000, guid: e3ed0dd1d14bef8469cbbd512bfec638, type: 2}
 --- !u!54 &8070439093263669771
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -25,6 +25,10 @@ public class Truck : MonoBehaviour
     [SerializeField] private RectTransform truckIcon;
     [SerializeField] private Vector3 truckStartPos = new Vector3(-900f, 400f, 0f);
     [SerializeField] private Vector3 truckEndPos = new Vector3(-675f, 400f, 0f);
+    
+    [Header("Sound")]
+    [SerializeField] private SoundManagerSO soundManagerSO;
+    [SerializeField] private AudioCueSO truckArrivesCue;
 
     private void Start()
     {
@@ -99,6 +103,7 @@ public class Truck : MonoBehaviour
     public void TruckArrives()
     {
         Debug.Log("Track has arrived");
+        soundManagerSO.OnPlaySFX(truckArrivesCue, "Truck", 1f);
 
         SkipTruckJourney();
 

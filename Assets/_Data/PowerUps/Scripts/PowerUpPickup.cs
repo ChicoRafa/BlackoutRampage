@@ -8,6 +8,9 @@ namespace _Data.PowerUps.Scripts
         [SerializeField] private PowerUpSO powerUpData;
         [SerializeField] private Vector3 rotationSpeed = new Vector3(0f, 90f, 0f);
 
+        [SerializeField] private SoundManagerSO soundManagerSO;
+        [SerializeField] private AudioCueSO powerUpCue;
+
         private void Update()
         {
             transform.Rotate(rotationSpeed * Time.deltaTime);
@@ -17,6 +20,7 @@ namespace _Data.PowerUps.Scripts
             if (!other.CompareTag("Player")) return;
 
             powerUpData.Activate(other.gameObject);
+            soundManagerSO.OnPlaySFX(powerUpCue, "PickPower", 1f);
             StartCoroutine(DeactivateAfterDelay(other.gameObject));
             Destroy(transform.parent.gameObject);
         }
