@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using _Data.PlayerController.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
