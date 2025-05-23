@@ -49,21 +49,20 @@ public class MainUI : MonoBehaviour
     
     void Awake()
     {
-        if (currentDayTimeImage == null)
+        if (!currentDayTimeImage)
         {
             Debug.LogError("Current Day Time Image not assigned.");
             return;
         }
-        if (dayTimeSprites == null || dayTimeSprites.Count == 0)
-        {
-            Debug.LogError("Day Time Sprites not assigned or empty.");
-            return;
-        }
+
+        if (dayTimeSprites != null && dayTimeSprites.Count != 0) return;
+        Debug.LogError("Day Time Sprites not assigned or empty.");
+        return;
     }
     void OnEnable()
     {
         GameManager gameManager = FindFirstObjectByType<GameManager>();
-        if (gameManager == null)
+        if (!gameManager)
         {
             Debug.LogError("GameManager not found in the scene.");
             return;
@@ -208,18 +207,16 @@ public class MainUI : MonoBehaviour
     private void OnDisable()
     {
         GameManager gameManager = FindFirstObjectByType<GameManager>();
-        if (gameManager != null)
-        {
-            gameManager.onLevelStart.RemoveListener(OnLevelStart);
-            gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
-            gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
-            gameManager.onPause.RemoveListener(OnPause);
-            gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
-            gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
-            gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
-            gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
-            gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
-        }
+        if (!gameManager) return;
+        gameManager.onLevelStart.RemoveListener(OnLevelStart);
+        gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
+        gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
+        gameManager.onPause.RemoveListener(OnPause);
+        gameManager.onShelvingPerkLVL2Bought.RemoveListener(OnShelvingPerkLVL2Bought);
+        gameManager.onShelvingPerkLVL3Bought.RemoveListener(OnShelvingPerkLVL3Bought);
+        gameManager.onTruckCallingPerkBought.RemoveListener(OnTruckCallingPerkBought);
+        gameManager.onMoneyChanged.RemoveListener(OnMoneyChanged);
+        gameManager.onHappinessChanged.RemoveListener(OnHappinessChanged);
     }
 
     private void OnMoneyChanged()
