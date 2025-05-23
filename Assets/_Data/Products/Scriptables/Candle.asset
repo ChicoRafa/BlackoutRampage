@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Candle
   m_EditorClassIdentifier: 
   productName: Candle
-  sellingPrice: 0
-  buyingPrice: 0
+  sellingPrice: 20
   sprite: {fileID: 21300000, guid: c4eec038693a7d440a3d80a666c591e3, type: 3}
   prefab: {fileID: 2504179284185741859, guid: 51ca1ba67334d6640a28979ba43ed0f6, type: 3}

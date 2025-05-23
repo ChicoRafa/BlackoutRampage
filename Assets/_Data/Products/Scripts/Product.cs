@@ -7,7 +7,6 @@ namespace _Data.Products
     {
         public string productName;
         public float sellingPrice;
-        public float buyingPrice;
         public Sprite sprite;
         public GameObject prefab;
     }
