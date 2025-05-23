@@ -7,15 +7,16 @@ namespace _Data.PowerUps.Scriptables
     {
         [SerializeField] private SoundManagerSO soundManagerSO;
         [SerializeField] private AudioCueSO powerUpCue;
+        [SerializeField] private GameManager gameManager;
         public override void Activate(GameObject target)
         {
             soundManagerSO.PlayDiegeticMusic(powerUpCue, duration, "Pacify" );
-            //handle patience bar
+            gameManager.onPacifyingMusicStart?.Invoke();
         }
 
         public override void Deactivate(GameObject target)
         {
-           //not needed until we integrate with the patience bar
+            gameManager.onPacifyingMusicEnd?.Invoke();
         }
     }
 }

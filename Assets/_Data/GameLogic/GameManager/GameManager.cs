@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
     [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
+    [HideInInspector] public UnityEvent onPacifyingMusicStart;
+    [HideInInspector] public UnityEvent onPacifyingMusicEnd;
 
     private float levelDuration = 0;
     private float elapsedTime = 0;
