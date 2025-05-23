@@ -5,6 +5,6 @@ public class GameDataSO : ScriptableObject
 {
     public int workdayStartingHour = 16;
     public int money;
-    public int totalHappiness;
+    public int happiness;
     public int currentLevelIndex = 0;
 }
