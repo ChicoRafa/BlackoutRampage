@@ -8719,6 +8719,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
+--- !u!1 &1361438796 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5892641023884024907, guid: b8980961221036d47bb45f63af927609, type: 3}
+  m_PrefabInstance: {fileID: 1271513855958204396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1361979335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 531246570927737346, guid: a77be01a4c2e1134a9a8e15aa128ac8c, type: 3}
@@ -13178,6 +13183,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 754847212}
+    - target: {fileID: 5459304882865608551, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: currentMoneyElementObject
+      value: 
+      objectReference: {fileID: 1361438796}
     - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -13887,10 +13896,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1363954512}
     m_Modifications:
-    - target: {fileID: 329833421801876658, guid: e08edd58e3cad5c4dacd3d764719132f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 943650611555131496, guid: e08edd58e3cad5c4dacd3d764719132f, type: 3}
       propertyPath: m_Name
       value: Customers

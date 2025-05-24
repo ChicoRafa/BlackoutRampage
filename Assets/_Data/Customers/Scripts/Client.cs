@@ -21,6 +21,7 @@ namespace _Data.Customers.Scripts {
         private ClientFSM fsm;
         private bool hasReceivedValidItem = false;
         private bool hasReceivedInvalidItem = false;
+        private bool isMovingImpatiently = false;
 
         private ClientQueueManager queueManager;
         private GameManager gameManager;
@@ -42,7 +43,8 @@ namespace _Data.Customers.Scripts {
         public void Init(ClientType clientType, ClientQueueManager queueManager, GameManager gameManager)
         {
             if (!clientType || !queueManager) return;
-            
+
+            this.clientType = clientType;
             this.queueManager = queueManager;
             this.gameManager = gameManager;
   
@@ -153,5 +155,16 @@ namespace _Data.Customers.Scripts {
         
         public bool IsLeaving() =>
             fsm.GetCurrentState() == LeaveAngryState || fsm.GetCurrentState() == LeaveSatisfiedState;
+        
+        public void MoveImpatiently()
+        {
+            if (isMovingImpatiently) return;
+            isMovingImpatiently = true;
+
+            Vector3 basePos = queueManager.GetAssignedSlotFor(this);
+            movement.MoveImpatiently(basePos, () => {
+                isMovingImpatiently = false;
+            });
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Data.Customers.Scripts {
     public class ClientMovement : MonoBehaviour {
@@ -8,6 +9,8 @@ namespace _Data.Customers.Scripts {
         private Coroutine moveRoutine;
         private GameObject modelInstance;
         private Rigidbody rigidBody;
+        
+        private int currentImpatienceStep = 0;
 
         public void Init(Animator animator, GameObject modelInstance) {
             this.animator = animator;
@@ -46,6 +49,62 @@ namespace _Data.Customers.Scripts {
             if (animator != null) {
                 animator.SetFloat("Speed", value);
             }
+        }
+        
+        public void MoveImpatiently(Vector3 basePosition, System.Action onComplete)
+        {
+            float distance = 0.3f;
+            float duration = 0.3f;
+
+            Vector3[] offsets = new Vector3[]
+            {
+                new Vector3(distance, 0f, 0f),
+                new Vector3(0f, 0f, -distance),
+                new Vector3(-distance, 0f, 0f),
+                new Vector3(0f, 0f, distance)
+            };
+
+            Vector3 offset = offsets[currentImpatienceStep % offsets.Length];
+            Vector3 target = basePosition + offset;
+            Vector3 returnTo = basePosition;
+
+            currentImpatienceStep++;
+
+            StartCoroutine(MoveImpatientRoutine(basePosition, target, returnTo, duration, onComplete));
+        }
+
+        private IEnumerator MoveImpatientRoutine(Vector3 from, Vector3 to, Vector3 backTo, float duration, System.Action onComplete)
+        {
+            SetAnimatorSpeed(1f);
+
+            Vector3 directionTo = (to - from).normalized;
+            if (directionTo != Vector3.zero && modelInstance != null)
+                modelInstance.transform.forward = directionTo;
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                transform.position = Vector3.Lerp(from, to, elapsed / duration);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            transform.position = to;
+
+            Vector3 directionBack = (backTo - to).normalized;
+            if (directionBack != Vector3.zero && modelInstance != null)
+                modelInstance.transform.forward = directionBack;
+
+            elapsed = 0f;
+            while (elapsed < duration)
+            {
+                transform.position = Vector3.Lerp(to, backTo, elapsed / duration);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            transform.position = backTo;
+
+            SetAnimatorSpeed(0f);
+            onComplete?.Invoke();
         }
     }
 }
