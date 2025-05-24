@@ -10,7 +10,8 @@ namespace _Data.PowerUps.Scriptables
         [SerializeField] private GameManager gameManager;
         public override void Activate(GameObject target)
         {
-            soundManagerSO.PlayDiegeticMusic(powerUpCue, duration, "Pacify" );
+            GetEffectiveDuration();
+            soundManagerSO.PlayDiegeticMusic(powerUpCue, duration, "Pacify");
             gameManager.onPacifyingMusicStart?.Invoke();
         }
 

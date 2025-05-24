@@ -8,6 +8,7 @@ namespace _Data.PowerUps.Scriptables
         [SerializeField] private float speedMultiplier = 1.5f;
         public override void Activate(GameObject target)
         {
+            GetEffectiveDuration();
             if (target.TryGetComponent(out PlayerController.Scripts.PlayerController player))
             {
                 player.ModifySpeed(speedMultiplier);
