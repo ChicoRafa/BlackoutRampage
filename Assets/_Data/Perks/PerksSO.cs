@@ -16,4 +16,7 @@ public class PerksSO : ScriptableObject
     
     public int perkPowerUpDurationPrice = 0;
     public bool perkPowerUpDuration = false;
+    
+    public int perkLongerPowerUpsPrice = 0;
+    public bool perkLongerPowerUps = false;
 }
