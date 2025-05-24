@@ -16,6 +16,7 @@ public class Truck : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private int productsToBring = 6;
     [SerializeField] private int timeForTruckToArrive = 90;
+    [SerializeField] private int truckCost = 1000;
     private float timer;
     private int remainingSeconds;
     private int totalSeconds;
@@ -173,5 +174,10 @@ public class Truck : MonoBehaviour
 
         if (other.GetComponent<PlayerController>())
             other.GetComponent<PlayerController>().storage = null;
+    }
+
+    public int GetTruckCost()
+    {
+        return truckCost;
     }
 }

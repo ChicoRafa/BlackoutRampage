@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
     [HideInInspector] public UnityEvent onShelvingPerkLVL3Bought;
     [HideInInspector] public UnityEvent onTruckCallingPerkBought;
-    [HideInInspector] public UnityEvent onPacifyingMusicStart;
-    [HideInInspector] public UnityEvent onPacifyingMusicEnd;
+    [HideInInspector] public UnityEvent onPowerUpDurationPerkBought;
+    [HideInInspector] public UnityEvent onExtraServiceSlotsPerkBought;
+    [HideInInspector] public UnityEvent onPatienceLevelMultiplierChanged;
+    [HideInInspector] public UnityEvent onNotEnoughMoneyToBuyPerk;
     [HideInInspector] public UnityEvent onMoneyChanged;
     [HideInInspector] public UnityEvent onHappinessChanged;
     [HideInInspector] public UnityEvent<string, string> onObjectivesChanged;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     private float nextQuarterTime;
     private float passedSeconds = 0;
     private bool levelRunning = false;
+    private float patienceLevelMultiplier = 1;
 
     void Awake()
     {
@@ -103,6 +106,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public int getCurrentMoney()
+    {
+        return gameData.money;
+    }
     public void UpdateMoney(int money)
     {
         gameData.money += money;
@@ -158,6 +165,14 @@ public class GameManager : MonoBehaviour
         {
             onTruckCallingPerkBought.Invoke();
         }
+        if (perksData.perkPowerUpDuration)
+        {
+            onPowerUpDurationPerkBought.Invoke();
+        }
+        if (perksData.perkExtraServiceSlots)
+        {
+            onExtraServiceSlotsPerkBought.Invoke();
+        }
     }
 
     public void BuyShelvesCapacityPerk()
@@ -177,6 +192,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy shelves capacity perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
 
@@ -191,6 +207,50 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Manager - Not enough money to buy truck calling perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
         }
     }
+
+    public void BuyPowerUpDurationPerk()
+    {
+        if (!perksData.perkPowerUpDuration && perksData.perkPowerUpDurationPrice <= gameData.money)
+        {
+            UpdateMoney(-perksData.perkPowerUpDurationPrice);
+            perksData.perkPowerUpDuration = true;
+            onPowerUpDurationPerkBought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy power up duration perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
+        }
+    }
+
+    public void BuyExtraServiceSlotsPerk()
+    {
+        if (!perksData.perkExtraServiceSlots && perksData.perkExtraServiceSlotsPrice <= gameData.money)
+        {
+            UpdateMoney(-perksData.perkExtraServiceSlotsPrice);
+            perksData.perkExtraServiceSlots = true;
+            onExtraServiceSlotsPerkBought.Invoke();
+        }
+        else
+        {
+            Debug.Log("Game Manager - Not enough money to buy extra service slots perk");
+            onNotEnoughMoneyToBuyPerk.Invoke();
+        }
+    }
+
+    public void ChangePatienceLevelMultiplier(float newValue)
+    {
+        patienceLevelMultiplier = newValue;
+        onPatienceLevelMultiplierChanged?.Invoke();
+    }
+    public void RestorePatienceLevelMultiplier()
+    {
+        patienceLevelMultiplier = levelConfigs[gameData.currentLevelIndex].levelBasePatienceMultiplier;
+        onPatienceLevelMultiplierChanged?.Invoke();
+    }
+
+    public float GetPatienceLevelMultiplier() => patienceLevelMultiplier;
 }

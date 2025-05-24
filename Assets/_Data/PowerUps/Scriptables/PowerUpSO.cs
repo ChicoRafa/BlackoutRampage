@@ -13,12 +13,13 @@ namespace _Data.PowerUps.Scriptables
         public GameObject pickupPrefab;
         public PerksSO perksData;
 
-        public abstract void Activate(GameObject target);
+        public abstract void Activate(GameObject target, GameManager gameManager);
 
-        public abstract void Deactivate(GameObject target);
+        public abstract void Deactivate(GameObject target, GameManager gameManager);
+        
         public virtual float GetEffectiveDuration()
         {
-            if (perksData != null && perksData.perkLongerPowerUps)
+            if (perksData && perksData.perkLongerPowerUps)
                 return duration * durationMultiplier;
             return duration;
         }
