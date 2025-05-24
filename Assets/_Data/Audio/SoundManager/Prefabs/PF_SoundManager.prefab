@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundManagerSO: {fileID: 11400000, guid: 9ace8688b69089f4084f818434090b4d, type: 2}
+  gameData: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
   musicSource: {fileID: 7075244275412144862}
   sfxSource: {fileID: 5660673716704689631}
   diegeticSource: {fileID: 8554453765889256541}

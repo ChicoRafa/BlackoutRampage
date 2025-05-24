@@ -11893,6 +11893,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2152326781269069374, guid: 15219066aefa702468fca0021bd8c1ad, type: 3}
   m_PrefabInstance: {fileID: 810692714}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1992308343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7193604444074481882, guid: 15219066aefa702468fca0021bd8c1ad, type: 3}
+  m_PrefabInstance: {fileID: 810692714}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757c4c694db310c4499c11c966b1f1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1998628926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13097,6 +13108,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5400944740861035449, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1992308343}
     - target: {fileID: 5424368211049729411, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
