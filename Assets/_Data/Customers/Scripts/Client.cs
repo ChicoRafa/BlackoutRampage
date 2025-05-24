@@ -185,5 +185,10 @@ namespace _Data.Customers.Scripts {
         public void ReducePatience(float fraction) {
             patienceController.ReducePatienceByAbsoluteFraction(fraction);
         }
+        
+        public void AddCryptoMoneyBonus(int amount) {
+            Debug.Log($"🤑 {name} awarded a crypto bonus of {amount} money!");
+            gameManager.UpdateMoney(amount);
+        }
     }
 }
