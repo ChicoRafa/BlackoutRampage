@@ -7281,6 +7281,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8458408131614333941, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
+      propertyPath: gameDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
+    - target: {fileID: 8458408131614333941, guid: fd89d6bc996ef8b4fb075a68f7668e8a, type: 3}
       propertyPath: timeForTruckToArrive
       value: 90
       objectReference: {fileID: 0}

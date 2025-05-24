@@ -77,7 +77,6 @@ public class ProductScript : InteractableBase
                 PlayPickUpSound();
 
                 gameObject.transform.position = interactor.GetComponent<PlayerController>().objectsTPSpot.position;
-                //gameObject.SetActive(false);
 
                 if (objectsParent != null && objectsParent == transform.parent)
                     transform.parent = null;
@@ -98,8 +97,7 @@ public class ProductScript : InteractableBase
                                     nulls++;
                                     if (nulls == interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList.Count)
                                         interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().ResetTruckTimer();
-                                }
-                                    
+                                }  
                             }
                         }
                     }
@@ -130,6 +128,7 @@ public class ProductScript : InteractableBase
     {
         return true;
     }
+
     public override string GetInteractionPrompt()
     {
         return "Pick up " + _productName;
