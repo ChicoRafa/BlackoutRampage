@@ -94,7 +94,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   productsToBring: 6
-  timeForTruckToArrive: 90
+  gameDataSO: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
+  numberOfTimesTruckComes: 3
   truckCost: 1000
   truckIcon: {fileID: 1810859421168270673}
   truckStartPos: {x: -900, y: 400, z: 0}
