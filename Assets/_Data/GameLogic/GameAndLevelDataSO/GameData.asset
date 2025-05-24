@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelDurationInMinutes: 1
   workdayStartingHour: 16
-  money: 10000
-  happiness: 3000
-  currentLevelIndex: 1
+  money: 13550
+  happiness: 10000
+  currentLevelIndex: 0
   musicVolume: 0
   sfxVolume: 0

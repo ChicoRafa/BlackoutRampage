@@ -127,9 +127,16 @@ public class GameManager : MonoBehaviour
 
     public void UpdateObjective()
     {
-        string newMoneyObjective = levelConfigs[gameData.currentLevelIndex].moneyObjective.ToString();
-        string newHappinessObjective = levelConfigs[gameData.currentLevelIndex].happinessObjective.ToString();
-        onObjectivesChanged.Invoke(newMoneyObjective, newHappinessObjective);
+        if (gameData.currentLevelIndex >= 0 && gameData.currentLevelIndex < levelConfigs.Count)
+        {
+            string newMoneyObjective = levelConfigs[gameData.currentLevelIndex].moneyObjective.ToString();
+            string newHappinessObjective = levelConfigs[gameData.currentLevelIndex].happinessObjective.ToString();
+            onObjectivesChanged.Invoke(newMoneyObjective, newHappinessObjective);
+        }
+        else
+        {
+            Debug.LogWarning("Game Manager - Current level index is out of bounds for levelConfigs list");
+        }
     }
 
     public void CheckPerks()
@@ -257,9 +264,34 @@ public class GameManager : MonoBehaviour
 
     public float GetPatienceLevelMultiplier() => patienceLevelMultiplier;
 
+    public void InitializeGameData()
+    {
+        gameData.money = 15000;
+        gameData.happiness = 10000;
+        gameData.currentLevelIndex = 0;
+        perksData.perkShelvingLvl2 = false;
+        perksData.perkShelvingLvl3 = false;
+        perksData.perkCallTruck = false;
+        perksData.perkPowerUpDuration = false;
+        perksData.perkExtraServiceSlots = false;
+    }
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void LoadNextLevel()
+    {
+        gameData.currentLevelIndex++;
+        if (gameData.currentLevelIndex < levelConfigs.Count)
+        {
+            SceneManager.LoadScene(gameData.currentLevelIndex+1);
+        }
+        else
+        {
+            Debug.Log("Game Manager - No more levels to load, returning to main menu");
+            LoadMainMenu();
+        }
     }
 
     public void LoadLevel1()
@@ -271,9 +303,15 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
-    
+
     public void LoadLevel3()
     {
         SceneManager.LoadScene(3);
+    }
+    
+    public void ExitGame()
+    {
+        Debug.Log("Game Manager - Exiting game");
+        Application.Quit();
     }
 }

@@ -29,6 +29,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject extraServiceSlotsPriceElementObject;
 
     [Header("UI Texts")]
+    [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
     [SerializeField] private TextMeshProUGUI inGameCurrentMoneyNumberText;
@@ -78,6 +79,7 @@ public class MainUI : MonoBehaviour
             Debug.LogError("GameManager not found in the scene.");
             return;
         }
+        gameManager.onGameStart.AddListener(OnGameStart);
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
@@ -97,6 +99,11 @@ public class MainUI : MonoBehaviour
         truckCallingPriceText.text = perksData.perkCallTruckPrice.ToString();
         powerUpDurationPriceText.text = perksData.perkPowerUpDurationPrice.ToString();
         extraServiceSlotsPriceText.text = perksData.perkExtraServiceSlotsPrice.ToString();
+    }
+
+    private void OnGameStart()
+    {
+        dayNumberText.text = (gameData.currentLevelIndex+1).ToString();
     }
 
     private void OnLevelStart()
@@ -238,6 +245,7 @@ public class MainUI : MonoBehaviour
     {
         GameManager gameManager = FindFirstObjectByType<GameManager>();
         if (!gameManager) return;
+        gameManager.onGameStart.RemoveListener(OnGameStart);
         gameManager.onLevelStart.RemoveListener(OnLevelStart);
         gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);

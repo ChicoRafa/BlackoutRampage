@@ -6117,7 +6117,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7027142583572453979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3938050649309374920
 GameObject:
   m_ObjectHideFlags: 0
@@ -11741,6 +11753,7 @@ MonoBehaviour:
   extraServiceSlotsBuyButtonObject: {fileID: 932617196206084240}
   extraServiceSlotsSoldOutButtonObject: {fileID: 545447627911910214}
   extraServiceSlotsPriceElementObject: {fileID: 720597183414655102}
+  dayNumberText: {fileID: 9040182434671179700}
   currentHourText: {fileID: 2652046787703258572}
   currentMinuteText: {fileID: 5581336957375519187}
   inGameCurrentMoneyNumberText: {fileID: 3402004236423924918}
