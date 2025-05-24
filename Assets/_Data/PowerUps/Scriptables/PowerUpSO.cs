@@ -19,7 +19,7 @@ namespace _Data.PowerUps.Scriptables
         
         public virtual float GetEffectiveDuration()
         {
-            if (perksData && perksData.perkLongerPowerUps)
+            if (perksData && perksData.perkPowerUpDuration)
                 return duration * durationMultiplier;
             return duration;
         }

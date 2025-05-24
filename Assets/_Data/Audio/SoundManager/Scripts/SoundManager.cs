@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private SoundManagerSO soundManagerSO;
+    [SerializeField] private GameDataSO gameData;
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
@@ -12,6 +12,12 @@ public class SoundManager : MonoBehaviour
 
     private AudioClip pausedMusicClip;
     private float pausedMusicTime;
+
+    private void Start()
+    {
+        SetMusicVolume(gameData.musicVolume);
+        SetSFXVolume(gameData.sfxVolume);
+    }
 
     private void OnEnable()
     {
@@ -64,5 +70,18 @@ public class SoundManager : MonoBehaviour
         musicSource.time = pausedMusicTime;
         diegeticSource.Stop();
         musicSource.Play();
+    }
+    
+    public void SetMusicVolume(float volume)
+    {
+        musicSource.volume = volume;
+        diegeticSource.volume = volume;
+        gameData.musicVolume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
+        gameData.sfxVolume = volume;
     }
 }

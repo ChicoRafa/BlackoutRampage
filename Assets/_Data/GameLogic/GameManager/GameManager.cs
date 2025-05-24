@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent onGameStart;
     public UnityEvent onLevelStart;
-    public UnityEvent onLevelEnd;
+    public UnityEvent<bool> onLevelEnd;
     [HideInInspector] public UnityEvent onEveryQuarterPassed;
     [HideInInspector] public UnityEvent onPause;
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= nextQuarterTime)
             {
-                Debug.Log("Game Manager - A quarter passed");
+                //Debug.Log("Game Manager - A quarter passed");
                 onEveryQuarterPassed.Invoke();
                 nextQuarterTime += quarterDuration;
             }
@@ -88,7 +88,9 @@ public class GameManager : MonoBehaviour
     public void EndLevel()
     {
         levelRunning = false;
-        onLevelEnd.Invoke();
+        bool succeeded = gameData.money >= levelConfigs[gameData.currentLevelIndex].moneyObjective &&
+                          gameData.happiness >= levelConfigs[gameData.currentLevelIndex].happinessObjective;
+        onLevelEnd.Invoke(succeeded);
         Debug.Log("Game Manager - Level ended");
     }
 
