@@ -1318,12 +1318,12 @@ GameObject:
   - component: {fileID: 3192109434903146759}
   - component: {fileID: 782980070605121190}
   m_Layer: 0
-  m_Name: 
+  m_Name: ExtraServiceSlotsBuyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8063813990986614310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10155,7 +10155,7 @@ MonoBehaviour:
   resumeGameButtonObject: {fileID: 7445012478755320625}
   nextLevelButtonObject: {fileID: 3937729389484792238}
   helpButtonObject: {fileID: 3247488376973907680}
-  currentMoneyElementObject: {fileID: 0}
+  currentMoneyElementObject: {fileID: 2457998744390521556}
   shelvesBuyButtonObject: {fileID: 5380028151665641748}
   shelvesSoldOutButtonObject: {fileID: 6354301749238507553}
   shelvesCapacityPriceElementObject: {fileID: 8402830617607978542}
