@@ -105,5 +105,21 @@ namespace _Data.Customers.Scripts {
 
             return exitPoint != null ? exitPoint.position : Vector3.zero;
         }
+        
+        public List<Client> GetAllActiveClients() {
+            var allClients = new List<Client>();
+
+            foreach (var client in clientQueue) {
+                if (client != null && !client.IsLeaving())
+                    allClients.Add(client);
+            }
+
+            foreach (var kvp in activeServiceClients) {
+                if (kvp.Value != null && !kvp.Value.IsLeaving())
+                    allClients.Add(kvp.Value);
+            }
+
+            return allClients;
+        }
     }
 }

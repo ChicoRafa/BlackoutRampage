@@ -22,4 +22,4 @@ MonoBehaviour:
   waitingState: {fileID: 11400000, guid: f6c62c5d02cea4d49a682a2a6d7405f9, type: 2}
   beingServedState: {fileID: 11400000, guid: cab46ae42ba30dc45b3e5a5f79a13d47, type: 2}
   leaveSatisfiedState: {fileID: 11400000, guid: 59953a81672c1e64e82fc550fd9cf510, type: 2}
-  leaveAngryState: {fileID: 11400000, guid: 522a33b24164b0740ab2dab26646a569, type: 2}
+  leaveAngryState: {fileID: 11400000, guid: d3658dce75557cc41925eb26c9ffe247, type: 2}

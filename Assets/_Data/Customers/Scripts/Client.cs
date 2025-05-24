@@ -2,6 +2,7 @@ using _Data.Customers.FSM;
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
+using Unity.VisualScripting;
 
 namespace _Data.Customers.Scripts {
 
@@ -69,7 +70,7 @@ namespace _Data.Customers.Scripts {
             movement.Init(animator, modelInstance);
 
             patienceController = gameObject.AddComponent<ClientPatienceController>();
-            patienceController.SetGameManager(gameManager);
+            patienceController.Init(patienceUI, gameManager, GetQueueManager().GetClientIndex(this)); 
             
             fsm = gameObject.AddComponent<ClientFSM>();
             fsm.Init(this, InitialState);
@@ -79,7 +80,7 @@ namespace _Data.Customers.Scripts {
         }
         
         public void StartPatience(System.Action onDepleted) {
-            patienceController.StartPatience(patienceUI, GetQueueManager().GetClientIndex(this), onDepleted);
+            patienceController.StartPatience(onDepleted);
         }
         
         public void StartLeaving() {
@@ -172,9 +173,17 @@ namespace _Data.Customers.Scripts {
             fsm.TransitionTo(LeaveAngryState);
         }
         
-        public void AddHappinessBonus(int amount) {
+        public void AddPoliceHappinessBonus(int amount) {
             Debug.Log($"👮‍♂️ {name} awarded a police bonus of {amount} happiness!");
             gameManager.UpdateHappiness(amount);
+        }
+        
+        public void AddKarenHappinessPenalty(int amount) {
+            gameManager.UpdateHappiness(-amount);
+        }
+        
+        public void ReducePatience(float fraction) {
+            patienceController.ReducePatienceByAbsoluteFraction(fraction);
         }
     }
 }

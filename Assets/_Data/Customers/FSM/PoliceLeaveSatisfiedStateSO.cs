@@ -8,7 +8,7 @@ namespace _Data.Customers.FSM {
 
         public override void OnEnter(Client client) {
             base.OnEnter(client);
-            client.AddHappinessBonus(bonusHappiness);
+            client.AddPoliceHappinessBonus(bonusHappiness);
         }
     }
 }
