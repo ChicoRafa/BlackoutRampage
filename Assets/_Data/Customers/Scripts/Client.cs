@@ -166,5 +166,15 @@ namespace _Data.Customers.Scripts {
                 isMovingImpatiently = false;
             });
         }
+        
+        public void PoliceCalledAway() {
+            Debug.Log($"🚓 {name} got a call and is leaving the queue!");
+            fsm.TransitionTo(LeaveAngryState);
+        }
+        
+        public void AddHappinessBonus(int amount) {
+            Debug.Log($"👮‍♂️ {name} awarded a police bonus of {amount} happiness!");
+            gameManager.UpdateHappiness(amount);
+        }
     }
 }
