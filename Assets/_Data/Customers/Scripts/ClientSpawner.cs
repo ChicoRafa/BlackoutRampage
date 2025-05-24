@@ -52,7 +52,6 @@ namespace _Data.Customers.Scripts {
             if (client != null) {
                 int index = Random.Range(0, clientTypes.Length);
                 client.Init(clientTypes[index], queueManager, gameManager);
-                queueManager.EnqueueClient(client);
             }
         }
     }

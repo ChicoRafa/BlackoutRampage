@@ -1,2 +1,19 @@
 fileFormatVersion: 2
 guid: a6f931bdb87417f4983baca631988802
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - modelPrefab: {instanceID: 0}
+  - animatorController: {instanceID: 0}
+  - initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}
+  - walkingToQueueSlotState: {fileID: 11400000, guid: af402d83b5aacfb4993a2302be0b63cd, type: 2}
+  - waitingState: {fileID: 11400000, guid: f6c62c5d02cea4d49a682a2a6d7405f9, type: 2}
+  - beingServedState: {fileID: 11400000, guid: 99005119a1d015549a2d998e6585e48a, type: 2}
+  - leaveSatisfiedState: {fileID: 11400000, guid: 59953a81672c1e64e82fc550fd9cf510, type: 2}
+  - leaveAngryState: {fileID: 11400000, guid: 522a33b24164b0740ab2dab26646a569, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

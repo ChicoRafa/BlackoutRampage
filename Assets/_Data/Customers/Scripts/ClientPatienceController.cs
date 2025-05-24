@@ -39,7 +39,10 @@ namespace _Data.Customers.Scripts {
             }
         }
 
-        public void StartPatience(ClientPatienceUI ui, int queueIndex, Action onDepletedCallback) {
+        public void StartPatience(ClientPatienceUI ui, int queueIndex, Action onDepletedCallback)
+        {
+            if (isActive) return;
+      
             this.ui = ui;
             onPatienceDepleted = onDepletedCallback;
 
@@ -82,5 +85,7 @@ namespace _Data.Customers.Scripts {
         {
             patienceSpeedMultiplier = gameManager.GetPatienceLevelMultiplier();
         }
+        
+        public bool IsActive() => isActive;
     }
 }
