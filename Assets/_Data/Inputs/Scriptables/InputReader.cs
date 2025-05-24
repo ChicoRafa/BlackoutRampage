@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -20,6 +21,8 @@ public class InputReader : ScriptableObject
     public UnityAction DropEvent;
     public UnityAction<int> SelectItemEvent;
     public UnityAction PauseEvent;
+    
+    private int currentSelectedIndex = 0;
 
     private void BindInputAction(string actionName, Action<InputAction.CallbackContext> performed, Action<InputAction.CallbackContext> canceled)
     {
@@ -81,19 +84,34 @@ public class InputReader : ScriptableObject
         if (context.performed)
             DropEvent?.Invoke();
     }
-
+    
     private void OnSelectItem(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
+        float scrollValue = context.ReadValue<float>();
+
+        // Mouse scroll and gamepad input
+        if (Mathf.Abs(scrollValue) > 0.01f)
+        {
+            int direction = scrollValue > 0 ? 1 : -1; // Up is previous, down is next
+            currentSelectedIndex = (currentSelectedIndex + direction + 9) % 9;
+            SelectItemEvent?.Invoke(currentSelectedIndex);
+            return;
+        }
+
+        // Keyboard number keys
         for (int i = 0; i < 9; i++)
         {
             var key = (Key)((int)Key.Digit1 + i);
             if (!Keyboard.current[key].wasPressedThisFrame) continue;
-            SelectItemEvent?.Invoke(i);
+
+            currentSelectedIndex = i;
+            SelectItemEvent?.Invoke(currentSelectedIndex);
             break;
         }
     }
+
     
     private void OnPause(InputAction.CallbackContext context)
     {

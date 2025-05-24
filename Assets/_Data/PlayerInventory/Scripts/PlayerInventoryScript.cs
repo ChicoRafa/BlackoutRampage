@@ -1,8 +1,6 @@
-using _Data.PlayerInventory;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class PlayerInventoryScript : MonoBehaviour
 {
@@ -51,38 +49,35 @@ public class PlayerInventoryScript : MonoBehaviour
 
     public void DropItem()
     {
-        if (itemsInInventory[selectedSlot] == null || !canDrop)
+        if (!itemsInInventory[selectedSlot] || !canDrop)
             return;
 
         if (interactionZone.shelving)
         {
-            if (itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectType == interactionZone.shelving.objectType)
+            if (itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectType !=
+                interactionZone.shelving.objectType) return;
+            
+            for (int i = 0; i < interactionZone.shelving.objectsList.Count; i++)
             {
-                for (int i = 0; i < interactionZone.shelving.objectsList.Count; i++)
-                {
-                    if (interactionZone.shelving.objectsList[i] == null)
-                    {
-                        if (playerInventorySlots[selectedSlot] == null)
-                            return;
-                        playerInventorySlots[selectedSlot].sprite = null;
-                        playerInventorySlots[selectedSlot].gameObject.SetActive(false);
+                if (interactionZone.shelving.objectsList[i]) continue;
+                    
+                if (!playerInventorySlots[selectedSlot]) return;
+                    
+                playerInventorySlots[selectedSlot].sprite = null;
+                playerInventorySlots[selectedSlot].gameObject.SetActive(false);
 
-                        itemsInInventory[selectedSlot].transform.parent = itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectsParent;
-                        itemsInInventory[selectedSlot].transform.position = interactionZone.shelving.objectsPositionsList[i].position;
-                        interactionZone.shelving.objectsList[i] = itemsInInventory[selectedSlot].gameObject;
-                        itemsInInventory[selectedSlot] = null;
+                itemsInInventory[selectedSlot].transform.parent = itemsInInventory[selectedSlot].GetComponent<ProductScript>().objectsParent;
+                itemsInInventory[selectedSlot].transform.position = interactionZone.shelving.objectsPositionsList[i].position;
+                interactionZone.shelving.objectsList[i] = itemsInInventory[selectedSlot].gameObject;
+                itemsInInventory[selectedSlot] = null;
 
-                        return;
-                    }
-                }
-            }
-            else
                 return;
+            }
         }
         else
         {
-            if (playerInventorySlots[selectedSlot] == null)
-                return;
+            if (!playerInventorySlots[selectedSlot]) return;
+            
             playerInventorySlots[selectedSlot].sprite = null;
             playerInventorySlots[selectedSlot].gameObject.SetActive(false);
 
@@ -95,7 +90,7 @@ public class PlayerInventoryScript : MonoBehaviour
     {
         if (slotIndex < 0 || slotIndex >= itemsInInventory.Count) return;
 
-        if (playerInventorySlots[slotIndex] != null)
+        if (playerInventorySlots[slotIndex])
         {
             playerInventorySlots[slotIndex].sprite = null;
             playerInventorySlots[slotIndex].gameObject.SetActive(false);
