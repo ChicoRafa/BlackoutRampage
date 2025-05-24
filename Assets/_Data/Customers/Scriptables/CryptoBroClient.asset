@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f931bdb87417f4983baca631988802, type: 3}
+  m_Name: CryptoBroClient
+  m_EditorClassIdentifier: 
+  typeName: ImpatientClient
+  baseMinPatience: 100
+  baseMaxPatience: 150
+  modelPrefab: {fileID: 919132149155446097, guid: 050e1725b55b877439751ec757a60d12, type: 3}
+  animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}
+  initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}
+  walkingToQueueSlotState: {fileID: 11400000, guid: af402d83b5aacfb4993a2302be0b63cd, type: 2}
+  waitingState: {fileID: 11400000, guid: f6c62c5d02cea4d49a682a2a6d7405f9, type: 2}
+  beingServedState: {fileID: 11400000, guid: cab46ae42ba30dc45b3e5a5f79a13d47, type: 2}
+  leaveSatisfiedState: {fileID: 11400000, guid: e85a599395d88b84b9914aef8a4dabdf, type: 2}
+  leaveAngryState: {fileID: 11400000, guid: 522a33b24164b0740ab2dab26646a569, type: 2}

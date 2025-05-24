@@ -1,13 +1,10 @@
+using _Data.Customers.FSM;
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
+using Unity.VisualScripting;
 
 namespace _Data.Customers.Scripts {
-    public enum ClientState {
-        WalkingToSlot,
-        Waiting,
-        Leaving
-    }
 
     public class Client : InteractableBase {
         [Header("Client Type")]
@@ -20,22 +17,35 @@ namespace _Data.Customers.Scripts {
         private GameObject modelInstance;
         private Animator animator;
         private ClientPatienceUI patienceUI;
-
         private ClientMovement movement;
         private ClientPatienceController patienceController;
-
-        private bool hasStartedPatience = false;
-        private bool isBeingServed = false;
-        private ClientState currentState = ClientState.WalkingToSlot;
+        private ClientFSM fsm;
+        private bool hasReceivedValidItem = false;
+        private bool hasReceivedInvalidItem = false;
+        private bool isMovingImpatiently = false;
 
         private ClientQueueManager queueManager;
         private GameManager gameManager;
         public Order CurrentOrder { get; private set; }
+        public ClientMovement GetMovement() => movement;
+        public ClientFSM GetFSM() => fsm;
+        public ClientQueueManager GetQueueManager() => queueManager;
         
+        public ClientPatienceController GetPatienceController() => patienceController;
+
+        public ClientStateSO InitialState => clientType.initialState;
+        public ClientStateSO LeaveSatisfiedState => clientType.leaveSatisfiedState;
+        public ClientStateSO LeaveAngryState => clientType.leaveAngryState;
+        public ClientStateSO WaitingState => clientType.waitingState;
+        public ClientStateSO WalkingToQueueSlotState => clientType.walkingToQueueSlotState;
+        public ClientStateSO BeingServedState => clientType.beingServedState;
+        
+ 
         public void Init(ClientType clientType, ClientQueueManager queueManager, GameManager gameManager)
         {
             if (!clientType || !queueManager) return;
-            
+
+            this.clientType = clientType;
             this.queueManager = queueManager;
             this.gameManager = gameManager;
   
@@ -50,6 +60,7 @@ namespace _Data.Customers.Scripts {
                 }
             }
 
+            // Components
             patienceUI = GetComponentInChildren<ClientPatienceUI>(true);
             if (!patienceUI) {
                 Debug.LogError($"❌ {gameObject.name} is missing a ClientPatienceUI component!");
@@ -59,78 +70,48 @@ namespace _Data.Customers.Scripts {
             movement.Init(animator, modelInstance);
 
             patienceController = gameObject.AddComponent<ClientPatienceController>();
-            patienceController.SetGameManager(gameManager);
+            patienceController.Init(patienceUI, gameManager, GetQueueManager().GetClientIndex(this)); 
+            
+            fsm = gameObject.AddComponent<ClientFSM>();
+            fsm.Init(this, InitialState);
+            
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
             patienceUI?.SetOrder(CurrentOrder);
         }
         
-        public void MoveToQueuePosition(Vector3 targetPosition, int queueIndex, bool isServiceSlot) {
-            isBeingServed = isServiceSlot;
-            currentState = ClientState.WalkingToSlot;
-
-            movement.MoveTo(targetPosition, () => OnReachedQueuePosition(queueIndex, isServiceSlot));
+        public void StartPatience(System.Action onDepleted) {
+            patienceController.StartPatience(onDepleted);
         }
-
-        private void OnReachedQueuePosition(int queueIndex, bool isServiceSlot) {
-            if (isServiceSlot && modelInstance) {
-                modelInstance.transform.forward = Vector3.forward;
-            }
-
-            if (!hasStartedPatience) {
-                patienceController.StartPatience(patienceUI, queueIndex, LeaveAngry);
-                hasStartedPatience = true;
-            }
-
-            currentState = ClientState.Waiting;
-
-            if (isBeingServed) {
-                Debug.Log($"🛎️ {gameObject.name} is now ready to be served.");
-            }
-        }
-
-        public bool IsReadyToBeServed() {
-            return currentState == ClientState.Waiting && isBeingServed;
-        }
-
-        private void LeaveSatisfied() {
-            Debug.Log($"🚶 {gameObject.name} is leaving satisfied.");
-            StartLeaving();
-        }
-
-        private void LeaveAngry() {
-            Debug.Log($"💢 {gameObject.name} is leaving angry.");
-            StartLeaving();
-        }
-
-        private void StartLeaving() {
-
+        
+        public void StartLeaving() {
             int score = Mathf.FloorToInt(
                 (float)(CurrentOrder.GetOriginalCount() - CurrentOrder.GetRemainingCount()) 
-                / CurrentOrder.GetOriginalCount() * 100
+                / CurrentOrder.GetOriginalCount() * 100f
             );
             gameManager.UpdateHappiness(score);
 
-            currentState = ClientState.Leaving;
             queueManager.DequeueClient(this);
             patienceController.Deactivate();
-
-            movement.MoveTo(queueManager.GetExitPoint().position, () => {
-                Debug.Log($"💥 {gameObject.name} exited the store.");
-                Destroy(gameObject);
-            });
         }
 
-        public void LeaveBecauseQueueIsFull(Vector3 exitPosition) {
-            Debug.Log($"❌ {gameObject.name} couldn't join queue and leaves immediately.");
-            movement.MoveTo(exitPosition, () => Destroy(gameObject));
+        public void ShowAngryEffect() {
+            Debug.Log($"😡 {name} is angry!");
+            // TODO: Add VFX or audio if needed
         }
 
-        public bool IsLeaving() {
-            return currentState == ClientState.Leaving;
+        public void ShowHappyEffect() {
+            Debug.Log($"😊 {name} is happy!");
+            // TODO: Add VFX or audio if needed
         }
 
+        public void LookForward() {
+            if (modelInstance) {
+                modelInstance.transform.forward = Vector3.forward;
+            }
+        }
+        
         public override void Interact(GameObject interactor) {
-            if (!IsReadyToBeServed()) return;
+            if (fsm.GetCurrentState() != BeingServedState) return;
 
             var inventory = interactor.GetComponent<PlayerInventoryScript>();
             if (inventory == null) return;
@@ -140,42 +121,74 @@ namespace _Data.Customers.Scripts {
             if (heldItem == null) return;
 
             var productScript = heldItem.GetComponent<ProductScript>();
-            if (productScript == null) {
-                Debug.LogWarning("🛑 Held item doesn't have a ProductScript");
-                return;
-            }
+            if (productScript == null) return;
 
             var itemType = productScript.GetProduct();
 
             if (CurrentOrder.ContainsProduct(itemType)) {
-                
                 CurrentOrder.RemoveProduct(itemType);
                 gameManager.UpdateMoney(itemType.sellingPrice);
                 soundManager.PlaySFX(audioCue, "Coins", 1f);
-                
-                Debug.Log($"✅ {name} received: {itemType.name}");
 
                 Destroy(heldItem);
                 inventory.ClearSlot(selectedSlot);
                 patienceUI?.SetOrder(CurrentOrder);
-                
-                if (CurrentOrder.GetRemainingCount() == 0) {
-                    LeaveSatisfied();
-                }
+
+                hasReceivedValidItem = true;
             } else {
-                Debug.Log($"❌ {name} didn't ask for {itemType.name}");
                 Destroy(heldItem);
                 inventory.ClearSlot(selectedSlot);
-                LeaveAngry();
+                hasReceivedInvalidItem = true;
             }
         }
+        
+        public bool HasReceivedValidItem() => hasReceivedValidItem;
+        public bool HasReceivedInvalidItem() => hasReceivedInvalidItem;
 
-        public override string GetInteractionPrompt() {
-            return "Give item";
+        public void ClearInteractionFlags() {
+            hasReceivedValidItem = false;
+            hasReceivedInvalidItem = false;
         }
 
-        public override bool CanInteract(GameObject interactor) {
-            return IsReadyToBeServed();
+        public override string GetInteractionPrompt() => "Give item";
+        public override bool CanInteract(GameObject interactor) =>
+            fsm.GetCurrentState() == BeingServedState;
+        
+        public bool IsLeaving() =>
+            fsm.GetCurrentState() == LeaveAngryState || fsm.GetCurrentState() == LeaveSatisfiedState;
+        
+        public void MoveImpatiently()
+        {
+            if (isMovingImpatiently) return;
+            isMovingImpatiently = true;
+
+            Vector3 basePos = queueManager.GetAssignedSlotFor(this);
+            movement.MoveImpatiently(basePos, () => {
+                isMovingImpatiently = false;
+            });
+        }
+        
+        public void PoliceCalledAway() {
+            Debug.Log($"🚓 {name} got a call and is leaving the queue!");
+            fsm.TransitionTo(LeaveAngryState);
+        }
+        
+        public void AddPoliceHappinessBonus(int amount) {
+            Debug.Log($"👮‍♂️ {name} awarded a police bonus of {amount} happiness!");
+            gameManager.UpdateHappiness(amount);
+        }
+        
+        public void AddKarenHappinessPenalty(int amount) {
+            gameManager.UpdateHappiness(-amount);
+        }
+        
+        public void ReducePatience(float fraction) {
+            patienceController.ReducePatienceByAbsoluteFraction(fraction);
+        }
+        
+        public void AddCryptoMoneyBonus(int amount) {
+            Debug.Log($"🤑 {name} awarded a crypto bonus of {amount} money!");
+            gameManager.UpdateMoney(amount);
         }
     }
 }

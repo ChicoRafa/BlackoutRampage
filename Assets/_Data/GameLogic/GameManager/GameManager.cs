@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -255,4 +256,24 @@ public class GameManager : MonoBehaviour
     }
 
     public float GetPatienceLevelMultiplier() => patienceLevelMultiplier;
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene(2);
+    }
+    
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

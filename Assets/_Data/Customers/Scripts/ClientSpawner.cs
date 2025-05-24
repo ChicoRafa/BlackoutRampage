@@ -46,13 +46,12 @@ namespace _Data.Customers.Scripts {
         private void SpawnRandomClient() {
             if (clientPrefab == null || clientTypes.Length == 0 || queueManager == null || spawnPoint == null) return;
 
-            GameObject clientGO = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject clientGO = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity, transform);
             Client client = clientGO.GetComponent<Client>();
 
             if (client != null) {
                 int index = Random.Range(0, clientTypes.Length);
                 client.Init(clientTypes[index], queueManager, gameManager);
-                queueManager.EnqueueClient(client);
             }
         }
     }

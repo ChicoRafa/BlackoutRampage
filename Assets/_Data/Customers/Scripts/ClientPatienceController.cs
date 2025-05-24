@@ -9,15 +9,34 @@ namespace _Data.Customers.Scripts {
         private float currentPatience;
         private float maxPatience;
         private bool isActive;
+        private bool hasStarted;
 
         private ClientPatienceUI ui;
         private Action onPatienceDepleted;
         private GameManager gameManager;
         private float patienceSpeedMultiplier = 1f;
 
-        private void Update() {
-            if (!isActive || currentPatience <= 0f) return;
+        public void Init(ClientPatienceUI ui, GameManager gameManager, int queueIndex)
+        {
+            this.gameManager = gameManager;
+            if (this.gameManager != null)
+            {
+                gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
+            }
+            
+            this.ui = ui;
 
+            float rawPatience = UnityEngine.Random.Range(minBasePatience, maxBasePatience);
+            float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
+            maxPatience = rawPatience * patienceBonus;
+            currentPatience = maxPatience;
+
+            float normalized = Mathf.Clamp01(currentPatience / maxPatience);
+            ui?.UpdatePatience(normalized);
+            ui?.gameObject.SetActive(true);
+        }
+        private void Update() {
+            if (!isActive || !hasStarted || currentPatience <= 0f) return;
             
             currentPatience -= Time.deltaTime * patienceSpeedMultiplier;
 
@@ -25,48 +44,18 @@ namespace _Data.Customers.Scripts {
             ui?.UpdatePatience(normalized);
 
             if (currentPatience <= 0f) {
-                isActive = false;
-                onPatienceDepleted?.Invoke();
+                EndPatience();
             }
         }
 
-        public void SetGameManager(GameManager gameManager)
+        public void StartPatience(Action onDepletedCallback)
         {
-            this.gameManager = gameManager;
-            if (this.gameManager != null)
-            {
-                gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
-            }
-        }
-
-        public void StartPatience(ClientPatienceUI ui, int queueIndex, Action onDepletedCallback) {
-            this.ui = ui;
+            if (isActive) return;
+      
             onPatienceDepleted = onDepletedCallback;
-
             patienceSpeedMultiplier = gameManager.GetPatienceLevelMultiplier();
-            float rawPatience = UnityEngine.Random.Range(minBasePatience, maxBasePatience);
-            float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
-            maxPatience = rawPatience * patienceBonus;
-            currentPatience = maxPatience;
             isActive = true;
-
-            ui?.UpdatePatience(1f);
-            if (ui != null) ui.gameObject.SetActive(true);
-
-            Debug.Log($"⏳ Starting patience: {maxPatience:F1}s (Q{queueIndex})");
-        }
-
-        public void Reduce(float amount) {
-            if (!isActive || currentPatience <= 0f) return;
-
-            currentPatience = Mathf.Max(0, currentPatience - amount);
-            float normalized = Mathf.Clamp01(currentPatience / maxPatience);
-            ui?.UpdatePatience(normalized);
-
-            if (currentPatience <= 0f) {
-                isActive = false;
-                onPatienceDepleted?.Invoke();
-            }
+            hasStarted = true;
         }
 
         public void Deactivate() {
@@ -75,12 +64,35 @@ namespace _Data.Customers.Scripts {
 
                 gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
             }
+            isActive = false;
+            hasStarted = false;
             ui?.gameObject.SetActive(false);
         }
         
         private void OnPatienceLevelMultiplierChanged()
         {
             patienceSpeedMultiplier = gameManager.GetPatienceLevelMultiplier();
+        }
+        
+        public bool IsActive() => isActive;
+        
+        public void ReducePatienceByAbsoluteFraction(float fractionOfMax)
+        {
+            float amountToReduce = maxPatience * fractionOfMax;
+            currentPatience = Mathf.Max(0f, currentPatience - amountToReduce);
+
+            float normalized = Mathf.Clamp01(currentPatience / maxPatience);
+            ui?.UpdatePatience(normalized);
+
+            if (currentPatience <= 0f) {
+                EndPatience();
+            }
+        }
+        
+        private void EndPatience() {
+            isActive = false;
+            hasStarted = false;
+            onPatienceDepleted?.Invoke();
         }
     }
 }

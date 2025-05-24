@@ -38,6 +38,10 @@ namespace _Data.Customers.Scripts {
         }
         
         public void SetOrder(Order order) {
+            foreach (Transform child in orderItemsContainer) {
+                Destroy(child.gameObject);
+            }
+
             foreach (Product product in order.GetItemsFlatList()) {
                 GameObject iconGO = Instantiate(orderItemUIPrefab, orderItemsContainer);
                 Image icon = iconGO.GetComponent<Image>();
