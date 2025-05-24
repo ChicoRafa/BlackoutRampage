@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelDurationInMinutes: 1
   workdayStartingHour: 16
+  initialMoneyAmount: 15000
   money: 13550
   happiness: 10000
   currentLevelIndex: 0

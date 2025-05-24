@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     public void EndLevel()
     {
         levelRunning = false;
-        bool succeeded = gameData.money >= levelConfigs[gameData.currentLevelIndex].moneyObjective &&
+        bool succeeded = gameData.currentMoney >= levelConfigs[gameData.currentLevelIndex].moneyObjective &&
                           gameData.happiness >= levelConfigs[gameData.currentLevelIndex].happinessObjective;
         onLevelEnd.Invoke(succeeded);
         Debug.Log("Game Manager - Level ended");
@@ -111,11 +111,11 @@ public class GameManager : MonoBehaviour
 
     public int getCurrentMoney()
     {
-        return gameData.money;
+        return gameData.currentMoney;
     }
     public void UpdateMoney(int money)
     {
-        gameData.money += money;
+        gameData.currentMoney += money;
         onMoneyChanged.Invoke();
     }
 
@@ -187,13 +187,13 @@ public class GameManager : MonoBehaviour
 
     public void BuyShelvesCapacityPerk()
     {
-        if (!perksData.perkShelvingLvl2 && perksData.perkShelvingLvl2Price <= gameData.money)
+        if (!perksData.perkShelvingLvl2 && perksData.perkShelvingLvl2Price <= gameData.currentMoney)
         {
             UpdateMoney(-perksData.perkShelvingLvl2Price);
             perksData.perkShelvingLvl2 = true;
             onShelvingPerkLVL2Bought.Invoke();
         }
-        else if (!perksData.perkShelvingLvl3 && perksData.perkShelvingLvl3Price <= gameData.money)
+        else if (!perksData.perkShelvingLvl3 && perksData.perkShelvingLvl3Price <= gameData.currentMoney)
         {
             UpdateMoney(-perksData.perkShelvingLvl3Price);
             perksData.perkShelvingLvl3 = true;
@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
 
     public void BuyTruckCallingPerk()
     {
-        if (!perksData.perkCallTruck && perksData.perkCallTruckPrice <= gameData.money)
+        if (!perksData.perkCallTruck && perksData.perkCallTruckPrice <= gameData.currentMoney)
         {
             UpdateMoney(-perksData.perkCallTruckPrice);
             perksData.perkCallTruck = true;
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
 
     public void BuyPowerUpDurationPerk()
     {
-        if (!perksData.perkPowerUpDuration && perksData.perkPowerUpDurationPrice <= gameData.money)
+        if (!perksData.perkPowerUpDuration && perksData.perkPowerUpDurationPrice <= gameData.currentMoney)
         {
             UpdateMoney(-perksData.perkPowerUpDurationPrice);
             perksData.perkPowerUpDuration = true;
@@ -238,7 +238,7 @@ public class GameManager : MonoBehaviour
 
     public void BuyExtraServiceSlotsPerk()
     {
-        if (!perksData.perkExtraServiceSlots && perksData.perkExtraServiceSlotsPrice <= gameData.money)
+        if (!perksData.perkExtraServiceSlots && perksData.perkExtraServiceSlotsPrice <= gameData.currentMoney)
         {
             UpdateMoney(-perksData.perkExtraServiceSlotsPrice);
             perksData.perkExtraServiceSlots = true;
@@ -266,8 +266,8 @@ public class GameManager : MonoBehaviour
 
     public void InitializeGameData()
     {
-        gameData.money = 15000;
-        gameData.happiness = 10000;
+        gameData.currentMoney = gameData.initialMoneyAmount;
+        gameData.happiness = 0;
         gameData.currentLevelIndex = 0;
         perksData.perkShelvingLvl2 = false;
         perksData.perkShelvingLvl3 = false;
@@ -297,16 +297,6 @@ public class GameManager : MonoBehaviour
     public void LoadLevel1()
     {
         SceneManager.LoadScene(1);
-    }
-
-    public void LoadLevel2()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    public void LoadLevel3()
-    {
-        SceneManager.LoadScene(3);
     }
     
     public void ExitGame()

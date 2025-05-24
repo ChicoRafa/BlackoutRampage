@@ -264,7 +264,7 @@ public class MainUI : MonoBehaviour
     private void OnMoneyChanged()
     {
         //Debug.Log("Main UI - Money changed: " + money);
-        string newMoneyText = gameData.money.ToString();
+        string newMoneyText = gameData.currentMoney.ToString();
         inGameCurrentMoneyNumberText.text = newMoneyText;
         resultsMoneyNumberText.text = newMoneyText;
         perkShopMoneyNumberText.text = newMoneyText;

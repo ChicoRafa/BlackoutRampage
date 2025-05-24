@@ -6,7 +6,8 @@ public class GameDataSO : ScriptableObject
     [Header("Game Settings")]
     public float levelDurationInMinutes = 8f;
     public int workdayStartingHour = 16;
-    public int money;
+    public int initialMoneyAmount;
+    public int currentMoney;
     public int happiness;
     public int currentLevelIndex = 0;
     
