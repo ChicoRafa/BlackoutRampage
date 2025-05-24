@@ -47,8 +47,8 @@ public class MainUI : MonoBehaviour
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
     [SerializeField] private List<Sprite> dayTimeSprites;
-    [SerializeField] private Image failureImage;
-    [SerializeField] private Image successImage;
+    [SerializeField] private GameObject failureImageObject;
+    [SerializeField] private GameObject successImageObject;
 
     [Header("Scriptable Objects")]
     [SerializeField] private GameDataSO gameData;
@@ -107,16 +107,27 @@ public class MainUI : MonoBehaviour
         currentMinuteText.text = "00";
     }
 
-    private void OnLevelEnd()
+    private void OnLevelEnd(bool succeeded)
     {
         //Debug.Log("Main UI - Level ended");
 
         nextLevelButtonObject.SetActive(true);
         resumeGameButtonObject.SetActive(false);
         helpButtonObject.SetActive(false);
-        failureImage.gameObject.SetActive(true);
-        levelMenuObject.SetActive(true);
         inGameElementsObject.SetActive(false);
+        if (succeeded)
+        {
+            successImageObject.SetActive(true);
+            failureImageObject.SetActive(false);
+            nextLevelButtonObject.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            successImageObject.SetActive(false);
+            failureImageObject.SetActive(true);
+            nextLevelButtonObject.GetComponent<Button>().interactable = false;
+        }
+        levelMenuObject.SetActive(true);
     }
 
     private void OnPause()
