@@ -172,10 +172,12 @@ namespace _Data.Customers.Scripts {
         public void AddPoliceHappinessBonus(int amount) {
             gameManager.UpdateHappiness(amount);
             visualEffects?.ShowPoliceHappinessBonus();
+            soundManager.PlaySFX(audioCue, "Applause", 1f);
         }
         
         public void AddKarenHappinessPenalty(int amount) {
             gameManager.UpdateHappiness(-amount);
+            soundManager.PlaySFX(audioCue, "KarenAngry", 1f);
         }
         
         public void ReducePatience(float fraction) {
@@ -187,15 +189,18 @@ namespace _Data.Customers.Scripts {
         {
             patienceController.IncreasePatienceByAbsoluteFraction(fraction);
             visualEffects?.ShowPatienceIncreased();
+            soundManager.PlaySFX(audioCue, "SantaBonus", 1f);
         }
         
         public void AddCryptoMoneyBonus(int amount) {
             gameManager.UpdateMoney(amount);
             visualEffects?.ShowMoneyBonus();
+            soundManager.PlaySFX(audioCue, "MoneyBonus", 1f);
         }
         
         public void ShowAngryEffect() {
             visualEffects?.ShowAngryIcon();
+            soundManager.PlaySFX(audioCue, "AngryLeaving", 1f);
         }
 
         public void ShowHappyEffect() {
