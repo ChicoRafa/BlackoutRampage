@@ -44,6 +44,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI truckCallingPriceText;
     [SerializeField] private TextMeshProUGUI powerUpDurationPriceText;
     [SerializeField] private TextMeshProUGUI extraServiceSlotsPriceText;
+    [SerializeField] private TextMeshProUGUI finalResultsMoneyNumberText;
+    [SerializeField] private TextMeshProUGUI finalResultsHappinessNumberText;
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -80,6 +82,7 @@ public class MainUI : MonoBehaviour
             return;
         }
         gameManager.onGameStart.AddListener(OnGameStart);
+        gameManager.onRunEnd.AddListener(OnRunEnd);
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
@@ -112,6 +115,12 @@ public class MainUI : MonoBehaviour
         currentDayTimeImage.sprite = dayTimeSprites[0];
         currentHourText.text = gameData.workdayStartingHour.ToString("00");
         currentMinuteText.text = "00";
+    }
+
+    private void OnRunEnd()
+    {
+        finalResultsHappinessNumberText.text = gameData.happiness.ToString();
+        finalResultsMoneyNumberText.text = gameData.currentMoney.ToString();
     }
 
     private void OnLevelEnd(bool succeeded)
@@ -246,6 +255,7 @@ public class MainUI : MonoBehaviour
         GameManager gameManager = FindFirstObjectByType<GameManager>();
         if (!gameManager) return;
         gameManager.onGameStart.RemoveListener(OnGameStart);
+        gameManager.onRunEnd.RemoveListener(OnRunEnd);
         gameManager.onLevelStart.RemoveListener(OnLevelStart);
         gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);

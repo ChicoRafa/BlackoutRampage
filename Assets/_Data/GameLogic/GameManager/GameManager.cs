@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Events")]
     public UnityEvent onGameStart;
+    [HideInInspector] public UnityEvent onRunEnd;
     public UnityEvent onLevelStart;
     public UnityEvent<bool> onLevelEnd;
     [HideInInspector] public UnityEvent onEveryQuarterPassed;
@@ -48,6 +49,13 @@ public class GameManager : MonoBehaviour
         onHappinessChanged.Invoke();
         UpdateObjective();
         CheckPerks();
+    }
+
+    public void EndRun()
+    {
+        levelRunning = false;
+        onRunEnd.Invoke();
+        Debug.Log("Game Manager - Game ended");
     }
 
     public void StartLevel()

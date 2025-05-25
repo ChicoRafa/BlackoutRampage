@@ -3448,6 +3448,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: CheckPerks
       objectReference: {fileID: 0}
+    - target: {fileID: 2904230676345252080, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3899438026240830237}
+    - target: {fileID: 2904230676345252080, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 3861455401212775653, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3577,8 +3585,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3899438026240830237}
     - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1033085214}
+    - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadMainMenu
+      value: EndRun
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265752822191553789, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 6468888064789052832, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5600,6 +5616,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Timelines
       objectReference: {fileID: 0}
+    - target: {fileID: 4017655054279625024, guid: fa5dc08794a06694fbecedeb5208d3ed, type: 3}
+      propertyPath: m_SceneBindings.Array.data[0].value
+      value: 
+      objectReference: {fileID: 475565636}
+    - target: {fileID: 4017655054279625024, guid: fa5dc08794a06694fbecedeb5208d3ed, type: 3}
+      propertyPath: m_SceneBindings.Array.data[1].value
+      value: 
+      objectReference: {fileID: 2054887024}
     - target: {fileID: 4761523161394211776, guid: fa5dc08794a06694fbecedeb5208d3ed, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
@@ -7207,6 +7231,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032569020}
   m_Mesh: {fileID: -6281424698479989189, guid: 643dbf4d3abdd094d99cbb86293820aa, type: 3}
+--- !u!1 &1033085214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5673760334221919689, guid: fa5dc08794a06694fbecedeb5208d3ed, type: 3}
+  m_PrefabInstance: {fileID: 760004556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1035174046
 GameObject:
   m_ObjectHideFlags: 0
@@ -12956,6 +12985,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb50d337db050b43a60b63a4028fc93, type: 3}
+--- !u!95 &2054887024 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2118087974954848033, guid: b8980961221036d47bb45f63af927609, type: 3}
+  m_PrefabInstance: {fileID: 475565633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2063090009
 GameObject:
   m_ObjectHideFlags: 0
@@ -13853,6 +13887,14 @@ PrefabInstance:
       propertyPath: onPause.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 964125699}
+    - target: {fileID: 901364934190562675, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
+      propertyPath: onPause.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PauseGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 901364934190562675, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
+      propertyPath: onPause.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 2113956879138234158, guid: adf1509a8583cfb43a93482f00d95a1d, type: 3}
       propertyPath: m_Name
       value: Player
