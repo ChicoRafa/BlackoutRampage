@@ -46,11 +46,12 @@ namespace _Data.Customers.Scripts {
         
         public void UpdateQueue() {
             // 1. Try to fill available service slots first
+            List<Client> promotableClients = clientQueue.FindAll(c => !c.IsLeaving());
+            int promotableIndex = 0;
             foreach (Transform slot in serviceSlots) {
                 if (!activeServiceClients.ContainsKey(slot) || activeServiceClients[slot] == null) {
-                    Client next = clientQueue.Find(c => !c.IsLeaving());
-
-                    if (next != null) {
+                    if (promotableIndex < promotableClients.Count) {
+                        Client next = promotableClients[promotableIndex++];
                         activeServiceClients[slot] = next;
                         clientQueue.Remove(next);
                         next.GetFSM().TransitionTo(next.WalkingToQueueSlotState);
@@ -60,7 +61,8 @@ namespace _Data.Customers.Scripts {
 
             // 2. Update the rest of the queue
             int queueIndex = 0;
-            foreach (var client in clientQueue) {
+            for (int i = 0; i < clientQueue.Count; i++) {
+                Client client = clientQueue[i];
                 if (client == null || client.IsLeaving()) continue;
                 if (IsClientInServiceSlot(client)) continue;
 
