@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a93ec4e1f7372945a07a9b5cb3a6794, type: 3}
   m_Name: Perks
   m_EditorClassIdentifier: 
-  perkShelvingLvl2Price: 100
+  perkShelvingLvl2Price: 600
   perkShelvingLvl2: 0
-  perkShelvingLvl3Price: 250
+  perkShelvingLvl3Price: 600
   perkShelvingLvl3: 0
-  perkCallTruckPrice: 300
+  perkCallTruckPrice: 600
   perkCallTruck: 0
-  perkExtraServiceSlotsPrice: 200
+  perkExtraServiceSlotsPrice: 600
   perkExtraServiceSlots: 0
   perkPowerUpDurationPrice: 600
   perkPowerUpDuration: 0
