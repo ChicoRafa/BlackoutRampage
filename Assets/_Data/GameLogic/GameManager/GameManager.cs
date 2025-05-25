@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
     public void UpdateHappiness(int happiness)
     {
         gameData.happiness += happiness;
+        if (gameData.happiness < 0) gameData.happiness = 0;
         onHappinessChanged.Invoke();
     }
 
