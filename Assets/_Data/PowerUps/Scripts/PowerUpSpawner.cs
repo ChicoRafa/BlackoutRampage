@@ -9,6 +9,9 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 10f;
     [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;//change area to gameobject containing the spawn area (in fact it can be a collider inside this object)
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private float powerUpLifetime = 10f;
+    private List<GameObject> activePowerUps = new List<GameObject>();
+    private const int maxPowerUps = 2;
     
     private void Start()
     {
@@ -17,6 +20,9 @@ public class PowerUpSpawner : MonoBehaviour
 
     void SpawnRandomPowerUp()
     {
+        activePowerUps.RemoveAll(pu => !pu);
+        if (activePowerUps.Count >= maxPowerUps) return;
+        
         PowerUpSO selectedPowerUp = powerUps[Random.Range(0, powerUps.Count)];
 
         Vector3 spawnPosition = new Vector3(
@@ -26,7 +32,11 @@ public class PowerUpSpawner : MonoBehaviour
         );
 
         GameObject powerUpGO = Instantiate(selectedPowerUp.pickupPrefab, spawnPosition, Quaternion.identity);
+        activePowerUps.Add(powerUpGO);
         var pickup = powerUpGO.GetComponentInChildren<PowerUpPickup>();
         pickup.Init(selectedPowerUp, gameManager);
+        
+        var timedDestroyer = powerUpGO.AddComponent<TimedDestroyer>();
+        timedDestroyer.DestroyAfter(powerUpLifetime);
     }
 }

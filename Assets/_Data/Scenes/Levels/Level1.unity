@@ -6071,15 +6071,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537876454161610438, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2931750448225060842, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1225404974}
+    - target: {fileID: 2931750448225060842, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
+      propertyPath: spawnAreaMin.x
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6087,7 +6091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3840433138706101011, guid: d1ebeb851dc5b504abc9d73ef126233e, type: 3}
       propertyPath: m_LocalRotation.w
