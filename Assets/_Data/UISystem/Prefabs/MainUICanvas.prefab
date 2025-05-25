@@ -8304,6 +8304,7 @@ MonoBehaviour:
   inGameElements: {fileID: 5809632117088897921}
   gameCursor: {fileID: 8803998530107207164}
   helpMenu: {fileID: 3253970223833976951}
+  isMainMenu: 0
 --- !u!1 &4686103655067486001
 GameObject:
   m_ObjectHideFlags: 0
@@ -14855,7 +14856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 022a621e6e7ee674e851158200ca6369, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 993cb50eeec73894884a9ec7c8cd9e55, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -19,6 +19,7 @@ namespace _Data.UISystem.Scripts
 
             if (gameCursor.activeSelf != shouldShowCursor)
                 gameCursor.SetActive(shouldShowCursor);
+            Cursor.visible = !shouldShowCursor;
             
             UpdateHelpMenuIcons();
         }
