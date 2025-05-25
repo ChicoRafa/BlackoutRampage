@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c04ff537394b146b4b723caa4cb1b3, type: 3}
   m_Name: KarenLeaveAngryState
   m_EditorClassIdentifier: 
+  penaltyHappiness: 200
+  penaltyPatience: 0.3
