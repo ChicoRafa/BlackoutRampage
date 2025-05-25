@@ -19,11 +19,14 @@ namespace _Data.UISystem.Scripts
                 cursorRectTransform = GetComponent<RectTransform>();
 
             screenBounds = new Vector2(Screen.width, Screen.height);
-            Cursor.visible = false;
         }
 
         private void FixedUpdate()
         {
+            // Solo mover el cursor si está activo
+            if (!cursorRectTransform.gameObject.activeSelf)
+                return;
+
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
 
@@ -35,6 +38,7 @@ namespace _Data.UISystem.Scripts
 
             cursorRectTransform.position = newPos;
 
+            // Raycast UI
             PointerEventData pointer = new PointerEventData(EventSystem.current);
             pointer.position = newPos;
 
@@ -45,11 +49,9 @@ namespace _Data.UISystem.Scripts
             foreach (var result in raycastResults)
             {
                 foundHoverHandler = result.gameObject.GetComponent<CustomHoverHandler>();
-                if (foundHoverHandler)
-                    break;
+                if (foundHoverHandler) break;
             }
 
-            
             if (!foundHoverHandler && currentHoverHandler)
             {
                 currentHoverHandler.OnPointerExit(null);
@@ -57,36 +59,25 @@ namespace _Data.UISystem.Scripts
             }
             else if (foundHoverHandler && foundHoverHandler != currentHoverHandler)
             {
-                if (currentHoverHandler)
-                    currentHoverHandler.OnPointerExit(null);
+                if (currentHoverHandler) currentHoverHandler.OnPointerExit(null);
                 foundHoverHandler.OnPointerEnter(null);
                 currentHoverHandler = foundHoverHandler;
             }
 
-            // Si haces clic sobre el objeto en hover, desactívalo
-            if (Input.GetButtonDown("Submit") && currentHoverHandler)
-            {
-                foreach (var result in raycastResults)
-                {
-                    if (result.gameObject.GetComponent<CustomHoverHandler>() != currentHoverHandler) continue;
-                    
-                    currentHoverHandler.OnPointerExit(null);
-                    currentHoverHandler = null;
-                    break;
-                }
-            }
-
-            // Click normal de botón
             if (!Input.GetButtonDown("Submit")) return;
             {
                 foreach (var result in raycastResults)
                 {
                     var button = result.gameObject.GetComponent<Button>();
                     if (!button || !button.interactable) continue;
-                    
+
                     button.onClick.Invoke();
                     break;
                 }
+
+                if (!currentHoverHandler) return;
+                currentHoverHandler.OnPointerExit(null);
+                currentHoverHandler = null;
             }
         }
     }
