@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public int getCurrentMoney()
+    public int GetCurrentMoney()
     {
         return gameData.currentMoney;
     }

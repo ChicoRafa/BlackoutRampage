@@ -23,7 +23,7 @@ public class ComputerInteractable : InteractableBase
 
     public override bool CanInteract(GameObject interactor)
     {
-        int currentMoney = gameManager != null ? gameManager.getCurrentMoney() : 0;
+        int currentMoney = gameManager != null ? gameManager.GetCurrentMoney() : 0;
         return perksData != null && perksData.perkCallTruck && currentMoney >= truck.GetTruckCost();
     }
 
