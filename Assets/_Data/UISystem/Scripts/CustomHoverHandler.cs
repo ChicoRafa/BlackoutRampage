@@ -1,17 +1,30 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CustomHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace _Data.UISystem.Scripts
 {
-    [SerializeField] private GameObject objectToActivateWhenHovered;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public class CustomHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
     {
-        objectToActivateWhenHovered.SetActive(true);
-    }
+        [SerializeField] private GameObject objectToActivateWhenHovered;
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        objectToActivateWhenHovered.SetActive(false);
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            objectToActivateWhenHovered.SetActive(true);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            objectToActivateWhenHovered.SetActive(false);
+        }
+        
+        public void OnSelect(BaseEventData eventData)
+        {
+            objectToActivateWhenHovered.SetActive(true);
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            objectToActivateWhenHovered.SetActive(false);
+        }
     }
 }
