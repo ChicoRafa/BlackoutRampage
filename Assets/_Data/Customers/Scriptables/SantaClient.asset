@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SantaClient
   m_EditorClassIdentifier: 
   typeName: SantaClaus
-  baseMinPatience: 100
-  baseMaxPatience: 120
+  baseMinPatience: 90
+  baseMaxPatience: 100
   modelPrefab: {fileID: 919132149155446097, guid: a6ec0da843fd6724f935fd43c7080f3e, type: 3}
   animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}
   initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}

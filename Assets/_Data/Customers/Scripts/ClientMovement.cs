@@ -38,9 +38,10 @@ namespace _Data.Customers.Scripts
                 if (modelInstance != null && direction != Vector3.zero)
                     modelInstance.transform.forward = direction;
 
-                Vector3 nextPos = Vector3.MoveTowards(rigidBody.position, targetPosition, 10f * Time.deltaTime);
+                Vector3 nextPos = Vector3.MoveTowards(rigidBody.position, 
+                    targetPosition, 2f * Time.fixedDeltaTime);
                 rigidBody.MovePosition(nextPos);
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
 
             SetAnimatorSpeed(0f);
@@ -80,8 +81,8 @@ namespace _Data.Customers.Scripts
             while (elapsed < duration)
             {
                 transform.position = Vector3.Lerp(from, to, elapsed / duration);
-                elapsed += Time.deltaTime;
-                yield return null;
+                elapsed += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
             }
             transform.position = to;
 
@@ -93,8 +94,8 @@ namespace _Data.Customers.Scripts
             while (elapsed < duration)
             {
                 transform.position = Vector3.Lerp(to, backTo, elapsed / duration);
-                elapsed += Time.deltaTime;
-                yield return null;
+                elapsed += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
             }
             transform.position = backTo;
 

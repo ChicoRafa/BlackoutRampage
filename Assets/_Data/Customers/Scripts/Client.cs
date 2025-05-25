@@ -64,15 +64,15 @@ namespace _Data.Customers.Scripts {
             movement = gameObject.AddComponent<ClientMovement>();
             movement.Init(animator, modelInstance);
 
+            fsm = gameObject.AddComponent<ClientFSM>();
+            fsm.Init(this, InitialState);
+
             patienceController = gameObject.AddComponent<ClientPatienceController>();
             patienceController.Init(patienceUI, 
                 this.gameManager,
                 GetQueueManager().GetClientIndex(this),
                 clientType.baseMinPatience,
                 clientType.baseMaxPatience); 
-            
-            fsm = gameObject.AddComponent<ClientFSM>();
-            fsm.Init(this, InitialState);
             
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
             if (CurrentOrder == null || CurrentOrder.GetOriginalCount() == 0)
