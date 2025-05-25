@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Heart
     second: {fileID: 2100000, guid: a177fca8cea0a61428b723dba7ab3998, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: a177fca8cea0a61428b723dba7ab3998, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
