@@ -12838,6 +12838,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1225404974}
+    - target: {fileID: 6836362880341817646, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1225404974}
+    - target: {fileID: 6836362880341817646, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 74971308}
     - target: {fileID: 7090285240701572212, guid: b8980961221036d47bb45f63af927609, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

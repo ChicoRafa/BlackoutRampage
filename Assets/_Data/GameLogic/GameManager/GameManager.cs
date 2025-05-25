@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onGameStart;
     [HideInInspector] public UnityEvent onRunEnd;
     public UnityEvent onLevelStart;
-    public UnityEvent<bool> onLevelEnd;
+    public UnityEvent<bool, bool> onLevelEnd;
     [HideInInspector] public UnityEvent onEveryQuarterPassed;
     [HideInInspector] public UnityEvent onPause;
     [HideInInspector] public UnityEvent onShelvingPerkLVL2Bought;
@@ -97,9 +97,10 @@ public class GameManager : MonoBehaviour
     public void EndLevel()
     {
         levelRunning = false;
+        bool isLastLevel = gameData.currentLevelIndex >= levelConfigs.Count - 1;
         bool succeeded = gameData.currentMoney >= levelConfigs[gameData.currentLevelIndex].moneyObjective &&
                           gameData.happiness >= levelConfigs[gameData.currentLevelIndex].happinessObjective;
-        onLevelEnd.Invoke(succeeded);
+        onLevelEnd.Invoke(succeeded, isLastLevel);
         Debug.Log("Game Manager - Level ended");
     }
 

@@ -13,6 +13,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject timeTextObject;
     [SerializeField] private GameObject resumeGameButtonObject;
     [SerializeField] private GameObject nextLevelButtonObject;
+    [SerializeField] private GameObject endGameButtonObject;
     [SerializeField] private GameObject helpButtonObject;
     [SerializeField] private GameObject currentMoneyElementObject;
     [SerializeField] private GameObject shelvesBuyButtonObject;
@@ -123,11 +124,11 @@ public class MainUI : MonoBehaviour
         finalResultsMoneyNumberText.text = gameData.currentMoney.ToString();
     }
 
-    private void OnLevelEnd(bool succeeded)
+    private void OnLevelEnd(bool succeeded, bool isLastLevel)
     {
         //Debug.Log("Main UI - Level ended");
-
-        nextLevelButtonObject.SetActive(true);
+        GameObject buttonToShow = isLastLevel ? endGameButtonObject : nextLevelButtonObject;
+        buttonToShow.SetActive(true);
         resumeGameButtonObject.SetActive(false);
         helpButtonObject.SetActive(false);
         inGameElementsObject.SetActive(false);
@@ -135,13 +136,13 @@ public class MainUI : MonoBehaviour
         {
             successImageObject.SetActive(true);
             failureImageObject.SetActive(false);
-            nextLevelButtonObject.GetComponent<Button>().interactable = true;
+            buttonToShow.GetComponent<Button>().interactable = true;
         }
         else
         {
             successImageObject.SetActive(false);
             failureImageObject.SetActive(true);
-            nextLevelButtonObject.GetComponent<Button>().interactable = false;
+            buttonToShow.GetComponent<Button>().interactable = false;
         }
         levelMenuObject.SetActive(true);
     }
