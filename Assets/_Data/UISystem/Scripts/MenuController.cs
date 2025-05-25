@@ -7,6 +7,7 @@ namespace _Data.UISystem.Scripts
         [SerializeField] private GameObject inGameElements;
         [SerializeField] private GameObject gameCursor;
         [SerializeField] private GameObject helpMenu;
+        [SerializeField] private bool isMainMenu = false;
         private InputUtils.InputScheme currentInputScheme;
 
         private void FixedUpdate()
@@ -14,7 +15,7 @@ namespace _Data.UISystem.Scripts
             currentInputScheme = InputUtils.GetCurrentScheme();
 
             bool isGamepad = currentInputScheme is InputUtils.InputScheme.Xbox or InputUtils.InputScheme.PlayStation;
-            bool shouldShowCursor = isGamepad && !inGameElements.activeSelf;
+            bool shouldShowCursor = isMainMenu ? isGamepad : isGamepad && inGameElements && !inGameElements.activeSelf;
 
             if (gameCursor.activeSelf != shouldShowCursor)
                 gameCursor.SetActive(shouldShowCursor);
