@@ -153,6 +153,7 @@ MonoBehaviour:
   karenPenaltyIcon: {fileID: 8454611060846588554, guid: 1b65176f1c45af5409d670460464fc85, type: 3}
   policeCallIcon: {fileID: 4651678405762949845, guid: 70d05ce71f1d52e49b7dde3ace44974e, type: 3}
   patienceReducedIcon: {fileID: 7893658418204844075, guid: 9def6c7909445c343bfe45901e7d4996, type: 3}
+  patienceIncreasedIcon: {fileID: 2717310894469716757, guid: dd84eb12ea263e546836007e19b530f5, type: 3}
   leavingAnchor: {fileID: 4308511985981055211}
   effectAnchor: {fileID: 5665872325870698778}
 --- !u!1 &9199719551216598492

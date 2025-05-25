@@ -88,6 +88,16 @@ namespace _Data.Customers.Scripts {
                 EndPatience();
             }
         }
+
+        public void IncreasePatienceByAbsoluteFraction(float fractionOfMax)
+        {
+            if (!isActive) return;
+            float amountToAdd = maxPatience * fractionOfMax;
+            currentPatience = Mathf.Min(maxPatience, currentPatience + amountToAdd);
+
+            float normalized = Mathf.Clamp01(currentPatience / maxPatience);
+            ui?.UpdatePatience(normalized);
+        }
         
         private void EndPatience() {
             isActive = false;

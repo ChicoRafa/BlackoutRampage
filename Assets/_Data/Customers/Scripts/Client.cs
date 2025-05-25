@@ -129,6 +129,7 @@ namespace _Data.Customers.Scripts {
                 CurrentOrder.RemoveProduct(itemType);
                 gameManager.UpdateMoney(itemType.sellingPrice);
                 soundManager.PlaySFX(audioCue, "Coins", 1f);
+                visualEffects?.ShowMoneyBonus();
 
                 Destroy(heldItem);
                 inventory.ClearSlot(selectedSlot);
@@ -168,11 +169,6 @@ namespace _Data.Customers.Scripts {
             });
         }
         
-        public void PoliceCalledAway() {
-            Debug.Log($"🚓 {name} got a call and is leaving the queue!");
-            visualEffects?.ShowPoliceCallAway();
-        }
-        
         public void AddPoliceHappinessBonus(int amount) {
             gameManager.UpdateHappiness(amount);
             visualEffects?.ShowPoliceHappinessBonus();
@@ -185,6 +181,12 @@ namespace _Data.Customers.Scripts {
         public void ReducePatience(float fraction) {
             patienceController.ReducePatienceByAbsoluteFraction(fraction);
             visualEffects?.ShowPatienceReduced();
+        }
+        
+        public void IncreasePatience(float fraction)
+        {
+            patienceController.IncreasePatienceByAbsoluteFraction(fraction);
+            visualEffects?.ShowPatienceIncreased();
         }
         
         public void AddCryptoMoneyBonus(int amount) {

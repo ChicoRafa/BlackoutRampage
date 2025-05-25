@@ -12,15 +12,18 @@ namespace _Data.Customers.Scripts {
         [SerializeField] private GameObject karenPenaltyIcon;
         [SerializeField] private GameObject policeCallIcon;
         [SerializeField] private GameObject patienceReducedIcon;
+        [SerializeField] private GameObject patienceIncreasedIcon;
 
         [Header("Anchors")]
         [SerializeField] private Transform leavingAnchor;
         [SerializeField] private Transform effectAnchor;
 
         private bool leavingEffectActive = false;
+        private bool effectActive = false;
 
         public void ShowMoneyBonus()
         {
+            if (effectActive) return;
             SpawnEffect(moneyBonusIcon, effectAnchor);
         }
 
@@ -38,16 +41,17 @@ namespace _Data.Customers.Scripts {
         {
             SpawnEffect(happinessBonusIcon, effectAnchor);
         }
-
-        public void ShowPoliceCallAway()
-        {
-            SpawnEffect(policeCallIcon, effectAnchor);
-        }
-
+        
         public void ShowPatienceReduced()
         {
             if (leavingEffectActive) return;
             SpawnEffect(patienceReducedIcon, effectAnchor);
+        }
+        
+        public void ShowPatienceIncreased()
+        {
+            if (leavingEffectActive) return;
+            SpawnEffect(patienceIncreasedIcon, effectAnchor);
         }
 
         private void SpawnEffect(GameObject prefab, Transform anchor, bool markAsLeaving = false)
@@ -57,12 +61,20 @@ namespace _Data.Customers.Scripts {
             StartCoroutine(SpawnEffectWithLifecycle(prefab, anchor, markAsLeaving));
         }
         
+        
         private IEnumerator SpawnEffectWithLifecycle(GameObject prefab, Transform anchor, bool markAsLeaving)
         {
             GameObject instance = Instantiate(prefab, anchor);
             FloatingEffect3D floating = instance.GetComponent<FloatingEffect3D>();
 
-            if (markAsLeaving) leavingEffectActive = true;
+            if (markAsLeaving)
+            {
+                leavingEffectActive = true;
+            }
+            else
+            {
+                effectActive = true;
+            }
 
             float duration = 1.5f;
             float elapsed = 0f;
@@ -77,7 +89,14 @@ namespace _Data.Customers.Scripts {
                 yield return null;
             }
 
-            if (markAsLeaving) leavingEffectActive = false;
+            if (markAsLeaving)
+            {
+                leavingEffectActive = false;
+            }
+            else
+            {
+                effectActive = false;
+            }
             Destroy(instance);
         }
     }

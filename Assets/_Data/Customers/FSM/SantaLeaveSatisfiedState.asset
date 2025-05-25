@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541680895245e784483ca727064a05c8, type: 3}
-  m_Name: PoliceWaitingState
+  m_Script: {fileID: 11500000, guid: b2c0bd6d9002aea4faea1c622c3d764d, type: 3}
+  m_Name: SantaLeaveSatisfiedState
   m_EditorClassIdentifier: 
-  chanceToLeave: 0.25
+  bonusPatience: 1
