@@ -9,7 +9,7 @@ namespace _Data.UISystem.Scripts
         [SerializeField] private GameObject helpMenu;
         private InputUtils.InputScheme currentInputScheme;
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             currentInputScheme = InputUtils.GetCurrentScheme();
 

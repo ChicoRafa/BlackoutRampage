@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LevelMusicPlayer : MonoBehaviour
 {
+    [Header("SFX")]
     [SerializeField] private SoundManagerSO soundManagerSO;
     [SerializeField] private AudioCueSO levelMusicCue;
     [SerializeField] private string audioClipId;

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class StaminaBarUI : MonoBehaviour
 {
+    [Header("Stamina")]
     [SerializeField] private Image staminaBar;
 
     internal void UpdateStamina(float staminaPercentage)

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public abstract class InteractableBase : MonoBehaviour, IInteractable {
-
+public abstract class InteractableBase : MonoBehaviour, IInteractable
+{
     [Header("Interaction Prompt")]
     [SerializeField] private GameObject interactionPromptPrefab;
     [SerializeField] private PromptIconSet iconSet;
-
     private GameObject promptInstance;
     private InteractionPromptUI promptUI;
 
-    public virtual void ShowInteractPrompt(GameObject interactor) {
+    public virtual void ShowInteractPrompt(GameObject interactor)
+    {
         if (promptInstance != null) return;
 
         promptInstance = Instantiate(interactionPromptPrefab);
@@ -21,7 +21,8 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable {
         promptUI.SetTarget(interactor.transform);
     }
 
-    public virtual void HideInteractPrompt() {
+    public virtual void HideInteractPrompt()
+    {
         if (promptInstance != null)
             Destroy(promptInstance);
     }

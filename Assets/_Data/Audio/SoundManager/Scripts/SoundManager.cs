@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [Header("Scriptable Object References")]
     [SerializeField] private SoundManagerSO soundManagerSO;
     [SerializeField] private GameDataSO gameData;
 

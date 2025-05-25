@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class InteractionZone : MonoBehaviour
 {
+    [Header("Interact objects")]
     private IInteractable interactableObject;
     private GameObject interactor;
-    
+
+    [Header("Prompt")]
     [SerializeField] private GameObject interactionPromptPrefab;
     [SerializeField] private PromptIconSet iconSet;
 

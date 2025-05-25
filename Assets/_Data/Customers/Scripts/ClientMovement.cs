@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace _Data.Customers.Scripts {
-    public class ClientMovement : MonoBehaviour {
+namespace _Data.Customers.Scripts
+{
+    public class ClientMovement : MonoBehaviour
+    {
         private Animator animator;
         private Coroutine moveRoutine;
         private GameObject modelInstance;
@@ -12,28 +13,30 @@ namespace _Data.Customers.Scripts {
         
         private int currentImpatienceStep = 0;
 
-        public void Init(Animator animator, GameObject modelInstance) {
+        public void Init(Animator animator, GameObject modelInstance)
+        {
             this.animator = animator;
             this.modelInstance = modelInstance;
             rigidBody = GetComponent<Rigidbody>();
         }
 
-        public void MoveTo(Vector3 targetPosition, Action onComplete = null) {
-            if (moveRoutine != null) {
+        public void MoveTo(Vector3 targetPosition, Action onComplete = null)
+        {
+            if (moveRoutine != null)
                 StopCoroutine(moveRoutine);
-            }
 
             moveRoutine = StartCoroutine(MoveToPositionRoutine(targetPosition, onComplete));
         }
 
-        private IEnumerator MoveToPositionRoutine(Vector3 targetPosition, Action onComplete) {
+        private IEnumerator MoveToPositionRoutine(Vector3 targetPosition, Action onComplete)
+        {
             SetAnimatorSpeed(1f);
 
-            while (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
+            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            {
                 Vector3 direction = (targetPosition - transform.position).normalized;
-                if (modelInstance != null && direction != Vector3.zero) {
+                if (modelInstance != null && direction != Vector3.zero)
                     modelInstance.transform.forward = direction;
-                }
 
                 Vector3 nextPos = Vector3.MoveTowards(rigidBody.position, targetPosition, 10f * Time.deltaTime);
                 rigidBody.MovePosition(nextPos);
@@ -45,10 +48,10 @@ namespace _Data.Customers.Scripts {
             onComplete?.Invoke();
         }
 
-        public void SetAnimatorSpeed(float value) {
-            if (animator != null) {
+        public void SetAnimatorSpeed(float value)
+        {
+            if (animator != null)
                 animator.SetFloat("Speed", value);
-            }
         }
         
         public void MoveImpatiently(Vector3 basePosition, System.Action onComplete)

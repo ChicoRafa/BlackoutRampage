@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public static class InputUtils
 {
     public enum InputScheme
@@ -26,7 +25,6 @@ public static class InputUtils
         if (displayName.Contains("dualshock") || displayName.Contains("dualSense") || displayName.Contains("playstation")) return InputScheme.PlayStation;
 
         return InputScheme.Xbox; // fallback
-
     }
 
     public static Sprite GetIcon(InputScheme scheme, PromptIconSet iconSet)

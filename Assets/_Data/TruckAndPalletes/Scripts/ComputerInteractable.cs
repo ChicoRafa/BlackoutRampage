@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ComputerInteractable : InteractableBase
 {
+    [Header("Perks Data")]
     [SerializeField] private PerksSO perksData;
     
     private GameManager gameManager;
@@ -10,16 +11,7 @@ public class ComputerInteractable : InteractableBase
     private void Start()
     {
         truck = FindFirstObjectByType<Truck>();
-        if (truck == null)
-        {
-            Debug.LogError("🚚 Truck not found in the scene!");
-        }
-        
         gameManager = FindFirstObjectByType<GameManager>();
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager not found in the scene!");
-        }
     }
 
     public override void Interact(GameObject interactor)

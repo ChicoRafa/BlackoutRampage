@@ -61,20 +61,15 @@ namespace _Data.Customers.Scripts {
             StartCoroutine(SpawnEffectWithLifecycle(prefab, anchor, markAsLeaving));
         }
         
-        
         private IEnumerator SpawnEffectWithLifecycle(GameObject prefab, Transform anchor, bool markAsLeaving)
         {
             GameObject instance = Instantiate(prefab, anchor);
             FloatingEffect3D floating = instance.GetComponent<FloatingEffect3D>();
 
             if (markAsLeaving)
-            {
                 leavingEffectActive = true;
-            }
             else
-            {
                 effectActive = true;
-            }
 
             float duration = 1.5f;
             float elapsed = 0f;
@@ -83,20 +78,14 @@ namespace _Data.Customers.Scripts {
             {
                 elapsed += Time.deltaTime;
                 if (floating != null)
-                {
                     floating.progress = elapsed / duration;
-                }
                 yield return null;
             }
 
             if (markAsLeaving)
-            {
                 leavingEffectActive = false;
-            }
             else
-            {
                 effectActive = false;
-            }
             Destroy(instance);
         }
     }

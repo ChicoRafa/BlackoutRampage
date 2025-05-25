@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 public class InteractionPromptUI : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private InputSchemeEventChannel inputSchemeEventChannel;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI actionText;
+
     private Transform followTarget;
     private InputUtils.InputScheme currentInputScheme;
     private PromptIconSet iconSet;
     private Vector3 customOffset = Vector3.up * 3f;
-
 
     public void SetPrompt(Sprite iconSprite, string text, PromptIconSet iconSetRef)
     {
@@ -47,8 +48,6 @@ public class InteractionPromptUI : MonoBehaviour
     private void LateUpdate()
     {
         if (followTarget)
-        {
             transform.position = followTarget.position + customOffset;
-        }
     }
 }

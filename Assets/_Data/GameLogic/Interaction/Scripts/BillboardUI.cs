@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 
 public class BillboardUI : MonoBehaviour
 {
     Camera mainCamera = Camera.main;
+
     private void LateUpdate()
     {
         if (!mainCamera) return;

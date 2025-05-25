@@ -5,9 +5,11 @@ namespace _Data.PowerUps.Scripts
 {
     public class PowerUpPickup : MonoBehaviour
     {
+        [Header("PowerUps Data")]
         [SerializeField] private PowerUpSO powerUpData;
         [SerializeField] private Vector3 rotationSpeed = new Vector3(0f, 90f, 0f);
 
+        [Header("SFX")]
         [SerializeField] private SoundManagerSO soundManagerSO;
         [SerializeField] private AudioCueSO powerUpCue;
         
@@ -17,6 +19,7 @@ namespace _Data.PowerUps.Scripts
         {
             transform.Rotate(rotationSpeed * Time.deltaTime);
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;

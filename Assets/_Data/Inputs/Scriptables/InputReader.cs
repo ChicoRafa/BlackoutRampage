@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -10,10 +9,7 @@ public class InputReader : ScriptableObject
     [Header("Input Actions Asset")]
     [SerializeField] private InputActionAsset inputActionAsset;
 
-    private InputAction moveInputAction;
-    private InputAction interactInputAction;
-    private InputAction sprintInputAction;
-
+    [Header("Events")]
     public UnityAction<Vector2> MoveEvent;
     public UnityAction MoveCanceledEvent;
     public UnityAction InteractEvent;
@@ -109,12 +105,10 @@ public class InputReader : ScriptableObject
         currentSelectedIndex = (currentSelectedIndex + direction + 9) % 9;
         SelectItemEvent?.Invoke(currentSelectedIndex);
     }
-
     
     private void OnPause(InputAction.CallbackContext context)
     {
         if (context.performed)
             PauseEvent?.Invoke();
     }
-
 }

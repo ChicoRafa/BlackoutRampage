@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class VolumeMixerUI : MonoBehaviour
 {
+    [Header("Sound Manager and Game Data")]
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private GameDataSO gameData;
 

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Data.Customers.Scripts {
-    public class ClientQueueManager : MonoBehaviour {
+namespace _Data.Customers.Scripts
+{
+    public class ClientQueueManager : MonoBehaviour
+    {
         [Header("Queue Configuration")]
         public List<Transform> queuePositions;
 
@@ -22,19 +24,21 @@ namespace _Data.Customers.Scripts {
         private void Start()
         {
             if (perksData != null && perksData.perkExtraServiceSlots)
-            {
                 serviceSlots.AddRange(extraServiceSlots);
-            } 
-        }
+        } 
         
-        public void EnqueueClient(Client client) {
+        public void EnqueueClient(Client client)
+        {
             clientQueue.Add(client);
             UpdateQueue();
         }
 
-        public void DequeueClient(Client client) {
-            foreach (var kvp in activeServiceClients) {
-                if (kvp.Value == client) {
+        public void DequeueClient(Client client)
+        {
+            foreach (var kvp in activeServiceClients)
+            {
+                if (kvp.Value == client)
+                {
                     activeServiceClients[kvp.Key] = null;
                     break;
                 }
@@ -44,13 +48,17 @@ namespace _Data.Customers.Scripts {
             UpdateQueue();
         }
         
-        public void UpdateQueue() {
+        public void UpdateQueue()
+        {
             // 1. Try to fill available service slots first
             List<Client> promotableClients = clientQueue.FindAll(c => !c.IsLeaving());
             int promotableIndex = 0;
-            foreach (Transform slot in serviceSlots) {
-                if (!activeServiceClients.ContainsKey(slot) || activeServiceClients[slot] == null) {
-                    if (promotableIndex < promotableClients.Count) {
+            foreach (Transform slot in serviceSlots)
+            {
+                if (!activeServiceClients.ContainsKey(slot) || activeServiceClients[slot] == null)
+                {
+                    if (promotableIndex < promotableClients.Count)
+                    {
                         Client next = promotableClients[promotableIndex++];
                         activeServiceClients[slot] = next;
                         clientQueue.Remove(next);
@@ -61,7 +69,8 @@ namespace _Data.Customers.Scripts {
 
             // 2. Update the rest of the queue
             int queueIndex = 0;
-            for (int i = 0; i < clientQueue.Count; i++) {
+            for (int i = 0; i < clientQueue.Count; i++)
+            {
                 Client client = clientQueue[i];
                 if (client == null || client.IsLeaving()) continue;
                 if (IsClientInServiceSlot(client)) continue;
@@ -73,50 +82,57 @@ namespace _Data.Customers.Scripts {
 
         public Transform GetExitPoint() => exitPoint;
 
-        public bool CanClientJoinQueue() {
+        public bool CanClientJoinQueue()
+        {
             return clientQueue.Count < queuePositions.Count;
         }
-        public int CurrentClientCount() {
+        public int CurrentClientCount()
+        {
             return clientQueue.Count;
         }
 
-        public bool IsClientInServiceSlot(Client client) {
-            foreach (var kvp in activeServiceClients) {
-                if (kvp.Value == client) {
+        public bool IsClientInServiceSlot(Client client)
+        {
+            foreach (var kvp in activeServiceClients)
+            {
+                if (kvp.Value == client)
                     return true;
-                }
             }
             return false;
         }
         
-        public int GetClientIndex(Client client) {
+        public int GetClientIndex(Client client)
+        {
             return clientQueue.IndexOf(client);
         }
         
-        public Vector3 GetAssignedSlotFor(Client client) {
-            foreach (var kvp in activeServiceClients) {
-                if (kvp.Value == client) {
+        public Vector3 GetAssignedSlotFor(Client client)
+        {
+            foreach (var kvp in activeServiceClients)
+            {
+                if (kvp.Value == client)
                     return kvp.Key.position;
-                }
             }
 
             int index = clientQueue.IndexOf(client);
-            if (index >= 0 && index < queuePositions.Count) {
+            if (index >= 0 && index < queuePositions.Count)
                 return queuePositions[index].position;
-            }
 
             return exitPoint != null ? exitPoint.position : Vector3.zero;
         }
         
-        public List<Client> GetAllActiveClients() {
+        public List<Client> GetAllActiveClients()
+        {
             var allClients = new List<Client>();
 
-            foreach (var client in clientQueue) {
+            foreach (var client in clientQueue)
+            {
                 if (client != null && !client.IsLeaving())
                     allClients.Add(client);
             }
 
-            foreach (var kvp in activeServiceClients) {
+            foreach (var kvp in activeServiceClients)
+            {
                 if (kvp.Value != null && !kvp.Value.IsLeaving())
                     allClients.Add(kvp.Value);
             }

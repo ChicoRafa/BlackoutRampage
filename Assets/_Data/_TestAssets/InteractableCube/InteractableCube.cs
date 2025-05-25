@@ -11,10 +11,9 @@ public class InteractableCube : InteractableBase
     {
         return true;
     }
+
     public override string GetInteractionPrompt()
     {
         return "Interact with Cube";
-    }
-    
-    
+    }    
 }

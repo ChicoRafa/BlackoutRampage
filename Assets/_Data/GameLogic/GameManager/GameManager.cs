@@ -36,15 +36,14 @@ public class GameManager : MonoBehaviour
     private bool levelRunning = false;
     private float patienceLevelMultiplier = 1;
 
-    void Awake()
+    private void Awake()
     {
         levelDuration = gameData.levelDurationInMinutes * 60;
         quarterDuration = levelDuration / 32;
     }
-    void Start()
+    private void Start()
     {
         onGameStart.Invoke();
-        Debug.Log("Game Manager - Game started");
         onMoneyChanged.Invoke();
         onHappinessChanged.Invoke();
         UpdateObjective();
@@ -55,7 +54,6 @@ public class GameManager : MonoBehaviour
     {
         levelRunning = false;
         onRunEnd.Invoke();
-        Debug.Log("Game Manager - Game ended");
     }
 
     public void StartLevel()
@@ -68,31 +66,26 @@ public class GameManager : MonoBehaviour
         CheckPerks();
 
         onLevelStart.Invoke();
-        Debug.Log("Game Manager - Level started");
     }
 
-    void Update()
+    private void Update()
     {
+        if (!levelRunning)
+            return;
 
-        if (levelRunning)
+        elapsedTime += Time.deltaTime;
+
+        if (elapsedTime >= nextQuarterTime)
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= nextQuarterTime)
-            {
-                //Debug.Log("Game Manager - A quarter passed");
-                onEveryQuarterPassed.Invoke();
-                nextQuarterTime += quarterDuration;
-            }
-            if (elapsedTime - passedSeconds >= 1)
-            {
-                passedSeconds += 1;
-                //Debug.Log("Game Manager - Passed seconds: " + passedSeconds);
-            }
-            if (elapsedTime >= levelDuration)
-            {
-                EndLevel();
-            }
+            onEveryQuarterPassed.Invoke();
+            nextQuarterTime += quarterDuration;
         }
+
+        if (elapsedTime - passedSeconds >= 1)
+            passedSeconds += 1;
+
+        if (elapsedTime >= levelDuration)
+            EndLevel();
     }
     public void EndLevel()
     {
@@ -100,13 +93,12 @@ public class GameManager : MonoBehaviour
         bool isLastLevel = gameData.currentLevelIndex >= levelConfigs.Count - 1;
         bool succeeded = gameData.currentMoney >= levelConfigs[gameData.currentLevelIndex].moneyObjective &&
                           gameData.happiness >= levelConfigs[gameData.currentLevelIndex].happinessObjective;
+
         onLevelEnd.Invoke(succeeded, isLastLevel);
-        Debug.Log("Game Manager - Level ended");
     }
 
     public void PauseGame()
     {
-        Debug.Log("Game Manager - Game paused");
         levelRunning = false;
         Time.timeScale = 0;
         onPause.Invoke();
@@ -141,10 +133,6 @@ public class GameManager : MonoBehaviour
             string newMoneyObjective = levelConfigs[gameData.currentLevelIndex].moneyObjective.ToString();
             string newHappinessObjective = levelConfigs[gameData.currentLevelIndex].happinessObjective.ToString();
             onObjectivesChanged.Invoke(newMoneyObjective, newHappinessObjective);
-        }
-        else
-        {
-            Debug.LogWarning("Game Manager - Current level index is out of bounds for levelConfigs list");
         }
     }
 
@@ -181,17 +169,13 @@ public class GameManager : MonoBehaviour
         }
 
         if (perksData.perkCallTruck)
-        {
             onTruckCallingPerkBought.Invoke();
-        }
+
         if (perksData.perkPowerUpDuration)
-        {
             onPowerUpDurationPerkBought.Invoke();
-        }
+
         if (perksData.perkExtraServiceSlots)
-        {
             onExtraServiceSlotsPerkBought.Invoke();
-        }
     }
 
     public void BuyShelvesCapacityPerk()
@@ -209,10 +193,7 @@ public class GameManager : MonoBehaviour
             onShelvingPerkLVL3Bought.Invoke();
         }
         else
-        {
-            Debug.Log("Game Manager - Not enough money to buy shelves capacity perk");
             onNotEnoughMoneyToBuyPerk.Invoke();
-        }
     }
 
     public void BuyTruckCallingPerk()
@@ -224,10 +205,7 @@ public class GameManager : MonoBehaviour
             onTruckCallingPerkBought.Invoke();
         }
         else
-        {
-            Debug.Log("Game Manager - Not enough money to buy truck calling perk");
             onNotEnoughMoneyToBuyPerk.Invoke();
-        }
     }
 
     public void BuyPowerUpDurationPerk()
@@ -239,10 +217,7 @@ public class GameManager : MonoBehaviour
             onPowerUpDurationPerkBought.Invoke();
         }
         else
-        {
-            Debug.Log("Game Manager - Not enough money to buy power up duration perk");
             onNotEnoughMoneyToBuyPerk.Invoke();
-        }
     }
 
     public void BuyExtraServiceSlotsPerk()
@@ -254,10 +229,7 @@ public class GameManager : MonoBehaviour
             onExtraServiceSlotsPerkBought.Invoke();
         }
         else
-        {
-            Debug.Log("Game Manager - Not enough money to buy extra service slots perk");
             onNotEnoughMoneyToBuyPerk.Invoke();
-        }
     }
 
     public void ChangePatienceLevelMultiplier(float newValue)
@@ -293,14 +265,9 @@ public class GameManager : MonoBehaviour
     {
         gameData.currentLevelIndex++;
         if (gameData.currentLevelIndex < levelConfigs.Count)
-        {
             SceneManager.LoadScene(gameData.currentLevelIndex+1);
-        }
         else
-        {
-            Debug.Log("Game Manager - No more levels to load, returning to main menu");
             LoadMainMenu();
-        }
     }
 
     public void LoadLevel1()
@@ -310,7 +277,6 @@ public class GameManager : MonoBehaviour
     
     public void ExitGame()
     {
-        Debug.Log("Game Manager - Exiting game");
         Application.Quit();
     }
 }

@@ -2,7 +2,6 @@ using _Data.Customers.FSM;
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
-using Unity.VisualScripting;
 
 namespace _Data.Customers.Scripts {
 
@@ -41,7 +40,6 @@ namespace _Data.Customers.Scripts {
         public ClientStateSO WalkingToQueueSlotState => clientType.walkingToQueueSlotState;
         public ClientStateSO BeingServedState => clientType.beingServedState;
         
- 
         public void Init(ClientType clientType, ClientQueueManager queueManager, GameManager gameManager)
         {
             if (!clientType || !queueManager) return;
@@ -56,16 +54,12 @@ namespace _Data.Customers.Scripts {
                 modelInstance.transform.localRotation = Quaternion.identity;
 
                 animator = modelInstance.GetComponentInChildren<Animator>();
-                if (animator && clientType.animatorController) {
+                if (animator && clientType.animatorController)
                     animator.runtimeAnimatorController = clientType.animatorController;
-                }
             }
 
             // Components
             patienceUI = GetComponentInChildren<ClientPatienceUI>(true);
-            if (!patienceUI) {
-                Debug.LogError($"❌ {gameObject.name} is missing a ClientPatienceUI component!");
-            }
 
             movement = gameObject.AddComponent<ClientMovement>();
             movement.Init(animator, modelInstance);
@@ -77,37 +71,37 @@ namespace _Data.Customers.Scripts {
             fsm.Init(this, InitialState);
             
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
-            if (CurrentOrder == null || CurrentOrder.GetOriginalCount() == 0) {
-                Debug.LogError($"🚨 {name}: Generated order is null or empty!");
+            if (CurrentOrder == null || CurrentOrder.GetOriginalCount() == 0)
+            {
                 Destroy(gameObject);
                 return;
             }
-            patienceUI?.SetOrder(CurrentOrder);
-            
-            visualEffects = GetComponentInChildren<ClientVisualEffects>(true);
 
+            patienceUI?.SetOrder(CurrentOrder);
+            visualEffects = GetComponentInChildren<ClientVisualEffects>(true);
         }
         
-        public void StartPatience(System.Action onDepleted) {
+        public void StartPatience(System.Action onDepleted)
+        {
             patienceController.StartPatience(onDepleted);
         }
         
-        public void StartLeaving() {
+        public void StartLeaving()
+        {
             int score = Mathf.FloorToInt(
                 (float)(CurrentOrder.GetOriginalCount() - CurrentOrder.GetRemainingCount()) 
                 / CurrentOrder.GetOriginalCount() * 100f
-            );
+            
+                );
             gameManager.UpdateHappiness(score);
-
             queueManager.DequeueClient(this);
             patienceController.Deactivate();
         }
         
-
-        public void LookForward() {
-            if (modelInstance) {
+        public void LookForward()
+        {
+            if (modelInstance)
                 modelInstance.transform.forward = Vector3.forward;
-            }
         }
         
         public override void Interact(GameObject interactor) {
@@ -125,7 +119,8 @@ namespace _Data.Customers.Scripts {
 
             var itemType = productScript.GetProduct();
 
-            if (CurrentOrder.ContainsProduct(itemType)) {
+            if (CurrentOrder.ContainsProduct(itemType))
+            {
                 CurrentOrder.RemoveProduct(itemType);
                 gameManager.UpdateMoney(itemType.sellingPrice);
                 soundManager.PlaySFX(audioCue, "Coins", 1f);
@@ -136,7 +131,9 @@ namespace _Data.Customers.Scripts {
                 patienceUI?.SetOrder(CurrentOrder);
 
                 hasReceivedValidItem = true;
-            } else {
+            }
+            else
+            {
                 Destroy(heldItem);
                 inventory.ClearSlot(selectedSlot);
                 hasReceivedInvalidItem = true;
@@ -146,7 +143,8 @@ namespace _Data.Customers.Scripts {
         public bool HasReceivedValidItem() => hasReceivedValidItem;
         public bool HasReceivedInvalidItem() => hasReceivedInvalidItem;
 
-        public void ClearInteractionFlags() {
+        public void ClearInteractionFlags()
+        {
             hasReceivedValidItem = false;
             hasReceivedInvalidItem = false;
         }
@@ -169,16 +167,19 @@ namespace _Data.Customers.Scripts {
             });
         }
         
-        public void AddPoliceHappinessBonus(int amount) {
+        public void AddPoliceHappinessBonus(int amount)
+        {
             gameManager.UpdateHappiness(amount);
             visualEffects?.ShowPoliceHappinessBonus();
         }
         
-        public void AddKarenHappinessPenalty(int amount) {
+        public void AddKarenHappinessPenalty(int amount)
+        {
             gameManager.UpdateHappiness(-amount);
         }
         
-        public void ReducePatience(float fraction) {
+        public void ReducePatience(float fraction)
+        {
             patienceController.ReducePatienceByAbsoluteFraction(fraction);
             visualEffects?.ShowPatienceReduced();
         }
@@ -189,16 +190,19 @@ namespace _Data.Customers.Scripts {
             visualEffects?.ShowPatienceIncreased();
         }
         
-        public void AddCryptoMoneyBonus(int amount) {
+        public void AddCryptoMoneyBonus(int amount)
+        {
             gameManager.UpdateMoney(amount);
             visualEffects?.ShowMoneyBonus();
         }
         
-        public void ShowAngryEffect() {
+        public void ShowAngryEffect()
+        {
             visualEffects?.ShowAngryIcon();
         }
 
-        public void ShowHappyEffect() {
+        public void ShowHappyEffect()
+        {
             visualEffects?.ShowHappyIcon();
         }
     }

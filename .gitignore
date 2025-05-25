@@ -84,3 +84,4 @@ crashlytics-build.properties
 # Ignore the fonts file as it causes problems
 /[Aa]ssets/_Data/Art/Fonts/*
 Assets/_Data/Art/Fonts/Pixar SDF.asset
+Assets/Settings/SampleSceneProfile.asset

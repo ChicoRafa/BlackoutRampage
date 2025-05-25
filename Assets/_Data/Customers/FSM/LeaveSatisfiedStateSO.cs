@@ -1,10 +1,13 @@
 using _Data.Customers.Scripts;
 using UnityEngine;
 
-namespace _Data.Customers.FSM {
+namespace _Data.Customers.FSM
+{
     [CreateAssetMenu(menuName = "Customers/States/LeaveSatisfied")]
-    public class LeaveSatisfiedStateSO : ClientStateSO {
-        public override void OnEnter(Client client) {
+    public class LeaveSatisfiedStateSO : ClientStateSO
+    {
+        public override void OnEnter(Client client)
+        {
             client.ShowHappyEffect();
             client.StartLeaving();
             

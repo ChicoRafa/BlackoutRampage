@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AudioCue", menuName = "Audio/Audio Cue")]
 public class AudioCueSO : ScriptableObject
 {
-    [SerializeField]
-    private List<TaggedAudioClip> clips = new();
+    [Header("Clips list")]
+    [SerializeField] private List<TaggedAudioClip> clips = new();
 
     public AudioClip GetRandomClip()
     {
@@ -17,11 +17,8 @@ public class AudioCueSO : ScriptableObject
     public AudioClip GetClipById(string id)
     {
         foreach (var clip in clips.Where(clip => clip.id.Equals(id, StringComparison.OrdinalIgnoreCase)))
-        {
             return clip.clip;
-        }
 
-        Debug.LogWarning($"AudioClip with id '{id}' not found.");
         return null;
     }
 

@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 public class InputDeviceWatcher : MonoBehaviour
 {
+    [Header("Input Scheme")]
     [SerializeField] private InputSchemeEventChannel inputSchemeEventChannel;
     private InputUtils.InputScheme currentInputScheme;
     

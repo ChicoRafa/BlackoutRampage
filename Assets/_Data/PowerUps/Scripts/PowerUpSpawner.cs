@@ -5,20 +5,25 @@ using UnityEngine;
 
 public class PowerUpSpawner : MonoBehaviour
 {
+    [Header("PowerUps")]
     [SerializeField] private List<PowerUpSO> powerUps;
-    [SerializeField] private float spawnInterval = 10f;
-    [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax;//change area to gameobject containing the spawn area (in fact it can be a collider inside this object)
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private float powerUpLifetime = 10f;
     private List<GameObject> activePowerUps = new List<GameObject>();
     private const int maxPowerUps = 2;
+
+    [Header("Spawn")]
+    [SerializeField] private float spawnInterval = 10f;
+    [SerializeField] private Vector2 spawnAreaMin, spawnAreaMax; // change area to gameobject containing the spawn area
+                                                                 // (in fact it can be a collider inside this object)
+    [Header("Game Manager")]
+    [SerializeField] private GameManager gameManager;
     
     private void Start()
     {
         InvokeRepeating(nameof(SpawnRandomPowerUp), 2f, spawnInterval);
     }
 
-    void SpawnRandomPowerUp()
+    private void SpawnRandomPowerUp()
     {
         activePowerUps.RemoveAll(pu => !pu);
         if (activePowerUps.Count >= maxPowerUps) return;

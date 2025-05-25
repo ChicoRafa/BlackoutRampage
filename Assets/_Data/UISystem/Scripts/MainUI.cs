@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,26 +61,21 @@ public class MainUI : MonoBehaviour
     private int minutesCycleIndex = 0;
     private int passedHours = 0;
 
-    void Awake()
+    private void Awake()
     {
         if (!currentDayTimeImage)
-        {
-            Debug.LogError("Current Day Time Image not assigned.");
             return;
-        }
 
         if (dayTimeSprites != null && dayTimeSprites.Count != 0) return;
-        Debug.LogError("Day Time Sprites not assigned or empty.");
         return;
     }
-    void OnEnable()
+
+    private void OnEnable()
     {
         GameManager gameManager = FindFirstObjectByType<GameManager>();
         if (!gameManager)
-        {
-            Debug.LogError("GameManager not found in the scene.");
             return;
-        }
+
         gameManager.onGameStart.AddListener(OnGameStart);
         gameManager.onRunEnd.AddListener(OnRunEnd);
         gameManager.onLevelStart.AddListener(OnLevelStart);
@@ -112,7 +106,6 @@ public class MainUI : MonoBehaviour
 
     private void OnLevelStart()
     {
-        //Debug.Log("Main UI - Level started");
         currentDayTimeImage.sprite = dayTimeSprites[0];
         currentHourText.text = gameData.workdayStartingHour.ToString("00");
         currentMinuteText.text = "00";
@@ -126,12 +119,12 @@ public class MainUI : MonoBehaviour
 
     private void OnLevelEnd(bool succeeded, bool isLastLevel)
     {
-        //Debug.Log("Main UI - Level ended");
         GameObject buttonToShow = isLastLevel ? endGameButtonObject : nextLevelButtonObject;
         buttonToShow.SetActive(true);
         resumeGameButtonObject.SetActive(false);
         helpButtonObject.SetActive(false);
         inGameElementsObject.SetActive(false);
+
         if (succeeded)
         {
             successImageObject.SetActive(true);
@@ -144,6 +137,7 @@ public class MainUI : MonoBehaviour
             failureImageObject.SetActive(true);
             buttonToShow.GetComponent<Button>().interactable = false;
         }
+
         levelMenuObject.SetActive(true);
     }
 
@@ -155,8 +149,8 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryQuarterPassed()
     {
-        //Debug.Log("A QUARTER PASSED");
         minutesCycleIndex++;
+
         if (minutesCycleIndex >= 4)
         {
             minutesCycleIndex = 0;
@@ -172,20 +166,17 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryHourPassed()
     {
-        //Debug.Log("An hour passed");
         passedHours++;
         UpdateHourText();
+
         if (passedHours % 2 == 0)
-        {
             OnEveryTwoHoursPassed();
-        }
+
         if (passedHours == 7)
-        {
             StartCoroutine(AnimateTimeTextScale(timeTextObject));
-        }
     }
 
-    IEnumerator AnimateTimeTextScale(GameObject objectToAnimate)
+    private IEnumerator AnimateTimeTextScale(GameObject objectToAnimate)
     {
         Vector3 originalScale = objectToAnimate.transform.localScale;
         Vector3 targetScale = originalScale * 1.5f;
@@ -194,8 +185,10 @@ public class MainUI : MonoBehaviour
 
         TextMeshProUGUI[] texts = objectToAnimate.GetComponentsInChildren<TextMeshProUGUI>();
         Color[] originalColors = new Color[texts.Length];
+
         for (int i = 0; i < texts.Length; i++)
             originalColors[i] = texts[i].color;
+
         Color targetColor = Color.red;
 
         // Scale up and color to red
@@ -203,8 +196,10 @@ public class MainUI : MonoBehaviour
         {
             float t = elapsed / duration;
             objectToAnimate.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(originalColors[i], targetColor, t);
+
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -215,8 +210,10 @@ public class MainUI : MonoBehaviour
         {
             float t = elapsed / duration;
             objectToAnimate.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(targetColor, originalColors[i], t);
+
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -224,7 +221,6 @@ public class MainUI : MonoBehaviour
 
     private void OnEveryTwoHoursPassed()
     {
-        //Debug.Log("Two hours passed");
         UpdateDayTimeImage();
     }
 
@@ -233,21 +229,20 @@ public class MainUI : MonoBehaviour
         string hourText = currentHourText.text;
         int hourValue = int.Parse(hourText);
         hourValue++;
+
         if (hourValue >= 24)
-        {
             hourValue = 0;
-        }
+
         currentHourText.text = hourValue.ToString("00");
     }
 
     private void UpdateDayTimeImage()
     {
-        //Debug.Log("Updated day time image");
         currentDayTimeImageIndex++;
+
         if (currentDayTimeImageIndex >= dayTimeSprites.Count)
-        {
             currentDayTimeImageIndex = 0;
-        }
+
         currentDayTimeImage.sprite = dayTimeSprites[currentDayTimeImageIndex];
     }
 
@@ -274,7 +269,6 @@ public class MainUI : MonoBehaviour
 
     private void OnMoneyChanged()
     {
-        //Debug.Log("Main UI - Money changed: " + money);
         string newMoneyText = gameData.currentMoney.ToString();
         inGameCurrentMoneyNumberText.text = newMoneyText;
         resultsMoneyNumberText.text = newMoneyText;
@@ -283,7 +277,6 @@ public class MainUI : MonoBehaviour
 
     private void OnHappinessChanged()
     {
-        //Debug.Log("Main UI - Happiness changed: " + happiness);
         string newHappinessText = gameData.happiness.ToString();
         inGameHappinessNumberText.text = newHappinessText;
         resultsHappinessNumberText.text = newHappinessText;

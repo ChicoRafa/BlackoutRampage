@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-namespace _Data.Customers.Scripts {
-    public class ClientPatienceController : MonoBehaviour {
+namespace _Data.Customers.Scripts
+{
+    public class ClientPatienceController : MonoBehaviour
+    {
+        [Header("Patiente values")]
         [SerializeField] private float minBasePatience = 5f;
         [SerializeField] private float maxBasePatience = 15f;
 
@@ -20,9 +23,7 @@ namespace _Data.Customers.Scripts {
         {
             this.gameManager = gameManager;
             if (this.gameManager != null)
-            {
                 gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
-            }
             
             this.ui = ui;
 
@@ -35,7 +36,8 @@ namespace _Data.Customers.Scripts {
             ui?.UpdatePatience(normalized);
             ui?.gameObject.SetActive(true);
         }
-        private void Update() {
+        private void Update()
+        {
             if (!isActive || !hasStarted || currentPatience <= 0f) return;
             
             currentPatience -= Time.deltaTime * patienceSpeedMultiplier;
@@ -43,9 +45,8 @@ namespace _Data.Customers.Scripts {
             float normalized = Mathf.Clamp01(currentPatience / maxPatience);
             ui?.UpdatePatience(normalized);
 
-            if (currentPatience <= 0f) {
+            if (currentPatience <= 0f)
                 EndPatience();
-            }
         }
 
         public void StartPatience(Action onDepletedCallback)
@@ -58,12 +59,11 @@ namespace _Data.Customers.Scripts {
             hasStarted = true;
         }
 
-        public void Deactivate() {
+        public void Deactivate()
+        {
             if (gameManager != null)
-            {
-
                 gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
-            }
+
             isActive = false;
             hasStarted = false;
             ui?.gameObject.SetActive(false);
@@ -84,9 +84,8 @@ namespace _Data.Customers.Scripts {
             float normalized = Mathf.Clamp01(currentPatience / maxPatience);
             ui?.UpdatePatience(normalized);
 
-            if (currentPatience <= 0f) {
+            if (currentPatience <= 0f)
                 EndPatience();
-            }
         }
 
         public void IncreasePatienceByAbsoluteFraction(float fractionOfMax)
@@ -99,7 +98,8 @@ namespace _Data.Customers.Scripts {
             ui?.UpdatePatience(normalized);
         }
         
-        private void EndPatience() {
+        private void EndPatience()
+        {
             isActive = false;
             hasStarted = false;
             onPatienceDepleted?.Invoke();

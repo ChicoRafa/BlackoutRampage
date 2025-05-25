@@ -4,8 +4,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "SoundManager", menuName = "Audio/Sound Manager")]
 public class SoundManagerSO : ScriptableObject
 {
+    [Header("Audio Source")]
     public static AudioSource SoundObject;
 
+    [Header("Audio Actions")]
     public UnityAction<AudioCueSO, string, bool> OnPlayMusic;
     public UnityAction<AudioCueSO, string, float> OnPlaySFX;
     public UnityAction<AudioCueSO, float, string> OnPlayDiegeticMusic;

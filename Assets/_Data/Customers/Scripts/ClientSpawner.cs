@@ -1,10 +1,11 @@
 using UnityEngine;
 using _Data.Customers.Orders;
 using _Data.Customers.Scriptables;
-using Unity.VisualScripting;
 
-namespace _Data.Customers.Scripts {
-    public class ClientSpawner : MonoBehaviour {
+namespace _Data.Customers.Scripts
+{
+    public class ClientSpawner : MonoBehaviour
+    {
         [Header("Client Prefab & types")]
         public GameObject clientPrefab;
         public ClientType[] clientTypes;
@@ -23,33 +24,34 @@ namespace _Data.Customers.Scripts {
 
         private float spawnTimer;
 
-        private void Awake() {
-            if (productCatalog != null) {
+        private void Awake()
+        {
+            if (productCatalog != null)
                 OrderGenerator.Initialize(productCatalog.availableProducts);
-            } else {
-                Debug.LogError("🚫 ClientSpawner: ProductCatalog is not assigned.");
-            }
         }
         
-        private void Update() {
+        private void Update()
+        {
             spawnTimer += Time.deltaTime;
 
-            if (spawnTimer >= spawnRate) {
+            if (spawnTimer >= spawnRate)
+            {
                 spawnTimer = 0f;
 
-                if (queueManager != null && queueManager.CurrentClientCount() < maxClients) {
+                if (queueManager != null && queueManager.CurrentClientCount() < maxClients)
                     SpawnRandomClient();
-                }
             }
         }
 
-        private void SpawnRandomClient() {
+        private void SpawnRandomClient()
+        {
             if (clientPrefab == null || clientTypes.Length == 0 || queueManager == null || spawnPoint == null) return;
 
             GameObject clientGO = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity, transform);
             Client client = clientGO.GetComponent<Client>();
 
-            if (client != null) {
+            if (client != null)
+            {
                 int index = Random.Range(0, clientTypes.Length);
                 client.Init(clientTypes[index], queueManager, gameManager);
             }
