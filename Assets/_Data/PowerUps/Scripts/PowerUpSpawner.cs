@@ -7,7 +7,7 @@ public class PowerUpSpawner : MonoBehaviour
 {
     [Header("PowerUps")]
     [SerializeField] private List<PowerUpSO> powerUps;
-    [SerializeField] private float powerUpLifetime = 10f;
+    [SerializeField] private float powerUpLifetime = 20f;
     private List<GameObject> activePowerUps = new List<GameObject>();
     private const int maxPowerUps = 2;
 
@@ -40,8 +40,5 @@ public class PowerUpSpawner : MonoBehaviour
         activePowerUps.Add(powerUpGO);
         var pickup = powerUpGO.GetComponentInChildren<PowerUpPickup>();
         pickup.Init(selectedPowerUp, gameManager);
-        
-        var timedDestroyer = powerUpGO.AddComponent<TimedDestroyer>();
-        timedDestroyer.DestroyAfter(powerUpLifetime);
     }
 }
