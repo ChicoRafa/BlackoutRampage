@@ -194,7 +194,7 @@ namespace _Data.Customers.Scripts {
         {
             patienceController.IncreasePatienceByAbsoluteFraction(fraction);
             visualEffects?.ShowPatienceIncreased();
-            soundManager.PlaySFX(audioCue, "SantaBonus", 1f);
+            soundManager.PlaySFX(audioCue, "SantaBonus", 0.1f);
         }
         
         public void AddCryptoMoneyBonus(int amount)
