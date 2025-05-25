@@ -8,7 +8,6 @@ namespace _Data.Customers.FSM {
             var queueManager = client.GetQueueManager();
             var position = queueManager.GetAssignedSlotFor(client);
             bool isServiceSlot = queueManager.IsClientInServiceSlot(client);
-            int queueIndex = queueManager.GetClientIndex(client);
 
             client.GetMovement().MoveTo(position, () => {
                 if (isServiceSlot) {

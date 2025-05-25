@@ -11,11 +11,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424f188cb41ddc042887d6a5a23fd215, type: 3}
   m_Name: GameData
-  m_EditorClassIdentifier:
-  levelDurationInMinutes: 1
+  m_EditorClassIdentifier: 
+  levelDurationInMinutes: 5
   workdayStartingHour: 16
-  money: 1000
-  happiness: 3000
+  money: 1200
+  happiness: 507
   currentLevelIndex: 1
   musicVolume: 0
   sfxVolume: 0

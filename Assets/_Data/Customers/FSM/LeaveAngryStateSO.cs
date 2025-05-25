@@ -9,7 +9,6 @@ namespace _Data.Customers.FSM {
             client.StartLeaving();
 
             client.GetMovement().MoveTo(client.GetQueueManager().GetExitPoint().position, () => {
-                Debug.Log($"💥 {client.name} exited the store.");
                 Destroy(client.gameObject);
             });
         }

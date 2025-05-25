@@ -17,7 +17,6 @@ namespace _Data.Customers.FSM {
                 }
             }
             client.AddKarenHappinessPenalty(penaltyHappiness);
-            Debug.Log($"💥 {client.name} (Karen) caused chaos! All clients lost patience.");
         }
     }
 }

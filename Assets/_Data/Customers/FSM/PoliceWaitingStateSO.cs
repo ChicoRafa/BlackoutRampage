@@ -11,6 +11,7 @@ namespace _Data.Customers.FSM {
 
             if (Random.value < chanceToLeave) {
                 client.PoliceCalledAway();
+                client.GetFSM().TransitionTo(client.LeaveAngryState);
             }
         }
     }

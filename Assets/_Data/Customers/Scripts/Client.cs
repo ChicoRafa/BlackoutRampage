@@ -23,6 +23,7 @@ namespace _Data.Customers.Scripts {
         private bool hasReceivedValidItem = false;
         private bool hasReceivedInvalidItem = false;
         private bool isMovingImpatiently = false;
+        private ClientVisualEffects visualEffects;
 
         private ClientQueueManager queueManager;
         private GameManager gameManager;
@@ -76,7 +77,15 @@ namespace _Data.Customers.Scripts {
             fsm.Init(this, InitialState);
             
             CurrentOrder = OrderGenerator.GenerateRandomOrder();
+            if (CurrentOrder == null || CurrentOrder.GetOriginalCount() == 0) {
+                Debug.LogError($"🚨 {name}: Generated order is null or empty!");
+                Destroy(gameObject);
+                return;
+            }
             patienceUI?.SetOrder(CurrentOrder);
+            
+            visualEffects = GetComponentInChildren<ClientVisualEffects>(true);
+
         }
         
         public void StartPatience(System.Action onDepleted) {
@@ -93,16 +102,7 @@ namespace _Data.Customers.Scripts {
             queueManager.DequeueClient(this);
             patienceController.Deactivate();
         }
-
-        public void ShowAngryEffect() {
-            Debug.Log($"😡 {name} is angry!");
-            // TODO: Add VFX or audio if needed
-        }
-
-        public void ShowHappyEffect() {
-            Debug.Log($"😊 {name} is happy!");
-            // TODO: Add VFX or audio if needed
-        }
+        
 
         public void LookForward() {
             if (modelInstance) {
@@ -170,12 +170,12 @@ namespace _Data.Customers.Scripts {
         
         public void PoliceCalledAway() {
             Debug.Log($"🚓 {name} got a call and is leaving the queue!");
-            fsm.TransitionTo(LeaveAngryState);
+            visualEffects?.ShowPoliceCallAway();
         }
         
         public void AddPoliceHappinessBonus(int amount) {
-            Debug.Log($"👮‍♂️ {name} awarded a police bonus of {amount} happiness!");
             gameManager.UpdateHappiness(amount);
+            visualEffects?.ShowPoliceHappinessBonus();
         }
         
         public void AddKarenHappinessPenalty(int amount) {
@@ -184,11 +184,20 @@ namespace _Data.Customers.Scripts {
         
         public void ReducePatience(float fraction) {
             patienceController.ReducePatienceByAbsoluteFraction(fraction);
+            visualEffects?.ShowPatienceReduced();
         }
         
         public void AddCryptoMoneyBonus(int amount) {
-            Debug.Log($"🤑 {name} awarded a crypto bonus of {amount} money!");
             gameManager.UpdateMoney(amount);
+            visualEffects?.ShowMoneyBonus();
+        }
+        
+        public void ShowAngryEffect() {
+            visualEffects?.ShowAngryIcon();
+        }
+
+        public void ShowHappyEffect() {
+            visualEffects?.ShowHappyIcon();
         }
     }
 }
