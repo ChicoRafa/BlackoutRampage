@@ -42,7 +42,8 @@ public class SoundManager : MonoBehaviour
 
     private void HandlePlaySFX(AudioCueSO cue, string clipId, float volume)
     {
-        sfxSource.volume = volume;
+        float finalVolume = volume * gameData.sfxVolume;
+        sfxSource.volume = finalVolume;
         sfxSource.PlayOneShot(cue.GetClipById(clipId));
     }
 

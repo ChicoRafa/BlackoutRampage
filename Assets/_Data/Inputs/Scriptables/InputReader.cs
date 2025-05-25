@@ -89,27 +89,25 @@ public class InputReader : ScriptableObject
     {
         if (!context.performed) return;
 
-        float scrollValue = context.ReadValue<float>();
-
-        // Mouse scroll and gamepad input
-        if (Mathf.Abs(scrollValue) > 0.01f)
-        {
-            int direction = scrollValue > 0 ? 1 : -1; // Up is previous, down is next
-            currentSelectedIndex = (currentSelectedIndex + direction + 9) % 9;
-            SelectItemEvent?.Invoke(currentSelectedIndex);
-            return;
-        }
-
         // Keyboard number keys
         for (int i = 0; i < 9; i++)
         {
             var key = (Key)((int)Key.Digit1 + i);
             if (!Keyboard.current[key].wasPressedThisFrame) continue;
-
+            
             currentSelectedIndex = i;
             SelectItemEvent?.Invoke(currentSelectedIndex);
-            break;
+            return;
         }
+        
+        float scrollValue = context.ReadValue<float>();
+
+        // Mouse scroll and gamepad input
+        if (!(Mathf.Abs(scrollValue) > 0.01f)) return;
+        
+        int direction = scrollValue > 0 ? 1 : -1; // Up is previous, down is next
+        currentSelectedIndex = (currentSelectedIndex + direction + 9) % 9;
+        SelectItemEvent?.Invoke(currentSelectedIndex);
     }
 
     

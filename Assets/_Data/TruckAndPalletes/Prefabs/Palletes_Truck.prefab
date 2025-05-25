@@ -94,7 +94,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   productsToBring: 6
-  timeForTruckToArrive: 10
+  gameDataSO: {fileID: 11400000, guid: eba1eb261ac1c6a4fbcdfa37b7dabbf1, type: 2}
+  numberOfTimesTruckComes: 3
+  truckCost: 1000
   truckIcon: {fileID: 1810859421168270673}
   truckStartPos: {x: -900, y: 400, z: 0}
   truckEndPos: {x: -675, y: 400, z: 0}
@@ -118,7 +120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7245348782602830596
 RectTransform:
   m_ObjectHideFlags: 0

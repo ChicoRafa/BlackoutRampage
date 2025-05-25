@@ -1,7 +1,5 @@
 using _Data.PlayerController.Scripts;
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Truck : MonoBehaviour
@@ -15,11 +13,13 @@ public class Truck : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] private int productsToBring = 6;
-    [SerializeField] private int timeForTruckToArrive = 90;
+    [SerializeField] private GameDataSO gameDataSO;
+    private float timeForTruckToArrive;
+    [SerializeField] private float numberOfTimesTruckComes = 3;
     [SerializeField] private int truckCost = 1000;
     private float timer;
-    private int remainingSeconds;
-    private int totalSeconds;
+    private float remainingSeconds;
+    private float totalSeconds;
     private bool truckIsComing;
 
     [Header("UI")]
@@ -33,14 +33,13 @@ public class Truck : MonoBehaviour
 
     private void Start()
     {
+        timeForTruckToArrive = (gameDataSO.levelDurationInMinutes * 60) / numberOfTimesTruckComes;
+
         ResetTruckTimer();
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //    TruckArrives();
-
         TruckTimer();
     }
 
@@ -64,27 +63,15 @@ public class Truck : MonoBehaviour
             timer -= 1f;
             remainingSeconds--;
 
-            int minutes = remainingSeconds / 60;
-            int seconds = remainingSeconds % 60;
-
-            //Debug.Log(string.Format("{0:00}:{1:00}", minutes, seconds));
+            int minutes = (int)remainingSeconds / 60;
+            int seconds = (int)remainingSeconds % 60;
         }
     }
 
     private void UpdateTruckPosition()
     {
-        float progress = 1f - (float)remainingSeconds / totalSeconds;
+        float progress = 1f - remainingSeconds / totalSeconds;
         truckIcon.anchoredPosition = Vector3.Lerp(truckStartPos, truckEndPos, progress);
-    }
-
-    public void StartTruckJourney(int durationSeconds)
-    {
-        totalSeconds = durationSeconds;
-        remainingSeconds = durationSeconds;
-        truckIsComing = true;
-        timer = 0f;
-
-        truckIcon.anchoredPosition = truckStartPos;
     }
 
     public void SkipTruckJourney()
@@ -95,15 +82,16 @@ public class Truck : MonoBehaviour
 
     public void ResetTruckTimer()
     {
+        totalSeconds = timeForTruckToArrive;
         remainingSeconds = timeForTruckToArrive;
         timer = 0f;
         truckIsComing = true;
-        StartTruckJourney(timeForTruckToArrive);
+
+        truckIcon.anchoredPosition = truckStartPos;
     }
 
     public void TruckArrives()
     {
-        Debug.Log("Track has arrived");
         soundManagerSO.OnPlaySFX(truckArrivesCue, "Truck", 1f);
 
         SkipTruckJourney();
@@ -111,10 +99,6 @@ public class Truck : MonoBehaviour
         for (int i = 0; i < productsToBring; i++)
         {
             int random = Random.Range(0, productsList.Count);
-            //GameObject newProduct = Instantiate(productsList[random]);
-            //newProduct.GetComponent<ProductScript>().origin = ProductScript.productOrigin.Truck;
-            //newProduct.transform.parent = null;
-
             for (int j = 0; j < productsBroughtList.Count; j++)
             {
                 if (productsBroughtList[j] == null)
@@ -151,7 +135,6 @@ public class Truck : MonoBehaviour
                     newProduct.transform.parent = null;
 
                     productsBroughtList[j] = newProduct;
-                    //newProduct.transform.position = spotsList[j].transform.position;
                     break;
                 }
             }
