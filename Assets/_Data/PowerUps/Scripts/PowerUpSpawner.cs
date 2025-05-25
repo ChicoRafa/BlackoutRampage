@@ -7,7 +7,6 @@ public class PowerUpSpawner : MonoBehaviour
 {
     [Header("PowerUps")]
     [SerializeField] private List<PowerUpSO> powerUps;
-    [SerializeField] private float powerUpLifetime = 20f;
     private List<GameObject> activePowerUps = new List<GameObject>();
     private const int maxPowerUps = 2;
 
