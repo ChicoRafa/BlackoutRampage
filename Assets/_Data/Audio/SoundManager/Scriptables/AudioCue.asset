@@ -27,7 +27,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 2045c5e6e96a82048aa4412038fb8ada, type: 3}
   - id: Coins
     tag: 1
-    clip: {fileID: 8300000, guid: 3c235ef86bdd5234d843c6255e13bde1, type: 3}
+    clip: {fileID: 8300000, guid: 0169e964efc9a624f83ad495cfd54b30, type: 3}
   - id: PickUp
     tag: 1
     clip: {fileID: 8300000, guid: 43f208d96dba1514abab6822aedd4f64, type: 3}
@@ -40,3 +40,18 @@ MonoBehaviour:
   - id: Select
     tag: 1
     clip: {fileID: 8300000, guid: db09748f798cca849adcf2f57b2d2c0b, type: 3}
+  - id: KarenAngry
+    tag: 1
+    clip: {fileID: 8300000, guid: 90afe93bc2668eb4b91769fd592f0d7d, type: 3}
+  - id: AngryLeaving
+    tag: 1
+    clip: {fileID: 8300000, guid: 05fdad72ac61efc448855435ed7522b4, type: 3}
+  - id: MoneyBonus
+    tag: 1
+    clip: {fileID: 8300000, guid: dce210a7df007ee418925220d4482952, type: 3}
+  - id: SantaBonus
+    tag: 1
+    clip: {fileID: 8300000, guid: 0ba7508eb0c69f340bf52dc33028e09f, type: 3}
+  - id: PoliceHappiness
+    tag: 1
+    clip: {fileID: 8300000, guid: 476eb59335e359541914e9aa011c494b, type: 3}
