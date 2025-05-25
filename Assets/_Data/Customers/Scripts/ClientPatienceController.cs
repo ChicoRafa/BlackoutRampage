@@ -6,9 +6,9 @@ namespace _Data.Customers.Scripts
     public class ClientPatienceController : MonoBehaviour
     {
         [Header("Patiente values")]
-        [SerializeField] private float minBasePatience = 5f;
-        [SerializeField] private float maxBasePatience = 15f;
-        [SerializeField] private float extraPatiencePercentPerQueueIndex = .15f;
+        [SerializeField] private float minBasePatience = 250f;
+        [SerializeField] private float maxBasePatience = 300f;
+        [SerializeField] private float extraPatiencePercentPerQueueIndex = .25f;
 
         private float currentPatience;
         private float maxPatience;
@@ -20,8 +20,11 @@ namespace _Data.Customers.Scripts
         private GameManager gameManager;
         private float patienceSpeedMultiplier = 1f;
 
-        public void Init(ClientPatienceUI ui, GameManager gameManager, int queueIndex)
+        public void Init(ClientPatienceUI ui, GameManager gameManager, int queueIndex,
+            float minClientPatience, float maxClientPatience)
         {
+            this.minBasePatience = minClientPatience;
+            this.maxBasePatience = maxClientPatience;
             this.gameManager = gameManager;
             if (this.gameManager != null)
                 gameManager.onPatienceLevelMultiplierChanged.AddListener(OnPatienceLevelMultiplierChanged);
@@ -30,7 +33,7 @@ namespace _Data.Customers.Scripts
 
             float rawPatience = UnityEngine.Random.Range(minBasePatience, maxBasePatience);
             float patienceBonus = extraPatiencePercentPerQueueIndex * queueIndex;
-            maxPatience = rawPatience + (rawPatience * patienceBonus);
+            maxPatience = rawPatience * (1 + patienceBonus);
             currentPatience = maxPatience;
 
             float normalized = Mathf.Clamp01(currentPatience / maxPatience);

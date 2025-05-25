@@ -65,7 +65,11 @@ namespace _Data.Customers.Scripts {
             movement.Init(animator, modelInstance);
 
             patienceController = gameObject.AddComponent<ClientPatienceController>();
-            patienceController.Init(patienceUI, this.gameManager, GetQueueManager().GetClientIndex(this)); 
+            patienceController.Init(patienceUI, 
+                this.gameManager,
+                GetQueueManager().GetClientIndex(this),
+                clientType.baseMinPatience,
+                clientType.baseMaxPatience); 
             
             fsm = gameObject.AddComponent<ClientFSM>();
             fsm.Init(this, InitialState);
