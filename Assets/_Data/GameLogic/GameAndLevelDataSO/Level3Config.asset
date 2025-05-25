@@ -15,5 +15,5 @@ MonoBehaviour:
   levelBasePatienceMultiplier: 1
   patienceMultiplierForKarenExplosion: 0.5
   speedMultiplierForLightingPowerUpTaken: 1.2
-  happinessObjective: 3000
-  moneyObjective: 3000
+  happinessObjective: 100
+  moneyObjective: 100
