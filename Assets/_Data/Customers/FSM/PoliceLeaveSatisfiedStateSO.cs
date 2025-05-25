@@ -7,8 +7,8 @@ namespace _Data.Customers.FSM {
         [SerializeField] private int bonusHappiness = 25;
 
         public override void OnEnter(Client client) {
-            client.AddPoliceHappinessBonus(bonusHappiness);
             base.OnEnter(client);
+            client.AddPoliceHappinessBonus(bonusHappiness);
         }
     }
 }
