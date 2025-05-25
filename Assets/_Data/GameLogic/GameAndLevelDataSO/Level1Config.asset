@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: Level1Config
   m_EditorClassIdentifier: 
   levelBasePatienceMultiplier: 1
-  patienceMultiplierForKarenExplosion: 0.5
-  speedMultiplierForLightingPowerUpTaken: 1.2
-  happinessObjective: 100
-  moneyObjective: 100
+  happinessObjective: 1500
+  moneyObjective: 2000

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GenericFemale
   m_EditorClassIdentifier: 
   typeName: GenericFemale
-  baseMinPatience: 70
-  baseMaxPatience: 100
+  baseMinPatience: 50
+  baseMaxPatience: 70
   modelPrefab: {fileID: 919132149155446097, guid: 000dd5e9bc6f69048bbd414d7db8d80d, type: 3}
   animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}
   initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CitizenMaleClient
   m_EditorClassIdentifier: 
   typeName: CitizenMale
-  baseMinPatience: 60
-  baseMaxPatience: 80
+  baseMinPatience: 40
+  baseMaxPatience: 70
   modelPrefab: {fileID: 919132149155446097, guid: 665d45e904cf5a842887a7d3056e1fcc, type: 3}
   animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}
   initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}

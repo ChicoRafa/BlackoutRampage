@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CalmClient
   m_EditorClassIdentifier: 
   typeName: CalmClient
-  baseMinPatience: 90
-  baseMaxPatience: 110
+  baseMinPatience: 80
+  baseMaxPatience: 100
   modelPrefab: {fileID: 919132149155446097, guid: 5e84e7ba4cf9b45429e5927c4b28b1c0, type: 3}
   animatorController: {fileID: 9100000, guid: eb6871d781828d14393edbfbf37261e6, type: 2}
   initialState: {fileID: 11400000, guid: 783ab10adb671dc4a8d4b8dacc123732, type: 2}

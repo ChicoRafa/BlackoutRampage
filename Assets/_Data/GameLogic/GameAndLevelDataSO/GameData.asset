@@ -15,7 +15,7 @@ MonoBehaviour:
   levelDurationInMinutes: 5
   workdayStartingHour: 16
   initialMoneyAmount: 1000
-  currentMoney: 0
+  currentMoney: 1000
   happiness: 0
   currentLevelIndex: 0
   musicVolume: 0.3
