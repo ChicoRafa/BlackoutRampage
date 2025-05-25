@@ -13,6 +13,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject timeTextObject;
     [SerializeField] private GameObject resumeGameButtonObject;
     [SerializeField] private GameObject nextLevelButtonObject;
+    [SerializeField] private GameObject endGameButtonObject;
     [SerializeField] private GameObject helpButtonObject;
     [SerializeField] private GameObject currentMoneyElementObject;
     [SerializeField] private GameObject shelvesBuyButtonObject;
@@ -29,6 +30,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private GameObject extraServiceSlotsPriceElementObject;
 
     [Header("UI Texts")]
+    [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI currentHourText;
     [SerializeField] private TextMeshProUGUI currentMinuteText;
     [SerializeField] private TextMeshProUGUI inGameCurrentMoneyNumberText;
@@ -43,6 +45,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI truckCallingPriceText;
     [SerializeField] private TextMeshProUGUI powerUpDurationPriceText;
     [SerializeField] private TextMeshProUGUI extraServiceSlotsPriceText;
+    [SerializeField] private TextMeshProUGUI finalResultsMoneyNumberText;
+    [SerializeField] private TextMeshProUGUI finalResultsHappinessNumberText;
 
     [Header("UI Images")]
     [SerializeField] private Image currentDayTimeImage;
@@ -78,6 +82,8 @@ public class MainUI : MonoBehaviour
             Debug.LogError("GameManager not found in the scene.");
             return;
         }
+        gameManager.onGameStart.AddListener(OnGameStart);
+        gameManager.onRunEnd.AddListener(OnRunEnd);
         gameManager.onLevelStart.AddListener(OnLevelStart);
         gameManager.onLevelEnd.AddListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.AddListener(OnEveryQuarterPassed);
@@ -99,6 +105,11 @@ public class MainUI : MonoBehaviour
         extraServiceSlotsPriceText.text = perksData.perkExtraServiceSlotsPrice.ToString();
     }
 
+    private void OnGameStart()
+    {
+        dayNumberText.text = (gameData.currentLevelIndex+1).ToString();
+    }
+
     private void OnLevelStart()
     {
         //Debug.Log("Main UI - Level started");
@@ -107,11 +118,17 @@ public class MainUI : MonoBehaviour
         currentMinuteText.text = "00";
     }
 
-    private void OnLevelEnd(bool succeeded)
+    private void OnRunEnd()
+    {
+        finalResultsHappinessNumberText.text = gameData.happiness.ToString();
+        finalResultsMoneyNumberText.text = gameData.currentMoney.ToString();
+    }
+
+    private void OnLevelEnd(bool succeeded, bool isLastLevel)
     {
         //Debug.Log("Main UI - Level ended");
-
-        nextLevelButtonObject.SetActive(true);
+        GameObject buttonToShow = isLastLevel ? endGameButtonObject : nextLevelButtonObject;
+        buttonToShow.SetActive(true);
         resumeGameButtonObject.SetActive(false);
         helpButtonObject.SetActive(false);
         inGameElementsObject.SetActive(false);
@@ -119,13 +136,13 @@ public class MainUI : MonoBehaviour
         {
             successImageObject.SetActive(true);
             failureImageObject.SetActive(false);
-            nextLevelButtonObject.GetComponent<Button>().interactable = true;
+            buttonToShow.GetComponent<Button>().interactable = true;
         }
         else
         {
             successImageObject.SetActive(false);
             failureImageObject.SetActive(true);
-            nextLevelButtonObject.GetComponent<Button>().interactable = false;
+            buttonToShow.GetComponent<Button>().interactable = false;
         }
         levelMenuObject.SetActive(true);
     }
@@ -238,6 +255,8 @@ public class MainUI : MonoBehaviour
     {
         GameManager gameManager = FindFirstObjectByType<GameManager>();
         if (!gameManager) return;
+        gameManager.onGameStart.RemoveListener(OnGameStart);
+        gameManager.onRunEnd.RemoveListener(OnRunEnd);
         gameManager.onLevelStart.RemoveListener(OnLevelStart);
         gameManager.onLevelEnd.RemoveListener(OnLevelEnd);
         gameManager.onEveryQuarterPassed.RemoveListener(OnEveryQuarterPassed);
@@ -256,7 +275,7 @@ public class MainUI : MonoBehaviour
     private void OnMoneyChanged()
     {
         //Debug.Log("Main UI - Money changed: " + money);
-        string newMoneyText = gameData.money.ToString();
+        string newMoneyText = gameData.currentMoney.ToString();
         inGameCurrentMoneyNumberText.text = newMoneyText;
         resultsMoneyNumberText.text = newMoneyText;
         perkShopMoneyNumberText.text = newMoneyText;

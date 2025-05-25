@@ -1,9 +1,10 @@
-using UnityEngine;
-using _Data.Products;
 using _Data.PlayerController.Scripts;
-using UnityEditor;
+using _Data.Products;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
 //using _Data.PlayerInventory;
 
 public class ProductScript : InteractableBase
@@ -61,6 +62,7 @@ public class ProductScript : InteractableBase
             objectsParent = transform.parent;
     }
 
+    /* Old Interact
     public override void Interact(GameObject interactor)
     {
         //Debug.Log(interactor.name + " interacted with " + gameObject.name);
@@ -77,7 +79,6 @@ public class ProductScript : InteractableBase
                 PlayPickUpSound();
 
                 gameObject.transform.position = interactor.GetComponent<PlayerController>().objectsTPSpot.position;
-                //gameObject.SetActive(false);
 
                 if (objectsParent != null && objectsParent == transform.parent)
                     transform.parent = null;
@@ -99,12 +100,11 @@ public class ProductScript : InteractableBase
                                     if (nulls == interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().productsBroughtList.Count)
                                         interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>().ResetTruckTimer();
                                 }
-                                    
                             }
                         }
                     }
                 }
-                    
+
                 for (int j = 0; j < shelving.objectsList.Count; j++)
                 {
                     if (shelving.objectsList[j] != null && shelving.objectsList[j] == this.gameObject)
@@ -120,6 +120,63 @@ public class ProductScript : InteractableBase
                 Debug.Log("Player has full inventory");
         }
     }
+    */
+
+    public override void Interact(GameObject interactor)
+    {
+        PlayerInventoryScript inventory = interactor.GetComponent<PlayerInventoryScript>();
+        PlayerController controller = interactor.GetComponent<PlayerController>();
+
+        if (inventory == null || controller == null)
+            return;
+
+        for (int i = 0; i < inventory.playerInventorySlots.Count; i++)
+        {
+            if (inventory.playerInventorySlots[i].sprite != null)
+                continue;
+
+            inventory.UpdateInventorySlot(i, _sprite);
+            inventory.AddItemToInventory(i, gameObject);
+            PlayPickUpSound();
+
+            gameObject.transform.position = controller.objectsTPSpot.position;
+
+            if (objectsParent != null && objectsParent == transform.parent)
+                transform.parent = null;
+
+
+            if (interactor.GetComponent<PlayerController>().storage != null)
+            {
+                Truck truck = interactor.GetComponent<PlayerController>().storage.GetComponent<Truck>();
+                for (int k = 0; k < truck.productsBroughtList.Count; k++)
+                {
+                    if (truck.productsBroughtList[k] == gameObject)
+                    {
+                        truck.productsBroughtList[k] = null;
+
+                        bool allNull = truck.productsBroughtList.All(item => item == null);
+                        if (allNull)
+                            truck.ResetTruckTimer();
+
+                        break;
+                    }
+                }
+            }
+
+            for (int j = 0; j < shelving.objectsList.Count; j++)
+            {
+                if (shelving.objectsList[j] == gameObject)
+                {
+                    shelving.objectsList[j] = null;
+                    break;
+                }
+            }
+
+            return;
+        }
+
+        //Debug.Log("Player has full inventory");
+    }
 
     private void PlayPickUpSound()
     {
@@ -130,6 +187,7 @@ public class ProductScript : InteractableBase
     {
         return true;
     }
+
     public override string GetInteractionPrompt()
     {
         return "Pick up " + _productName;
