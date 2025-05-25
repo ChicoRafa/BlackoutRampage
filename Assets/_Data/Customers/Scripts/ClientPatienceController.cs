@@ -8,6 +8,7 @@ namespace _Data.Customers.Scripts
         [Header("Patiente values")]
         [SerializeField] private float minBasePatience = 5f;
         [SerializeField] private float maxBasePatience = 15f;
+        [SerializeField] private float extraPatiencePercentPerQueueIndex = .15f;
 
         private float currentPatience;
         private float maxPatience;
@@ -28,8 +29,8 @@ namespace _Data.Customers.Scripts
             this.ui = ui;
 
             float rawPatience = UnityEngine.Random.Range(minBasePatience, maxBasePatience);
-            float patienceBonus = Mathf.Lerp(1.0f, 0.5f, queueIndex / 4f);
-            maxPatience = rawPatience * patienceBonus;
+            float patienceBonus = extraPatiencePercentPerQueueIndex * queueIndex;
+            maxPatience = rawPatience + (rawPatience * patienceBonus);
             currentPatience = maxPatience;
 
             float normalized = Mathf.Clamp01(currentPatience / maxPatience);
