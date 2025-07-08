@@ -131,10 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_GamepadCursor
       objectReference: {fileID: 0}
-    - target: {fileID: 4455944194262749828, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6949742932318800935, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -214,22 +210,6 @@ PrefabInstance:
     - target: {fileID: 6949742932318800935, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8154959056061502459, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 993cb50eeec73894884a9ec7c8cd9e55, type: 3}
-    - target: {fileID: 8154959056061502459, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8154959056061502459, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8154959056061502459, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -707,6 +687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToActivateWhenHovered: {fileID: 464390823}
+  debugMode: 0
+  hoverDelay: 0.05
 --- !u!114 &715096418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1037,7 @@ MonoBehaviour:
   gameCursor: {fileID: 1179994110}
   helpMenu: {fileID: 0}
   isMainMenu: 1
+  forceShowCursor: 0
 --- !u!1 &1179994110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4455944194262749828, guid: b7bac0f2a22ff954080cc2d8d5123180, type: 3}
