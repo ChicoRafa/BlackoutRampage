@@ -12959,6 +12959,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[11].m_Target
       value: 
       objectReference: {fileID: 2630275995652298330}
+    - target: {fileID: 9013628267527998768, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013628267527998768, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013628267527998768, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013628267527998768, guid: b8980961221036d47bb45f63af927609, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
